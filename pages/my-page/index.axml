@@ -1,0 +1,13 @@
+<view class="home-page full-parent">
+  <view class="avatar-wrapper">
+    <image class="icon-128rpx avatar" src="{{userinfo.avatar || '/common/icon/dingding.png'}}" mode="aspectFit"/>
+    <text class="username">{{userinfo.user_name}}</text>
+  </view>
+  <list>
+    <view a:for="{{items}}" data-item-index="{{index}}" onTap="handleTap">
+      <list-item index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{item.arrow}}">
+        <text>{{item.title}}</text>
+      </list-item>
+    </view>
+  </list>
+</view>

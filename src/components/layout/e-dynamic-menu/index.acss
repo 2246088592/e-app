@@ -1,0 +1,28 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 36rpx;
+}
+
+.grid-item {
+  position: relative;
+}
+
+.grid-btn {
+  height: 114rpx;
+  width: 114rpx;
+  border-radius: 20rpx;
+  font-size: 58rpx;
+}
+
+.grid-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: #000;
+  font-size: 24rpx;
+  line-height: 1;
+  bottom: 0;
+}

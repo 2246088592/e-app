@@ -1,0 +1,5 @@
+{
+	"usingComponents": {
+		"e-dynamic-menu": "/src/components/layout/e-dynamic-menu/index"
+	}
+}

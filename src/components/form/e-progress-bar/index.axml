@@ -1,0 +1,8 @@
+<view class="input-wrapper">
+  <view class="label" hidden="{{!params.label}}">
+    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{params.label}}{{params.value || 0}}%</text>
+  </view>
+  <slider onChange="handleChange" class="slider" value="{{params.value || 0}}" trackSize="4" handleSize="20" step="{{params.step}}" disabled="{{params.disabled}}"/>
+</view>
+</view>

@@ -1,0 +1,3 @@
+<view class="full-parent">
+  <e-dynamic-menu></e-dynamic-menu>
+</view>

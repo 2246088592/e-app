@@ -1,0 +1,10 @@
+<view class="input-wrapper" onTap="handleTap">
+  <view class="label" hidden="{{!params.label}}">
+    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{params.label}}</text>
+  </view>
+  <text class="input no-wrap" style="color: {{params.value ? '' : '#cdcdcd'}}">{{params.value ? params.searchOptions.bindKey ? params.value[params.searchOptions.bindKey] : params.value : params.placeholder}}</text>
+  <view class="suffix-icon center">
+    <text class="text-big fa fa-chevron-right"></text>
+  </view>
+</view>

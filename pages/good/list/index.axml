@@ -1,0 +1,5 @@
+<view class="contact-list full-parent">
+  <e-list listOptions="{{goodList}}">
+    <view slot="filter"></view>
+  </e-list>
+</view>

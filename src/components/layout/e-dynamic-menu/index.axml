@@ -1,0 +1,22 @@
+<view class="grid" style="margin-bottom: 36rpx;">
+  <view a:for="{{staticMenu}}" style="width: {{100/(columnNum || 4)}}%; padding-top: {{100/(columnNum || 4)}}%;" class="grid-item">
+    <view class="full-parent center flex-column">
+      <button style="backgroundColor: #FFA500; color: #fff;" onTap="handleTap" class="grid-btn center" data-path="{{item.key + '/list'}}">
+        <text class="{{'fa fa-' + item.icon}}"></text>
+      </button>
+      <text class="grid-text">{{item.title}}</text>
+    </view>
+  </view>
+</view>
+<view class="grid">
+  <block a:for="{{list}}">
+    <view style="width: {{100/(columnNum || 4)}}%; padding-top: {{100/(columnNum || 4)}}%;" class="grid-item">
+      <view class="full-parent center flex-column">
+        <button onTap="handleTap" class="grid-btn center" type="primary" data-path="{{item.key + '/form'}}">
+          <text class="{{'fa fa-' + item.icon}}"></text>
+        </button>
+        <text class="grid-text">{{item.title}}</text>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,10 @@
+@import "../base-style.acss";
+
+/* 改变slider的轨道宽度和按钮大小的时候需要重新设置 */
+.input-wrapper>.slider {
+	margin-top: 6rpx;
+	margin-bottom: 14rpx;
+	padding-right: 20rpx;
+	padding-left: 20rpx;
+	flex: 1;
+}

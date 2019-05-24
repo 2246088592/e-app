@@ -1,0 +1,19 @@
+@import "../base-style.acss";
+.input-wrapper>.depts-wrapper {
+  padding-right: 16rpx;
+  min-height: 76rpx;
+  margin-bottom: -16rpx;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-wrapper>.depts-wrapper>.dept {
+  background-color: #108ee9;
+  border-radius: 6rpx;
+  color: #fff;
+  margin: 0 16rpx 16rpx 0;
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+  height: 60rpx;
+}

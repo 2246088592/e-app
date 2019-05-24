@@ -1,0 +1,54 @@
+<!-- 载入模板 -->
+<import src="./template/index.axml"/>
+<view class="list-wrapper" onTouchMove="touchMove" onTouchEnd="touchEnd">
+  <!-- 搜索框 -->
+  <e-search-bar class="{{editable ? 'search-bar-hide' : ''}}" value="{{keyWord}}" placeholder="{{listOptions.searchPlaceholder || '搜索'}}" rightBtnText="{{searchBoxRightBtnText}}" onInput="searchBoxInput" onClear="searchBoxClear" onFocus="searchBoxFocus" onBlur="searchBoxBlur" onCancel="searchBoxCancel" onSubmit="loadMore" showCancelButton="{{true}}"/>
+  <!-- 长按显示，多选模式头部 -->
+  <view class="editmode-title-wrapper {{editable ? 'editmode-title-wrapper-open' : ''}}">
+    <button class="opacity-btn icon-48rpx center" onTap="hideCheckBox">
+      <text class="color-text text-big-x fa fa-times"></text>
+    </button>
+    <text class="color-text text-middle">已选择{{checkedItems.length || 0}}项</text>
+    <button class="opacity-btn icon-48rpx" onTap="selectAll">
+      <text a:if="{{checkedItems.length === listOptions.array.length}}" class="color-text text-big-x fa fa-check-square"></text>
+      <text a:else class="color-text text-big-x fa fa-square-o"></text>
+    </button>
+  </view>
+  <!-- 滚动部分 -->
+  <scroll-view class="scroll-wrapper" onScrollToLower="loadMore" scroll-with-animation="{{true}}" scroll-y="{{true}}" lower-threshold="{{40}}">
+    <view class="list-item" onTap="selectItem" onLongTap="showCheckBox" data-item-index="{{index}}" a:for="{{listOptions.array}}">
+      <checkbox class="item-check-box {{editable ? 'item-check-box-show' : ''}}" value="{{item.id}}" checked="{{item.checked}}"/>
+      <view class="item-content">
+        <template is="{{listOptions.name}}" data="{{...item}}"></template>
+      </view>
+    </view>
+    <e-loader noMore="{{noMore}}" noData="{{listOptions.array.length === 0}}"></e-loader>
+  </scroll-view>
+  <!-- 右下角按钮组-!editable -->
+  <view class="rb-btn-wrapper {{!editable ? 'rb-btn-wrapper-show' : ''}}">
+    <button class="circle-btn shadow-btn icon-96rpx" a:if="{{listOptions.type === 'search' ? listOptions.searchAuth.add : listOptions.auth.add}}" style="margin-top: 16rpx;" type="primary" onTap="goAddPage">
+      <image class="icon-48rpx" src="/common/icon/list/add.png" mode="aspectFit"/>
+    </button>
+  </view>
+  <!-- 右下角按钮组-editable -->
+  <view class="rb-btn-wrapper {{editable ? 'rb-btn-wrapper-show' : ''}}">
+    <button class="circle-btn shadow-btn icon-96rpx" a:if="{{listOptions.type === 'search' ? listOptions.searchAuth.delete : listOptions.auth.delete}}" style="margin-top: 16rpx;" type="warn" onTap="deleteItems">
+      <text class="color-white text-big-x fa fa-trash"></text>
+    </button>
+  </view>
+  <!-- 过滤部件 -->
+  <view class="filter-wrapper full-parent {{showFilter ? 'filter-wrapper-show' : ''}}" a:if="{{listOptions.type === 'search' ? listOptions.searchAuth.filter : listOptions.auth.filter}}">
+    <view class="filter-content full-parent {{showFilter ? 'filter-content-show' : ''}}">
+      <view style="position: absolute; top: 0; bottom: 0; width: 20%; left: 0;" onTap="closeFilter"></view>
+      <view class="shadow-modal filter-scroll-wrapper">
+        <scroll-view class="filter-scroll" scroll-with-animation="{{true}}" scroll-y="{{true}}">
+          <slot name="filter"></slot>
+        </scroll-view>
+        <view class="filter-btn-wrapper">
+          <button class="opacity-btn color-theme btn-reset" onTap="resetFilter">重置</button>
+          <button class="opacity-btn color-theme btn-search" onTap="searchByFilter">搜索</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

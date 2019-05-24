@@ -1,0 +1,6 @@
+<view class="card-wrapper shadow-modal">
+  <view onTap="onCardClick" class="rt-btn-wrapper icon-96rpx" a:if="{{editable}}" hover-class="{{editable ? 'rt-btn-active' : ''}}">
+    <image class="icon-36rpx" src="/common/icon/detail/setting.png" mode="aspectFit"/>
+  </view>
+  <slot></slot>
+</view>

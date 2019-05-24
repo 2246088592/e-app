@@ -1,0 +1,52 @@
+<template name="customer">
+  <view style="display: flex; flex-direction: column;">
+    <text style="font-size: 40rpx; color: #405a80;">{{cus_name}}</text>
+    <view style="display: flex; align-items: center; font-size: 28rpx; margin: 20rpx 0; color: #696969;">
+      <image class="icon-28rpx" style="margin-right: 8rpx;" src="/common/icon/list/user.png" mode="aspectFit"/>
+      <text class="text-small">{{assign_person_name}}负责 | 创建于{{create_on.split(' ')[0]}}</text>
+    </view>
+    <view class="color-text">
+      <image class="icon-28rpx" style="margin-right: 8rpx;" src="/common/icon/list/address.png" mode="aspectFit"/>
+      <text class="text-small">{{address || '暂无'}}</text>
+    </view>
+  </view>
+</template>
+<template name="good">
+  <view style="display: flex; flex-direction: column;">
+    <view style="display: flex; align-items: center;">
+      <text style="font-size: 40rpx; color: #405a80;">{{name}}</text>
+      <text style="font-size: 28rpx; color: #696969;">({{spec}})</text>
+    </view>
+  </view>
+</template>
+<template name="opty">
+  <view style="display: flex; flex-direction: column;">
+    <view style="display: flex; align-items: center;">
+      <text style="font-size: 40rpx; color: #405a80;">{{opty_name}}</text>
+      <text style="font-size: 28rpx; color: #696969;">({{cus_name}})</text>
+    </view>
+    <view style="display: flex; align-items: center; font-size: 28rpx; margin: 20rpx 0; color: #696969;">
+      <image class="icon-28rpx" style="margin-right: 8rpx;" src="/common/icon/list/user.png" mode="aspectFit"/>
+      <text class="text-small">{{person_name}}负责 | 创建于{{create_on2}}</text>
+    </view>
+    <view style="display: flex; align-items: center; color: #696969;">
+      <image class="icon-28rpx" style="margin-right: 8rpx;" src="/common/icon/list/RMB.png" mode="aspectFit"/>
+      <text class="text-small">{{amount || 0}} | 成功率{{possible}}% | {{opty_state}}</text>
+    </view>
+  </view>
+</template>
+<template name="dept">
+  <view style="display: flex; justify-content: flex-end;">
+    <text style="font-size: 32rpx; color: #696969;">{{org_name}}</text>
+  </view>
+</template>
+<template name="launch">
+  <view style="display: flex;">
+    <image class="circle-btn icon-80rpx" style="margin-right: 8rpx;" src={{ask_person.avatar}} mode="aspectFit"/>
+    <view style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+      <text style="font-size: 28rpx; color: #405a80;">{{ask_person.name}}提交的{{type}}</text>
+      <text class="text-small" style="color: {{pass ? '#008000' : '#DC143C'}}">{{pass ? '审批通过' : '审批拒绝'}}</text>
+    </view>
+    <text class="text-small color-text">{{time}}</text>
+  </view>
+</template>

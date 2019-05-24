@@ -1,0 +1,7 @@
+<view class="form-wrapper full-parent">
+  <slot name="header"></slot>
+  <scroll-view style="flex: 1;" scroll-y="{{true}}">
+    <slot></slot>
+  </scroll-view>
+  <slot name="footer"></slot>
+</view>

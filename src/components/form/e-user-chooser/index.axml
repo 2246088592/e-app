@@ -1,0 +1,17 @@
+<view class="text-wrapper">
+  <view class="label" hidden="{{!params.label}}">
+    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text>{{params.label}}</text>
+  </view>
+  <view class="users-wrapper">
+    <view class="avatar" onTap="handleDelete" a:for="{{params.value}}" data-item-index="{{index}}">
+      <image a:if="{{item.avatar}}" class="circle-btn icon-72rpx shadow-btn" src="{{item.avatar}}" mode="aspectFit" />
+      <text a:else class="no-wrap no-avatar circle-btn icon-72rpx shadow-btn">{{item.name}}</text>
+      <icon class="icon-close" type="clear" size="16" color="#C0C0C0" />
+      <text class="avatar-name">{{item.name}}</text>
+    </view>
+    <button style="margin-bottom: 16rpx;" class="circle-btn icon-72rpx shadow-btn" type="primary" onTap="handleAdd">
+      <text class="text-big fa fa-plus"></text>
+    </button>
+  </view>
+</view>

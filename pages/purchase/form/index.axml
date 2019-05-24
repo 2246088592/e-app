@@ -1,0 +1,17 @@
+<view class="full-parent">
+  <e-form-wrapper>
+    <e-dept-chooser params="{{ask_dept}}"></e-dept-chooser>
+    <e-user-chooser params="{{ask_person}}"></e-user-chooser>
+    <e-date-picker params="{{ask_date}}"></e-date-picker>
+    <e-sublist sublist="{{goods}}">
+      <view slot-scope="props">
+        <e-cascader params="{{...props.item.ask_type, subindex: props.item.subindex, sublist: 'goods'}}"></e-cascader>
+        <e-search params="{{...props.item.good_name, subindex: props.item.subindex, sublist: 'goods'}}"></e-search>
+        <e-input params="{{...props.item.good_spec, subindex: props.item.subindex, sublist: 'goods'}}"></e-input>
+        <e-input params="{{...props.item.ask_num, subindex: props.item.subindex, sublist: 'goods'}}"></e-input>
+      </view>
+    </e-sublist>
+    <e-text-area params="{{ask_reason}}"></e-text-area>
+    <e-submit slot="footer" submitUrl="/crm/v1/biz-progress" refresh="communication"></e-submit>
+  </e-form-wrapper>
+</view>

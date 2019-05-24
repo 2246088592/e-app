@@ -1,0 +1,35 @@
+{
+	"pages": [
+		"pages/index/index",
+
+    "pages/launch/list/index",
+
+    "pages/good/list/index",
+
+    "pages/purchase/form/index",
+    
+		"pages/my-page/index"
+	],
+	"window": {
+		"enableWK": "YES",
+		"enableDSL": true,
+		"defaultTitle": "审批",
+		"backgroundColor": "#F5F5F9",
+		"pullRefresh": false,
+		"allowsBounceVertical": "YES"
+	},
+	"tabBar": {
+		"textColor": "#404040",
+		"selectedColor": "#108ee9",
+		"backgroundColor": "#F5F5F9",
+		"items": [
+      {
+				"pagePath": "pages/index/index",
+				"name": "审批",
+				"icon": "/src/assets/icon/sp.png",
+				"activeIcon": "/src/assets/icon/sp-active.png"
+			}
+		]
+	},
+	"debug": true
+}

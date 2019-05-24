@@ -1,0 +1,8 @@
+<view class="text-wrapper">
+  <view class="label" hidden="{{!params.label}}">
+    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text>{{params.label}}</text>
+    <text style="font-size: 24rpx; flex: 1; text-align: right;">{{params.value.length}}/{{params.maxlength}}</text>
+  </view>
+  <textarea class="text-area" value="{{params.value}}" focus="{{params.focus}}" disabled="{{params.disabled}}" placeholder="{{params.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm" auto-height="{{true}}" maxlength="{{-1}}"/>
+</view>

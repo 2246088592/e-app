@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "e-search-bar": "/src/components/external/e-search-bar/index",
+		"e-loader": "/src/components/layout/e-loader/index"
+	}
+}

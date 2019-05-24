@@ -1,0 +1,18 @@
+{
+  "allowsBounceVertical": "NO",
+  "usingComponents":{
+    "e-form-wrapper": "/src/components/layout/e-form-wrapper/index",
+
+    "e-input": "/src/components/form/e-input/index",
+    "e-cascader": "/src/components/form/e-cascader/index",
+    "e-sublist": "/src/components/form/e-sublist/index",
+    "e-date-picker": "/src/components/form/e-date-picker/index",
+    "e-user-chooser": "/src/components/form/e-user-chooser/index",
+    "e-dept-chooser": "/src/components/form/e-dept-chooser/index",
+    "e-picker": "/src/components/form/e-picker/index",
+    "e-search": "/src/components/form/e-search/index",
+    "e-text-area": "/src/components/form/e-text-area/index",
+    
+    "e-submit": "/src/components/form/e-submit/index"
+  }
+}

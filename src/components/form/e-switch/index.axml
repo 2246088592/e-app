@@ -1,0 +1,10 @@
+<view class="input-wrapper">
+  <view class="label" hidden="{{!params.label}}">
+    <view class="necessary center" style="visibility: hidden;"></view>
+    <text style="flex: 1;">{{params.label}}</text>
+  </view>
+  <text class="input">{{params.checked ? params.labels[1] : params.labels[0]}}</text>
+  <view class="switch-wrapper">
+    <switch onChange="switchChange" checked="{{params.checked}}" disabled="{{params.disabled}}" color="{{params.color}}"/>
+  </view>
+</view>

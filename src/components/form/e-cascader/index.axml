@@ -1,0 +1,27 @@
+<view class="input-wrapper" onTap="handleOpen">
+  <view class="label" hidden="{{!params.label}}">
+    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{params.label}}</text>
+  </view>
+  <text class="input no-wrap" style="color: {{params.value ? '' : '#cdcdcd'}}">{{params.value ? params.cascaderOptions.bindKey ? params.value[params.cascaderOptions.bindKey] : params.value : params.placeholder}}</text>
+  <view class="suffix-icon center">
+    <text class="text-big fa fa-chevron-right"></text>
+  </view>
+</view>
+<view class="cascader-wrapper full-screen {{openCascader ? 'cascader-wrapper-open' : ''}}">
+  <view class="cascader-content shadow-modal {{openCascader ? 'cascader-content-open' : ''}}">
+    <breadcrumb values="{{breadcrumbValues}}" onItemTap="onItemTap"/>
+    <scroll-view style="flex: 1;" scroll-y="{{true}}">
+      <radio-group class="radio-group">
+        <view class="radio-wrapper" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
+          <radio class="radio" value="{{index}}" checked="{{currentIndex === index}}"/>
+          <text class="color-text">{{item[params.cascaderOptions.bindKey]}}</text>
+        </view>
+      </radio-group>
+    </scroll-view>
+    <view class="cascader-btns-wrapper">
+      <button class="opacity-btn color-theme cascader-btn" onTap="handleClose">取消</button>
+      <button class="opacity-btn color-theme cascader-btn" onTap="handleSelect">确定</button>
+    </view>
+  </view>
+</view>
