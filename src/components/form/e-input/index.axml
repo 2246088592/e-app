@@ -1,10 +1,10 @@
 <view class="input-wrapper">
-  <view class="label" hidden="{{!params.label}}">
-    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{params.label}}</text>
+  <view class="label" hidden="{{!model.label}}">
+    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{model.label}}</text>
   </view>
-  <input class="input" type="{{params.type}}" maxlength="{{params.maxlength}}" value="{{params.value}}" focus="{{params.focus}}" disabled="{{params.disabled}}" placeholder="{{params.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
-  <view class="suffix-icon center" a:if="{{params.value && !params.disabled}}" onTap="handleClear">
+  <input class="input" type="{{model.type}}" maxlength="{{model.maxlength}}" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
+  <view class="suffix-icon center" a:if="{{model.value && !model.disabled}}" onTap="handleClear">
     <text class="text-big fa fa-times-circle"></text>
   </view>
 </view>

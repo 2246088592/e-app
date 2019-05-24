@@ -27,7 +27,7 @@
   <!-- 右下角按钮组-!editable -->
   <view class="rb-btn-wrapper {{!editable ? 'rb-btn-wrapper-show' : ''}}">
     <button class="circle-btn shadow-btn icon-96rpx" a:if="{{listOptions.type === 'search' ? listOptions.searchAuth.add : listOptions.auth.add}}" style="margin-top: 16rpx;" type="primary" onTap="goAddPage">
-      <image class="icon-48rpx" src="/common/icon/list/add.png" mode="aspectFit"/>
+      <text class="color-white text-big-x fa fa-plus"></text>
     </button>
   </view>
   <!-- 右下角按钮组-editable -->

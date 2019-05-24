@@ -43,7 +43,7 @@ export default (lo) => {
         }
       }
       if (lo.navbarOptions) {
-        util.setNavigationBar(lo.navbarOptions)
+        util.setNavigationBar(lo.navigationBar)
       }
       lo.onLoad ? lo.onLoad.apply(this, arguments) : undefined
       // 进入此列表时的操作

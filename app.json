@@ -5,10 +5,11 @@
     "pages/launch/list/index",
 
     "pages/good/list/index",
-
-    "pages/purchase/form/index",
     
-		"pages/my-page/index"
+		"pages/my-page/index",
+
+    "pages/test/list/index",
+    "pages/test/form/index"
 	],
 	"window": {
 		"enableWK": "YES",

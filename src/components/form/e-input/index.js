@@ -1,11 +1,9 @@
 import util from '/src/util.js'
-import test from '../mixins/test.js'
 
 Component({
-  mixins: [test],
-
   props: {
-    params: {},
+    model: {},
+    // 默认的校验方法
     onValidate: (val, maxlength) => {
       if (!maxlength || maxlength === -1) {
         return true
@@ -13,25 +11,22 @@ Component({
       return maxlength >= val.length
     }
   },
-
   // 挂载
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this._validate(this.props.model.value)
   },
-
   // 更新
   didUpdate(prevProps, prevData) {
     // value变化时校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this._validate(this.props.model.value)
     }
   },
-
   methods: {
     // 输入事件同步value
     handleInput: util.debounce(function(event) {
-      let value = `${this.props.params.id}.value`
+      let value = `${this.props.model.id}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -39,7 +34,7 @@ Component({
 
     // 设置焦点
     handleTap() {
-      let focus = `${this.props.params.id}.focus`
+      let focus = `${this.props.model.id}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -53,7 +48,7 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.params.id}.focus`
+      let focus = `${this.props.model.id}.focus`
       this.$page.setData({
         [focus]: false
       })
@@ -61,24 +56,20 @@ Component({
 
     // 清空输入并获取焦点
     handleClear(event) {
-      let value = `${this.props.params.id}.value`
-      let focus = `${this.props.params.id}.focus`
+      let value = `${this.props.model.id}.value`
+      let focus = `${this.props.model.id}.focus`
       this.$page.setData({
         [value]: '',
         [focus]: true
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      if (item.sublist) {
-        item.id = `${item.sublist}.array[${item.subindex}].${item.id}`
-      }
-      let obj = {
+    // 初始化model的属性
+    init(model) {
+      console.log(model)
+      // input对象
+      let input = {
+        path: `bizObj[${model.formIndex}]`,
         type: '',
         value: '',
         label: '',
@@ -87,41 +78,37 @@ Component({
         maxlength: -1,
         disabled: false,
         necessary: false,
-        placeholder: item.necessary ? '必填' : '',
-        notice: item.maxlength ? `长度不能超过${item.maxlength}` : ''
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.maxlength ? `长度不能超过${model.maxlength}` : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      let id = `${temp.id}`
+      let path = `${input.path}`
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(input, model)
       })
+
+      console.log(Object.assign(input, model))
     },
 
     // 校验方法
     _validate(val) {
       let result = ''
-      if (this.props.params.necessary) {
+      if (this.props.model.necessary) {
         if (!val) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val, this.props.params.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(val, this.props.model.maxlength) ? 'success' : 'error'
         }
       } else {
         if (!val) {
           result = ''
         } else {
-          result = this.props.onValidate(val, this.props.params.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(val, this.props.model.maxlength) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.id}.status`
       this.$page.setData({
         [status]: result
       })

@@ -7,5 +7,10 @@ export default [
     title: '我发起的',
     icon: 'paper-plane',
     key: 'launch'
+  },
+  {
+    title: '测试',
+    icon: 'cog',
+    key: 'test'
   }
 ]

@@ -1,0 +1,5 @@
+<view class="full-parent">
+  <e-form-wrapper>
+    <e-input model="{{ask_dept}}"></e-input>
+  </e-form-wrapper>
+</view>
