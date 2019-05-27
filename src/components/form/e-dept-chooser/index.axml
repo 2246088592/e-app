@@ -1,15 +1,16 @@
 <view class="input-wrapper">
-  <view class="label" hidden="{{!params.label}}">
-    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{params.label}}</text>
+  <view class="label" hidden="{{!model.label}}">
+    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{model.label}}</text>
   </view>
   <view class="depts-wrapper">
-    <view class="dept center" a:for="{{params.value}}" data-item-index="{{index}}">
+    <view class="dept center" a:if="{{model.value.length}}" a:for="{{model.value}}" data-item-index="{{index}}">
       <text class="text-middle" style="margin-right: 8rpx;">{{item.name}}</text>
       <view class="icon-32rpx center" onTap="handleDelete">
         <icon class="icon-32rpx" size="16" color="#fff" type="cancel"></icon>
       </view>
     </view>
+    <input class="placeholder" a:if="{{!model.value.length}}" placeholder="{{model.placeholder}}" disabled="{{true}}"/>
   </view>
   <view class="suffix-icon center" onTap="handleAdd">
     <text class="text-big fa fa-chevron-right"></text>

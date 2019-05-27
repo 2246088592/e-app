@@ -2,36 +2,37 @@ import util from '/src/util.js'
 
 Component({
   props: {
-    params: {},
-    onValidate: (val) => {
+    model: {},
+    // 默认校验方法
+    onValidate: (value) => {
       return true
     }
   },
 
   // 挂载方法
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this.validate(this.props.model.value)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
   },
 
   methods: {
     // 打开datepicker
     handleTap(event) {
-      if (this.props.params.disabled) {
+      if (this.props.model.disabled) {
         return
       }
       dd.datePicker({
-        format: this.props.params.format,
+        format: this.props.model.format,
         success: (res) => {
-          let value = `${this.props.params.id}.value`
+          let value = `${this.props.model.path}.value`
           this.$page.setData({
             [value]: res.date
           })
@@ -39,55 +40,48 @@ Component({
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let obj = {
-        value: item.default ? util.formatDate(item.format || 'yyyy-MM-dd', new Date()) : '',
+    // 初始化model的属性
+    init(model) {
+      // datePicker对象
+      let datePicker = {
+        path: `bizObj[${model.formIndex}]`,
+        value: model.default ? util.formatDate(model.format || 'yyyy-MM-dd', new Date()) : '',
         label: '',
         status: '',
         disabled: false,
         necessary: false,
         format: 'yyyy-MM-dd',
-        default: item.default ? item.default : false,
-        placeholder: item.necessary ? '必填' : '',
-        notice: item.necessary ? '不能为空' : ''
+        default: model.default ? model.default : false,
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.necessary ? '不能为空' : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      let id = `${temp.id}`
+      let path = `${datePicker.path}`
+      // 补全属性
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(datePicker, model)
       })
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })

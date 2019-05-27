@@ -3,23 +3,27 @@ let app = getApp()
 
 Component({
   props: {
-    params: {}
+    params: {},
+    // 默认校验方法
+    onValidate: (value) => {
+      return true
+    }
   },
 
   // 挂载方法
   didMount() {
-    this._complete(this.props.params)
-    this._validate()
+    this.init(this.props.model)
+    this.validate()
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
-    if (!prevProps.params.value || !this.props.params.value) {
+    if (!prevProps.model.value || !this.props.model.value) {
       return
     }
     // setData后校验
-    if (prevProps.params.value.length !== this.props.params.value.length) {
-      this._validate()
+    if (prevProps.model.value.length !== this.props.model.value.length) {
+      this.validate()
     }
   },
 
@@ -27,7 +31,7 @@ Component({
     // 删除已选部门
     handleDelete(event) {
       let i = event.currentTarget.dataset.itemIndex
-      let pickedDepts = `${this.props.params.id}.value`
+      let pickedDepts = `${this.props.model.path}.value`
       this.$page.$spliceData({
         [pickedDepts]: [i, 1]
       })
@@ -35,29 +39,27 @@ Component({
 
     // 打开部门界面
     handleAdd() {
-      if (this.props.params.disabled) {
+      if (this.props.model.disabled) {
         return
       }
       dd.chooseDepartments({
-        title: `选择${this.props.params.label}`,
-        multiple: this.props.params.multiple,
-        limitTips: `超过限定部门数${this.props.params.max}`,
-        maxDepartments: this.props.params.max,
+        title: `选择${this.props.model.label}`,
+        multiple: this.props.model.multiple,
+        limitTips: `超过限定部门数${this.props.model.max}`,
+        maxDepartments: this.props.model.max,
         //已选部门
-        pickedDepartments: this.props.params.value ? this.props.params.value.map(row => row.id) : [],
+        pickedDepartments: this.props.model.value.map(row => row.id),
         //不可选部门
-        disabledDepartments: this.props.params.depts.disabledDepts ? this.props.params.depts.disabledDepts.map(row => row.id) : [],
+        disabledDepartments: this.props.model.depts.disabledDepts,
         //必选部门（不可取消选中状态）
-        requiredDepartments: this.props.params.depts.requiredDepts ? this.props.params.depts.requiredDepts.map(row => row.id) : [],
+        requiredDepartments: this.props.model.depts.requiredDepts,
         permissionType: "GLOBAL",
         success: (res) => {
-          let pickedDepts = `${this.props.params.id}.value`
+          let pickedDepts = `${this.props.model.path}.value`
           this.$page.$spliceData({
-            [pickedDepts]: [0, this.props.params.value.length, ...res.departments]
+            [pickedDepts]: [0, this.props.model.value.length, ...res.departments]
           })
-          app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-            detail: { inputId: this.props.params.id }
-          })
+          app.emitter.emit(`${this.props.model.formId}`, this.props.model.key)
         },
         fail: (err) => {
           util.ddToast('fail', '选择部门失败')
@@ -66,13 +68,11 @@ Component({
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let template = {
+    // 初始化model的属性
+    init(model) {
+      // dept-chooser对象
+      let deptChooser = {
+        path: `bizObj[${model.formIndex}]`,
         max: 100,
         value: [],
         label: '',
@@ -80,34 +80,40 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
-        notice: item.necessary ? '至少选择一个部门' : '',
-        depts: {
-          disabledDepts: [],
-          requiredDepts: []
-        }
+        notice: model.necessary ? '至少选择一个部门' : '',
+        placeholder: model.necessary ? '必填' : ''
       }
-      let obj = util.cloneDeep(item)
-      for (let key in template) {
-        if (!obj[key]) {
-          obj[key] = template[key]
-        }
-      }
-      let id = `${obj.id}`
+      let path = `${deptChooser.path}`
+      // 补全属性
+      model.depts = Object.assign({
+        disabledDepts: [],
+        requiredDepts: []
+      }, model.depts)
       this.$page.setData({
-        [id]: obj
+        [path]: Object.assign(deptChooser, model)
       })
     },
 
     // 校验方法
-    _validate() {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary && this.props.params.value && !this.props.params.value.length) {
-        result = 'error'
+      if (this.props.model.necessary) {
+        if (!value || !this.props.model.value.length) {
+          result = 'error'
+        } else {
+          result = this.props.onValidate(value) ? 'success' : 'error'
+        }
+      } else {
+        if (!value) {
+          result = ''
+        } else {
+          result = this.props.onValidate(value) ? 'success' : 'error'
+        }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })

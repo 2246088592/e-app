@@ -1,3 +1,12 @@
 {
-  "component": true
+  "component": true,
+  "usingComponents": {
+    "e-input": "/src/components/form/e-input/index",
+    "e-address": "/src/components/form/e-address/index",
+    "e-cascader": "/src/components/form/e-cascader/index",
+    "e-date-picker": "/src/components/form/e-date-picker/index",
+    "e-dept-chooser": "/src/components/form/e-dept-chooser/index",
+    "e-picker": "/src/components/form/e-picker/index"
+
+	}
 }

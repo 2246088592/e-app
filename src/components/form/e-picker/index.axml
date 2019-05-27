@@ -1,10 +1,10 @@
-<picker onChange="handleChange" value="{{params.pickerOptions.index}}" range="{{params.pickerOptions.array}}" range-key="{{params.pickerOptions.bindKey}}" disabled="{{params.pickerOptions.disabled}}">
+<picker onChange="handleChange" value="{{model.options.index}}" range="{{model.options.array}}" range-key="{{model.options.bindKey}}" disabled="{{model.disabled}}">
   <view class="input-wrapper" onTap="handleTap">
-    <view class="label" hidden="{{!params.label}}">
-      <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
-      <text style="flex: 1;">{{params.label}}</text>
+    <view class="label" hidden="{{!model.label}}">
+      <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+      <text style="flex: 1;">{{model.label}}</text>
     </view>
-    <text class="input no-wrap" style="color: {{params.value ? '' : '#cdcdcd'}}">{{params.value ? params.pickerOptions.bindKey ? params.value[params.pickerOptions.bindKey] : params.value : params.placeholder}}</text>
+    <input class="input no-event" value="{{model.value ? model.options.bindKey ? model.value[model.options.bindKey] : model.value : ''}}" placeholder="{{model.placeholder}}" />
     <view class="suffix-icon center">
       <text class="text-big fa fa-chevron-right"></text>
     </view>

@@ -5,48 +5,49 @@ let app = getApp()
 
 Component({
   data: {
-    openCascader: false,
-    array: [], // 当前可选数组
     tree: [], // 树结构
-    breadcrumbValues: [], // 面包屑
+    cascaderVisible: false, // 是否展开选择器
+    array: [], // 当前可选数组
+    breadcrumb: [], // 面包屑
     childrenIndexArr: [], // 带有children的子节点索引数组
     current: '', // 当前所选项
     currentIndex: '' // 当前选中对象索引
   },
 
   props: {
-    params: {},
-    onValidate: (val) => {
+    model: {},
+    // 默认校验方法
+    onValidate: (value) => {
       return true
     }
   },
 
   didMount() {
-    this._initBreadcrumb()
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this.initBreadcrumb()
+    this.validate(this.props.model.value)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
     // 搜索条件变化 重新请求选项
-    if (JSON.stringify(prevProps.params.cascaderOptions.params) !== JSON.stringify(this.props.params.cascaderOptions.params)) {
-      this._initBreadcrumb()
-      this._initCascader(this.props.params.cascaderOptions)
+    if (JSON.stringify(prevProps.model.options.params) !== JSON.stringify(this.props.model.options.params)) {
+      this.initBreadcrumb()
+      this.initCascader(this.props.model.options)
     }
   },
 
   methods: {
     // 初始化面包屑
-    _initBreadcrumb() {
+    initBreadcrumb() {
       this.setData({
         'current': '',
-        'breadcrumbValues': [this.props.params.label],
-        'childrenIndexArr': [this.props.params.label]
+        'breadcrumb': [this.props.model.label],
+        'childrenIndexArr': [this.props.model.label]
       })
     },
 
@@ -57,7 +58,7 @@ Component({
       if (item.children) {
         this.$spliceData({
           'array': [0, this.data.array.length, ...item.children],
-          'breadcrumbValues': [this.data.breadcrumbValues.length, 0, item[this.props.params.cascaderOptions.bindKey]],
+          'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.options.bindKey]],
           'childrenIndexArr': [this.data.childrenIndexArr.length, 0, i]
         })
       } else {
@@ -74,23 +75,23 @@ Component({
         util.ddToast('fail', '请选择一个有效值')
         return
       }
-      let value = `${this.props.params.id}.value`
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [value]: this.data.current
       })
-      app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-        detail: {
-          inputId: this.props.params.id,
-          objId: this.props.params.objId || null,
-          sublist: this.props.params.sublist || null,
-          subindex: this.props.params.subindex === 0 ? 0 : null
-        }
-      })
+      // app.emitter.emit(`${this.props.model.formId ? this.props.model.formId + '_' : ''}inputChange`, {
+      //   detail: {
+      //     inputId: this.props.model.id,
+      //     objId: this.props.model.objId || null,
+      //     sublist: this.props.model.sublist || null,
+      //     subindex: this.props.model.subindex === 0 ? 0 : null
+      //   }
+      // })
       this.handleClose()
     },
 
     // 面包屑点击
-    onItemTap({ index, value }) {
+    handleBreadcrumbTap({ index, value }) {
       if (this.data.childrenIndexArr.length - 1 === index) {
         return
       }
@@ -103,115 +104,105 @@ Component({
       }
       this.$spliceData({
         'array': [0, this.data.array.length, ...arr],
-        'breadcrumbValues': [index + 1, this.data.breadcrumbValues.length - index - 1],
+        'breadcrumb': [index + 1, this.data.breadcrumb.length - index - 1],
         'childrenIndexArr': [index + 1, this.data.childrenIndexArr.length - index - 1]
       })
     },
 
-    // 获取下拉选项
-    async _initCascader(cascaderOptions) {
-      if (!cascaderOptions.url) {
-        if (cascaderOptions.tree) {
-          this._initTree(cascaderOptions.tree)
-        }
-        return
-      }
-      let options = {
-        url: cascaderOptions.url,
-        params: { params: JSON.stringify(cascaderOptions.params) }
-      }
-      let res = await http.get(options)
-      if (res.data.status === 0) {
-        this._initTree(resp.data)
-      }
-    },
-
     // 打开
     handleOpen(event) {
-      if (this.props.params.disabled) {
+      if (this.props.model.disabled) {
         return
       }
       this.setData({
-        'openCascader': true
+        'cascaderVisible': true
       })
     },
 
     // 关闭
     handleClose(event) {
       this.setData({
-        'openCascader': false
+        'cascaderVisible': false
       })
     },
 
     // 初始化树
-    _initTree(tree) {
-      let arr = []
+    initTree(tree) {
+      let array = []
       for (let i = 0; i < tree.length; i++) {
-        arr.push(tree[i])
+        array.push(tree[i])
       }
       this.$spliceData({
-        'array': [0, this.data.array.length || 0, ...arr],
-        'tree': [0, this.data.array.length || 0, ...arr]
+        'array': [0, this.data.array.length || 0, ...array],
+        'tree': [0, this.data.array.length || 0, ...array]
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
+    // 获取下拉选项
+    async initCascader(options) {
+      if (!options.url) {
+        if (options.tree) {
+          this.initTree(options.tree)
+        }
         return
       }
-      if (item.sublist) {
-        item.objId = item.id
-        item.id = `${item.sublist}.array[${item.subindex}].${item.id}`
+      let res = await http.get({
+        url: options.url,
+        params: { params: JSON.stringify(options.params) }
+      })
+      if (res.data.status === 0) {
+        this.initTree(resp.data)
       }
-      let obj = {
+    },
+
+    // 初始化model的属性
+    init(model) {
+      // cascader对象
+      let cascader = {
+        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
         disabled: false,
         necessary: false,
-        placeholder: item.necessary ? '必填' : '',
-        notice: item.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.necessary ? '不能为空' : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      temp.cascaderOptions = Object.assign({
-        bindKey: '',
-        params: {}
-      }, item.cascaderOptions)
-      let id = `${temp.id}`
+      let path = `${cascader.path}`
+      // 补全属性
+      model.options = Object.assign({
+        url: '',
+        tree: [],
+        params: {},
+        bindKey: ''
+      }, model.options)
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(cascader, model)
       })
       // 初始化完成后请求选项
-      this._initCascader(temp.cascaderOptions)
+      this.initCascader(model.options)
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })

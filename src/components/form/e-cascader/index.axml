@@ -1,21 +1,21 @@
 <view class="input-wrapper" onTap="handleOpen">
-  <view class="label" hidden="{{!params.label}}">
-    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{params.label}}</text>
+  <view class="label" hidden="{{!model.label}}">
+    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{model.label}}</text>
   </view>
-  <text class="input no-wrap" style="color: {{params.value ? '' : '#cdcdcd'}}">{{params.value ? params.cascaderOptions.bindKey ? params.value[params.cascaderOptions.bindKey] : params.value : params.placeholder}}</text>
+  <input class="input no-event" value="{{model.value ? model.options.bindKey ? model.value[model.options.bindKey] : model.value : ''}}" placeholder="{{model.placeholder}}" />
   <view class="suffix-icon center">
     <text class="text-big fa fa-chevron-right"></text>
   </view>
 </view>
-<view class="cascader-wrapper full-screen {{openCascader ? 'cascader-wrapper-open' : ''}}">
-  <view class="cascader-content shadow-modal {{openCascader ? 'cascader-content-open' : ''}}">
-    <breadcrumb values="{{breadcrumbValues}}" onItemTap="onItemTap"/>
+<view class="cascader-wrapper full-screen {{cascaderVisible ? 'cascader-wrapper-open' : ''}}">
+  <view class="cascader-content shadow-modal {{cascaderVisible ? 'cascader-content-open' : ''}}">
+    <breadcrumb values="{{breadcrumb}}" onItemTap="handleBreadcrumbTap"/>
     <scroll-view style="flex: 1;" scroll-y="{{true}}">
       <radio-group class="radio-group">
         <view class="radio-wrapper" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
           <radio class="radio" value="{{index}}" checked="{{currentIndex === index}}"/>
-          <text class="color-text">{{item[params.cascaderOptions.bindKey]}}</text>
+          <text class="color-text">{{item[model.options.bindKey]}}</text>
         </view>
       </radio-group>
     </scroll-view>

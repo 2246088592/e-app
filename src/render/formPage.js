@@ -9,13 +9,11 @@ export default (f) => {
     onLoad(query) {
       // 定义表单id
       let formId = `F${this.$viewId}`
-      // 判断是否存在业务对象
+      //  判断是否存在业务对象
       if (!f.bizObj) {
         console.error('表单渲染函数需要配置业务对象')
         return
       }
-      // 映射
-      let map = {}
       // 设置表单id和业务对象
       this.setData({
         formId: formId,
@@ -41,6 +39,17 @@ export default (f) => {
       if (f.onReady) {
         f.onReady.apply(this, arguments)
       }
+    },
+    // 校验方法
+    onRules() {
+      let array = []
+      for (let i = 0; i < f.bizObj.length; i++) {
+        let o = f.bizObj[i]
+        if (o.validate && typeof o.validate === 'function') {
+          array.push({ formId: `F${this.$viewId}`, key: o.key, validate: o.validate })
+        }
+      }
+      return array
     },
     // 关闭
     onUnload() {

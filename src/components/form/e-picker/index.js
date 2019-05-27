@@ -5,45 +5,45 @@ let app = getApp()
 
 Component({
   props: {
-    params: {},
-    onValidate: (val) => {
+    model: {},
+    // 默认校验函数
+    onValidate: (value) => {
       return true
     }
   },
 
   // 挂载方法
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this.validate(this.props.model.value)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
     // 搜索条件变化 重新请求选项
-    if (JSON.stringify(prevProps.params.pickerOptions.params) !== JSON.stringify(this.props.params.pickerOptions.params)) {
-      this._initPicker(this.props.params.pickerOptions)
+    if (JSON.stringify(prevProps.model.options.params) !== JSON.stringify(this.props.model.options.params)) {
+      this.initPicker(this.props.model.options)
     }
   },
 
   methods: {
     // 获取下拉选项
-    async _initPicker(pickerOptions) {
-      if (!pickerOptions.url) {
+    async initPicker(options) {
+      if (!options.url) {
         return
       }
-      let options = {
-        url: pickerOptions.url,
-        params: { params: JSON.stringify(pickerOptions.params) }
-      }
-      let res = await http.get(options)
+      let res = await http.get({
+        url: options.url,
+        params: { params: JSON.stringify(options.params) }
+      })
       if (res.data.status === 0) {
-        let array = `${this.props.params.id}.pickerOptions.array`
+        let array = `${this.props.model.path}.options.array`
         this.$page.$spliceData({
-          [array]: [0, this.props.params.pickerOptions.array.length, ...res.data.items]
+          [array]: [0, this.props.model.options.array.length, ...res.data.items]
         })
       }
     },
@@ -54,72 +54,64 @@ Component({
     // 点击选项事件
     handleChange(event) {
       let i = event.detail.value
-      let value = `${this.props.params.id}.value`
-      let index = `${this.props.params.id}.pickerOptions.index`
+      let value = `${this.props.model.path}.value`
+      let index = `${this.props.model.path}.options.index`
       this.$page.setData({
-        [value]: this.props.params.pickerOptions.array[i],
+        [value]: this.props.model.options.array[i],
         [index]: i
       })
-      app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-        detail: { inputId: this.props.params.id }
-      })
+      app.emitter.emit(`${this.props.model.formId}`, this.props.model.key)
     },
 
     // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let obj = {
+    init(model) {
+      // picker
+      let picker = {
+        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
         disabled: false,
         necessary: false,
-        placeholder: item.necessary ? '必填' : '',
-        notice: item.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.necessary ? '不能为空' : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      temp.pickerOptions = Object.assign({
+      let path = `${picker.path}`
+      // 补全属性
+      model.options = Object.assign({
+        url: '',
+        params: {},
+        bindKey: '',
         array: [],
         index: -1,
-        bindKey: '',
-        params: {}
-      }, item.pickerOptions)
-      let id = `${temp.id}`
+      }, model.options)
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(picker, model)
       })
       // 初始化完成后请求选项
-      this._initPicker(temp.pickerOptions)
+      this.initPicker(model.options)
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })

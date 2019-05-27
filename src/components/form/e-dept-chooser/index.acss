@@ -1,11 +1,21 @@
 @import "../base-style.acss";
 .input-wrapper>.depts-wrapper {
+  position: relative;
   padding-right: 16rpx;
   min-height: 76rpx;
   margin-bottom: -16rpx;
   flex: 1;
   display: flex;
   flex-wrap: wrap;
+}
+
+.input-wrapper>.depts-wrapper>.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0;
 }
 
 .input-wrapper>.depts-wrapper>.dept {

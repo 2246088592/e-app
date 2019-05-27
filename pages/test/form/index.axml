@@ -1,5 +1,4 @@
 <view class="full-parent">
-  <e-form-wrapper>
-    <e-input model="{{ask_dept}}"></e-input>
-  </e-form-wrapper>
+  <!-- onRules="onRules"为固定写法 -->
+  <e-form-wrapper bizObj="{{bizObj}}" onRules="onRules"></e-form-wrapper>
 </view>

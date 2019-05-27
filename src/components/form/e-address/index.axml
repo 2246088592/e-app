@@ -1,9 +1,9 @@
 <view class="input-wrapper" onTap="handleTap">
-  <view class="label" hidden="{{!params.label}}">
-    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{params.label}}</text>
+  <view class="label" hidden="{{!model.label}}">
+    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{model.label}}</text>
   </view>
-  <input class="input" value="{{params.value}}" focus="{{params.focus}}" disabled="{{params.disabled}}" placeholder="{{params.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
+  <input class="input" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
   <view class="suffix-icon center" catchTap="openMap">
     <text class="text-big fa fa-location-arrow"></text>
   </view>

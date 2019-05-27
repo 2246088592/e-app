@@ -3,30 +3,30 @@ import util from '/src/util.js'
 Component({
   props: {
     model: {},
-    // 默认的校验方法
-    onValidate: (val, maxlength) => {
+    // 默认校验方法
+    onValidate: (value, maxlength) => {
       if (!maxlength || maxlength === -1) {
         return true
       }
-      return maxlength >= val.length
+      return maxlength >= value.length
     }
   },
   // 挂载
   didMount() {
     this.init(this.props.model)
-    this._validate(this.props.model.value)
+    this.validate(this.props.model.value)
   },
   // 更新
   didUpdate(prevProps, prevData) {
     // value变化时校验
     if (prevProps.model.value !== this.props.model.value) {
-      this._validate(this.props.model.value)
+      this.validate(this.props.model.value)
     }
   },
   methods: {
     // 输入事件同步value
     handleInput: util.debounce(function(event) {
-      let value = `${this.props.model.id}.value`
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -34,7 +34,7 @@ Component({
 
     // 设置焦点
     handleTap() {
-      let focus = `${this.props.model.id}.focus`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -48,7 +48,7 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.model.id}.focus`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [focus]: false
       })
@@ -56,8 +56,8 @@ Component({
 
     // 清空输入并获取焦点
     handleClear(event) {
-      let value = `${this.props.model.id}.value`
-      let focus = `${this.props.model.id}.focus`
+      let value = `${this.props.model.path}.value`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [value]: '',
         [focus]: true
@@ -66,11 +66,9 @@ Component({
 
     // 初始化model的属性
     init(model) {
-      console.log(model)
       // input对象
       let input = {
         path: `bizObj[${model.formIndex}]`,
-        type: '',
         value: '',
         label: '',
         status: '',
@@ -79,36 +77,35 @@ Component({
         disabled: false,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',
-        notice: model.maxlength ? `长度不能超过${model.maxlength}` : ''
+        notice: model.maxlength > -1 ? `长度不能超过${model.maxlength}` : ''
       }
       let path = `${input.path}`
+      // 补全属性
       this.$page.setData({
         [path]: Object.assign(input, model)
       })
-
-      console.log(Object.assign(input, model))
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
       if (this.props.model.necessary) {
-        if (!val) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val, this.props.model.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val, this.props.model.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
         }
       }
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })

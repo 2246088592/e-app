@@ -2,43 +2,45 @@ import util from '/src/util.js'
 
 Component({
   props: {
-    params: {},
-    onValidate: (val, maxlength) => {
+    model: {},
+    // 默认校验方法
+    onValidate: (value, maxlength) => {
       if (!maxlength || maxlength === -1) {
         return true
       }
-      return maxlength >= val.length
+      return maxlength >= value.length
     }
   },
-
   // 挂载
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this.validate(this.props.model.value)
   },
-
   // 更新
   didUpdate(prevProps, prevData) {
-    // setData后进行value校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    // value变化时校验
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
   },
 
   methods: {
+    // 唤起地图
+    oepnMap(event) { },
+
     // 定位方法
-    _position() {
-      let placeholder = `${this.props.params.id}.placeholder`
+    position() {
+      let placeholder = `${this.props.model.path}.placeholder`
       this.$page.setData({
         [placeholder]: '自动定位中...'
       })
       dd.getLocation({
         type: 2,
         success: (res) => {
-          let location = `${this.props.params.id}.location`
-          let value = `${this.props.params.id}.value`
+          let location = `${this.props.model.path}.location`
+          let value = `${this.props.model.path}.value`
           this.$page.setData({
-            [placeholder]: this.props.params.necessary ? '请输入或选择地址' : '',
+            [placeholder]: this.props.model.necessary ? '请输入或选择地址' : '',
             [location]: res,
             [value]: res.address
           })
@@ -50,20 +52,17 @@ Component({
       })
     },
 
-    // 唤起地图
-    oepnMap(event) { },
-
-    // 输入事件
-    handleInput(event) {
-      let value = `${this.props.params.id}.value`
+    // 输入事件同步value
+    handleInput: util.debounce(function(event) {
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
-    },
+    }, 500),
 
     // 设置焦点
     handleTap() {
-      let focus = `${this.props.params.id}.focus`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -77,19 +76,17 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.params.id}.focus`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [focus]: false
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let obj = {
+    // 初始化model的属性
+    init(model) {
+      // address对象
+      let address = {
+        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -97,48 +94,42 @@ Component({
         location: {},
         maxlength: -1,
         disabled: false,
-        placeholder: '',
         necessary: false,
-        notice: item.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.maxlength > -1 ? `长度不能超过${model.maxlength}` : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      let id = `${temp.id}`
+      let path = `${address.path}`
+      // 补全属性
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(address, model)
       })
-      this._position()
+      // 定位
+      this.position()
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val, this.props.params.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val, this.props.params.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })
     }
-
   }
-
 })
