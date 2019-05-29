@@ -10,5 +10,27 @@ listPage({
   navbarOptions: {
     title: '我发起的审批',
   },
-  filterParams: {}
+  filterParams: {},
+  beforeEnterList() {
+    this.setData({
+      'testList.array': [
+        {
+          name: '0.55针头',
+          spec: '盒'
+        },
+        {
+          name: '0.6针头',
+          spec: '盒'
+        },
+        {
+          name: '0.7针头',
+          spec: '盒'
+        },
+        {
+          name: '12号针头',
+          spec: '个'
+        }
+      ]
+    })
+  }
 })

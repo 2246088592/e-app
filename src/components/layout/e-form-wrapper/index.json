@@ -6,7 +6,12 @@
     "e-cascader": "/src/components/form/e-cascader/index",
     "e-date-picker": "/src/components/form/e-date-picker/index",
     "e-dept-chooser": "/src/components/form/e-dept-chooser/index",
-    "e-picker": "/src/components/form/e-picker/index"
-
+    "e-picker": "/src/components/form/e-picker/index",
+    "e-progress-bar": "/src/components/form/e-progress-bar/index",
+    "e-scan": "/src/components/form/e-scan/index",
+    "e-search": "/src/components/form/e-search/index",
+    "e-switch": "/src/components/form/e-switch/index",
+    "e-text-area": "/src/components/form/e-text-area/index",
+    "e-user-chooser": "/src/components/form/e-user-chooser/index"
 	}
 }

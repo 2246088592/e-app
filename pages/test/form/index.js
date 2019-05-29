@@ -71,5 +71,67 @@ formPage({
         array: [1,2,3,4,5,6]
       }
     },
-  ]
+    {
+      label: '滑动条',
+      key: 'progress',
+      component: 'e-progress-bar',
+      necessary: true,
+      options: {
+        unit: '条',
+        showValue: true,
+        max: 20,
+        step: 2
+      }
+    },
+    {
+      label: '扫码',
+      key: 'scan',
+      component: 'e-scan',
+      necessary: true
+    },
+    {
+      label: '搜索',
+      key: 'search',
+      component: 'e-search',
+      necessary: true,
+      options: {
+        bindList: 'test',
+        bindKey: 'spec'
+      }
+    },
+    {
+      label: '搜索2',
+      key: 'search2',
+      component: 'e-search',
+      necessary: true,
+      options: {
+        bindList: 'test',
+        bindKey: 'name'
+      }
+    },
+    {
+      label: '切换',
+      key: 'switch',
+      component: 'e-switch',
+      checked: true,
+      trueValue: '12',
+      showValue: true
+    },
+     {
+      label: '多行输入',
+      key: 'textArea',
+      component: 'e-text-area',
+      maxlength: 200
+    },
+    {
+      label: '人员选择',
+      key: 'user',
+      component: 'e-user-chooser',
+      necessary: true
+    },
+  ],
+
+  formChange(event){
+    console.log(event)
+  }
 })

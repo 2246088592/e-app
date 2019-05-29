@@ -103,6 +103,10 @@
   line-height: 36rpx;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .text-big-x {
   height: 40rpx;
   font-size: 40rpx;
@@ -175,4 +179,12 @@
 
 .color-white {
   color: #fff;
+}
+
+.color-label {
+  color: #191F25 28%;
+}
+
+.flex {
+  flex: 1;
 }

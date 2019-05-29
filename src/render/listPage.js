@@ -29,15 +29,15 @@ export default (lo) => {
     onLoad(query) {
       if (query.params) {
         let params = JSON.parse(query.params)
-        if (params.searchOptions.bindList === this.data[lo.id].name) {
+        if (params.options.bindList === this.data[lo.id].name) {
           let type = `${lo.id}.type`
           let eSearchId = `${lo.id}.eSearchId`
           let _params = `${lo.id}.params`
           let searchAuth = `${lo.id}.searchAuth`
           this.setData({
             [type]: 'search',
-            [eSearchId]: params.id,
-            [_params]: params.searchOptions.params,
+            [eSearchId]: params.cid,
+            [_params]: params.options.params,
             [searchAuth]: Object.assign({}, this.data[lo.id].auth, params.auth)
           })
         }

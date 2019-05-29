@@ -1,10 +1,10 @@
-<view class="input-wrapper" onTap="handleTap">
-  <view class="label" hidden="{{!params.label}}">
-    <view class="necessary center" style="visibility: {{params.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{params.label}}</text>
+<view class="input-wrapper" onTap="handleScan">
+  <view class="label" hidden="{{!model.label}}">
+    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text style="flex: 1;">{{model.label}}</text>
   </view>
-  <input class="input" maxlength="{{params.maxlength}}" value="{{params.value}}" focus="{{params.focus}}" disabled="{{params.disabled}}" placeholder="{{params.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
-  <view class="suffix-icon center" catchTap="handleScan">
+  <input class="input no-event" maxlength="{{model.maxlength}}" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
+  <view class="suffix-icon center">
     <text class="text-big fa fa-qrcode"></text>
   </view>
 </view>

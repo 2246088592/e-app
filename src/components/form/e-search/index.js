@@ -1,130 +1,111 @@
 let app = getApp()
 
 Component({
+
   props: {
-    params: {},
-    onValidate: (val) => {
+    model: {},
+    onValidate: (value) => {
       return true
     }
   },
 
   // 挂载
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
-    app.emitter.on(`${this.props.params.id}_selectChange`, this.selectChange, this)
+    this.init(this.props.model)
+    this.validate(this.props.model.value)
+    app.emitter.on(`C${this.$page.$viewId + this.$id}`, this.handleSelect, this)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
   },
 
   // 事件销毁
   didUnmount() {
-    app.emitter.removeListener(`${this.props.params.id}_selectChange`, this.selectChange, this)
+    app.emitter.removeListener(`C${this.$page.$viewId + this.$id}`, this.handleSelect, this)
   },
 
   methods: {
-    // 从列表返回的事件
-    selectChange(event) {
-      if (event.detail.eSearchId ? event.detail.eSearchId === this.props.params.id : false) {
-        this.handleSelect(event.detail.data)
-      }
-    },
-
     // 点击选项事件
     handleSelect(result) {
-      let value = `${this.props.params.id}.value`
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [value]: result
       })
-      app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-        detail: {
-          inputId: this.props.params.id,
-          objId: this.props.params.objId || null,
-          sublist: this.props.params.sublist || null,
-          subindex: this.props.params.subindex === 0 ? 0 : null
-        }
-      })
+      // app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
+      //   detail: {
+      //     inputId: this.props.params.id,
+      //     objId: this.props.params.objId || null,
+      //     sublist: this.props.params.sublist || null,
+      //     subindex: this.props.params.subindex === 0 ? 0 : null
+      //   }
+      // })
     },
 
     // 跳转到搜索页面
     handleTap(event) {
-      if (this.props.params.disabled) {
+      if (this.props.model.disabled) {
         return
       }
-      let params = JSON.stringify(this.props.params)
+      let params = JSON.stringify({ ...this.props.model, cid: `C${this.$page.$viewId + this.$id}` })
       dd.navigateTo({
         // 固定路径
-        url: `/pages/${this.props.params.searchOptions.bindList}/list/index?params=${params}`
+        url: `/pages/${this.props.model.options.bindList}/list/index?params=${params}`
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      if (item.sublist) {
-        item.objId = item.id
-        item.id = `${item.sublist}.array[${item.subindex}].${item.id}`
-      }
-      let obj = {
-        auth: {},
+    // 初始化属性
+    init(model) {
+      // search对象
+      let search = {
+        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
         disabled: false,
         necessary: false,
-        placeholder: item.necessary ? '必填' : '',
-        notice: item.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.necessary ? '不能为空' : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      temp.searchOptions = Object.assign({
+      let path = `${search.path}`
+      // 补全属性
+      model.options = Object.assign({
         bindList: '',
-        params: {}
-      }, item.searchOptions)
-      let id = `${temp.id}`
+        params: {},
+        bindKey: '',
+      }, model.options)
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(search, model)
       })
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })
     }
-
   }
-
 })

@@ -1,32 +1,32 @@
 Component({
   props: {
-    params: {},
-    onValidate: (val, maxlength) => {
+    model: {},
+    onValidate: (value, maxlength) => {
       if (!maxlength || maxlength === -1) {
         return true
       }
-      return maxlength >= val.length
+      return maxlength >= value.length
     }
   },
 
   // 挂载
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this.validate(this.props.model.value)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
     // value变化时校验
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
   },
 
   methods: {
     // 输入事件同步value
     handleInput(event) {
-      let value = `${this.props.params.id}.value`
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -34,7 +34,7 @@ Component({
 
     // 设置焦点
     handleTap() {
-      let focus = `${this.props.params.id}.focus`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -48,7 +48,7 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.params.id}.focus`
+      let focus = `${this.props.model.path}.focus`
       this.$page.setData({
         [focus]: false
       })
@@ -57,20 +57,18 @@ Component({
     // 扫码
     handleScan(event) {
       dd.scan({
-        type: this.props.params.scanType,
+        type: this.props.model.scanType,
         success: (res) => {
           this.handleInput({ detail: { value: res.code } })
         }
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let obj = {
+    // 初始化属性
+    init(model) {
+      // scan对象
+      let scan = {
+        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -79,46 +77,39 @@ Component({
         scanType: 'qr',
         disabled: false,
         necessary: false,
-        placeholder: item.necessary ? '必填' : '',
-        notice: item.maxlength ? `长度不能超过${item.maxlength}` : ''
+        placeholder: model.necessary ? '必填' : '',
+        notice: model.maxlength ? `长度不能超过${model.maxlength}` : ''
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      let id = `${temp.id}`
+      let path = `${scan.path}`
+      // 补全属性
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(scan, model)
       })
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val, this.props.params.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val, this.props.params.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })
     }
-
   }
-
 })

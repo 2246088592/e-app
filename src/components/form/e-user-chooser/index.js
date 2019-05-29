@@ -3,23 +3,23 @@ let app = getApp()
 
 Component({
   props: {
-    params: {}
+    model: {}
   },
 
   // 挂载方法
   didMount() {
-    this._complete(this.props.params)
-    this._validate()
+    this.init(this.props.model)
+    this.validate()
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
-    if (!prevProps.params.value || !this.props.params.value) {
+    if (!prevProps.model.value || !this.props.model.value) {
       return
     }
     // setData后校验
-    if (prevProps.params.value.length !== this.props.params.value.length) {
-      this._validate()
+    if (prevProps.model.value.length !== this.props.model.value.length) {
+      this.validate()
     }
   },
 
@@ -27,7 +27,7 @@ Component({
     // 删除已选人
     handleDelete(event) {
       let i = event.currentTarget.dataset.itemIndex
-      let pickedUsers = `${this.props.params.id}.value`
+      let pickedUsers = `${this.model.model.path}.value`
       this.$page.$spliceData({
         [pickedUsers]: [i, 1]
       })
@@ -35,32 +35,29 @@ Component({
 
     // 打开选人界面
     handleAdd() {
-      if (this.props.params.disabled) {
+      if (this.props.model.disabled) {
         return
       }
       dd.complexChoose({
-        title: `选择${this.props.params.label}`,
-        multiple: this.props.params.multiple,
-        limitTips: `超过限定人数${this.props.params.max}`,
-        maxUsers: this.props.params.max,
+        title: `选择${this.props.model.label}`,
+        multiple: this.props.model.multiple,
+        limitTips: `超过限定人数${this.props.model.max}`,
+        maxUsers: this.props.model.max,
         // 已选
-        pickedUsers: this.props.params.value ? this.props.params.value.map(row => row.userId) : [],
+        pickedUsers: this.props.model.value.map(row => row.userId),
         // 不可选
-        disabledUsers: this.props.params.users.disabledUsers ? this.props.params.users.disabledUsers.map(row => row.userId) : [],
+        disabledUsers: this.props.model.users.disabledUsers,
         // 必选
-        requiredUsers: this.props.params.users.requiredUsers ? this.props.params.users.requiredUsers.map(row => row.userId) : [],
+        requiredUsers: this.props.model.users.requiredUsers,
         permissionType: "GLOBAL",
         responseUserOnly: true,
         startWithDepartmentId: 0,
         success: (res) => {
-          console.log(JSON.stringify(res.users))
-          let pickedUsers = `${this.props.params.id}.value`
+          let pickedUsers = `${this.props.model.path}.value`
           this.$page.$spliceData({
-            [pickedUsers]: [0, this.props.params.value.length, ...res.users]
+            [pickedUsers]: [0, this.props.model.value.length, ...res.users]
           })
-          app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-            detail: { inputId: this.props.params.id }
-          })
+          app.emitter.emit(`${this.props.model.formId}`, this.props.model)
         },
         fail: (err) => {
           util.ddToast('fail', '选择人员失败')
@@ -69,13 +66,11 @@ Component({
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let template = {
+    // 初始化属性
+    init(model) {
+      // userChooser对象
+      let userChooser = {
+        path: `bizObj[${model.formIndex}]`,
         max: 100,
         value: [],
         label: '',
@@ -83,34 +78,29 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
-        notice: item.necessary ? '至少选择一个人' : '',
-        users: {
-          disabledUsers: [],
-          requiredUsers: []
-        }
+        notice: model.necessary ? '至少选择一个人' : ''
       }
-      let obj = util.cloneDeep(item)
-      for (let key in template) {
-        if (!obj[key]) {
-          obj[key] = template[key]
-        }
-      }
-      let id = `${obj.id}`
+      let path = `${userChooser.path}`
+      // 补全属性
+      model.users = Object.assign({
+        disabledUsers: [],
+        requiredUsers: []
+      }, model.users)
       this.$page.setData({
-        [id]: obj
+        [path]: Object.assign(userChooser, model)
       })
     },
 
     // 校验方法
-    _validate() {
+    validate() {
       let result = ''
-      if (this.props.params.necessary && this.props.params.value && !this.props.params.value.length) {
+      if (this.props.model.necessary && this.props.model.value && !this.props.model.value.length) {
         result = 'error'
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })

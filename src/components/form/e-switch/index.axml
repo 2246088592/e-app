@@ -1,10 +1,10 @@
 <view class="input-wrapper">
-  <view class="label" hidden="{{!params.label}}">
+  <view class="label" hidden="{{!model.label}}">
     <view class="necessary center" style="visibility: hidden;"></view>
-    <text style="flex: 1;">{{params.label}}</text>
+    <text style="flex: 1;">{{model.label}}</text>
   </view>
-  <text class="input">{{params.checked ? params.labels[1] : params.labels[0]}}</text>
+  <input class="input no-event" value="{{model.showValue ? model.value + '' : ''}}"/>
   <view class="switch-wrapper">
-    <switch onChange="switchChange" checked="{{params.checked}}" disabled="{{params.disabled}}" color="{{params.color}}"/>
+    <switch onChange="switchChange" checked="{{model.checked}}" disabled="{{model.disabled}}" color="{{model.color}}"/>
   </view>
 </view>

@@ -9,6 +9,12 @@
         <e-date-picker a:elif="{{item.component === 'e-date-picker'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-date-picker>
         <e-dept-chooser a:elif="{{item.component === 'e-dept-chooser'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-dept-chooser>
         <e-picker a:elif="{{item.component === 'e-picker'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-picker>
+        <e-progress-bar a:elif="{{item.component === 'e-progress-bar'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-progress-bar>
+        <e-scan a:elif="{{item.component === 'e-scan'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-scan>
+        <e-search a:elif="{{item.component === 'e-search'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-search>
+        <e-switch a:elif="{{item.component === 'e-switch'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-switch>
+        <e-text-area a:elif="{{item.component === 'e-text-area'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-text-area>
+        <e-user-chooser a:elif="{{item.component === 'e-user-chooser'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-user-chooser>
       </block>
       <view class="form-btn">
         <button formType="submit">Submit</button>

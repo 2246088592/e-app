@@ -31,10 +31,16 @@
   color: red;
 }
 
+.text-wrapper>.label>.maxlength {
+  text-align: right;
+}
+
 .text-wrapper>.text-area {
   position: relative;
   z-index: 0;
-  padding: 0 0 0 16rpx;
+  padding-top: 0;
+  padding-left: 16rpx;
+  padding-right: 0;
   background-color: rgba(0, 0, 0, 0);
   font-size: 32rpx;
 }

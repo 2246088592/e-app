@@ -1,41 +1,38 @@
 Component({
   props: {
-    params: {},
-    onValidate: (val) => {
+    model: {},
+    onValidate: (value) => {
       return true
     }
   },
 
   // 挂载方法
   didMount() {
-    this._complete(this.props.params)
-    this._validate(this.props.params.value)
+    this.init(this.props.model)
+    this.validate(this.props.model.value)
   },
 
   // setData后进行value校验
   didUpdate(prevProps, prevData) {
-    if (prevProps.params.value !== this.props.params.value) {
-      this._validate(this.props.params.value)
+    if (prevProps.model.value !== this.props.model.value) {
+      this.validate(this.props.model.value)
     }
   },
 
   methods: {
     // 设置value
     handleChange(event) {
-      let value = `${this.props.params.id}.value`
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
     },
 
     // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let obj = {
-        step: 1,
+    init(model) {
+      // progress对象
+      let progressBar = {
+        path: `bizObj[${model.formIndex}]`,
         value: 0,
         label: '',
         status: '',
@@ -43,43 +40,46 @@ Component({
         disabled: false,
         necessary: false
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      let id = `${temp.id}`
+      let path = `${progressBar.path}`
+      // 补全属性
+      model.options = Object.assign({
+        unit: '%',
+        step: 1,
+        min: 0,
+        max: 100,
+        showValue: false,
+        activeColor: '#108ee9',
+        backgroundColor: '#ddd',
+        handleColor: '#fff'
+      }, model.options)
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(progressBar, model)
       })
     },
 
     // 校验方法
-    _validate(val) {
+    validate(value) {
       let result = ''
-      if (this.props.params.necessary) {
-        if (!val) {
+      if (this.props.model.necessary) {
+        if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
-        if (!val) {
+        if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(val) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
-      if (this.props.params.status === result) {
+      if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.params.id}.status`
+      let status = `${this.props.model.path}.status`
       this.$page.setData({
         [status]: result
       })
     }
-
   }
-
 })

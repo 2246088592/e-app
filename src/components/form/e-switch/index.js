@@ -2,55 +2,56 @@ let app = getApp()
 
 Component({
   props: {
-    params: {}
+    model: {}
   },
 
   // 挂载方法
   didMount() {
-    this._complete(this.props.params)
+    this.init(this.props.model)
+  },
+
+  // 更新
+  didUpdate(prevProps, prevData) {
+    // setData后校验
+    if (prevProps.model.value !== this.props.model.value) {
+      app.emitter.emit(`${this.props.model.formId}`, this.props.model)
+    }
   },
 
   methods: {
     // 切换事件
     switchChange(event) {
-      let checked = `${this.props.params.id}.checked`
-      let value = `${this.props.params.id}.value`
+      let checked = `${this.props.model.path}.checked`
+      let value = `${this.props.model.path}.value`
       this.$page.setData({
         [checked]: event.detail.value,
-        [value]: event.detail.value ? this.props.params.values[1] : this.props.params.values[0]
-      })
-      app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-        detail: { inputId: this.props.params.id }
+        [value]: event.detail.value ? this.props.model.trueValue : this.props.model.falseValue
       })
     },
 
-    // 补充params的属性
-    _complete(item) {
-      if (!item.id) {
-        console.error('此组件内props接收的参数没有设置id')
-        return
-      }
-      let obj = {
+    // 初始化属性
+    init(model) {
+      // 删除默认value，依据checked重新设置value
+      delete model.value
+      // switch对象
+      let objSwitch = {
+        path: `bizObj[${model.formIndex}]`,
         label: '',
-        value: item.checked ? item.values[1] || true : item.values[0] || false,
-        values: [false, true],
-        labels: [false, true],
+        value: model.checked ? model.trueValue !== undefined ? model.trueValue : true : model.falseValue !== undefined ? model.falseValue : false,
+        trueValue: true,
+        falseValue: false,
+        trueLabel: true,
+        falseLabel: false,
         disabled: false,
-        checked: false,
+        checked: model.checked !== undefined ? model.checked : false,
         color: '#108ee9',
+        showValue: false
       }
-      let temp = item
-      for (let key in obj) {
-        if (!temp[key]) {
-          temp[key] = obj[key]
-        }
-      }
-      let id = `${temp.id}`
+      let path = `${objSwitch.path}`
+      // 补全属性
       this.$page.setData({
-        [id]: temp
+        [path]: Object.assign(objSwitch, model)
       })
     }
-
   }
-
 })

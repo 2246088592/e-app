@@ -274,11 +274,7 @@ Component({
       }
       // 如果是搜索模式 则返回到e-search组件
       else if (this.props.listOptions.type === 'search') {
-        app.emitter.emit(`${this.props.listOptions.eSearchId}_selectChange`, {
-          detail: {
-            eSearchId: this.props.listOptions.eSearchId, data: item
-          }
-        })
+        app.emitter.emit(`${this.props.listOptions.eSearchId}`,  item)
         dd.navigateBack({
           delta: 1
         })
