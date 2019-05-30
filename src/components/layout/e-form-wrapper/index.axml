@@ -1,26 +1,61 @@
-<view class="form-wrapper full-parent">
+<view class="full flex-column">
+  <!-- 头部插槽 -->
   <slot name="header"></slot>
-  <scroll-view style="flex: 1;" scroll-y="{{true}}">
-    <form onSubmit="handleSubmit" onReset="handleReset">
-      <block a:for="{{bizObj}}">
-        <e-input a:if="{{item.component === 'e-input'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-input>
-        <e-address a:elif="{{item.component === 'e-address'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-address>
-        <e-cascader a:elif="{{item.component === 'e-cascader'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-cascader>
-        <e-date-picker a:elif="{{item.component === 'e-date-picker'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-date-picker>
-        <e-dept-chooser a:elif="{{item.component === 'e-dept-chooser'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-dept-chooser>
-        <e-picker a:elif="{{item.component === 'e-picker'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-picker>
-        <e-progress-bar a:elif="{{item.component === 'e-progress-bar'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-progress-bar>
-        <e-scan a:elif="{{item.component === 'e-scan'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-scan>
-        <e-search a:elif="{{item.component === 'e-search'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-search>
-        <e-switch a:elif="{{item.component === 'e-switch'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-switch>
-        <e-text-area a:elif="{{item.component === 'e-text-area'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-text-area>
-        <e-user-chooser a:elif="{{item.component === 'e-user-chooser'}}" model="{{item}}" onValidate={{'on_'+item.formId+'_'+item.key}}></e-user-chooser>
-      </block>
-      <view class="form-btn">
-        <button formType="submit">Submit</button>
-        <button formType="reset">Reset</button>
+  <!-- 表单 -->
+  <scroll-view scroll-y="{{true}}" class="flex">
+    <block a:for="{{bizObj}}" a:for-item="c" a:for-index="ci">
+      <!-- 单行输入 -->
+      <e-input a:if="{{c.component === 'e-input'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-input>
+      <!-- 定位、地图 -->
+      <e-address a:elif="{{c.component === 'e-address'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-address>
+      <!-- 联级选择 -->
+      <e-cascader a:elif="{{c.component === 'e-cascader'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-cascader>
+      <!-- 日期时间选择 -->
+      <e-date-picker a:elif="{{c.component === 'e-date-picker'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-date-picker>
+      <!-- 部门选择 -->
+      <e-dept-chooser a:elif="{{c.component === 'e-dept-chooser'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-dept-chooser>
+      <!-- 下拉 -->
+      <e-picker a:elif="{{c.component === 'e-picker'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-picker>
+      <!-- 进度条 -->
+      <e-progress-bar a:elif="{{c.component === 'e-progress-bar'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-progress-bar>
+      <!-- 扫码 -->
+      <e-scan a:elif="{{c.component === 'e-scan'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-scan>
+      <!-- 跳转搜索 -->
+      <e-search a:elif="{{c.component === 'e-search'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-search>
+      <!-- 切换按钮 -->
+      <e-switch a:elif="{{c.component === 'e-switch'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-switch>
+      <!-- 多行输入 -->
+      <e-text-area a:elif="{{c.component === 'e-text-area'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-text-area>
+      <!-- 人员选择 -->
+      <e-user-chooser a:elif="{{c.component === 'e-user-chooser'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-user-chooser>
+      <!-- 子表组件 -->
+      <view a:elif="{{c.component === 'e-subform'}}" class="subform relative">
+        <!-- 子表 -->
+        <view a:for="{{c.children}}" a:for-item="sf" a:for-index="sfi">
+          <!-- 子表头部 -->
+          <view class="relative subform-header">
+            <text class="color-text text-small">{{c.label}}({{sfi + 1}})</text>
+            <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-ci="{{ci}}" class="color-theme text-small-s">
+              <text style="margin-right: 8rpx;" class="fa fa-trash"></text>删除
+            </view>
+          </view>
+          <!-- 子表组件 -->
+          <block a:for="{{sf}}" a:for-item="sc" a:for-index="sci">
+            <!-- 单行输入 -->
+            <e-input a:if="{{sc.component === 'e-input'}}" model="{{sc}}" onValidate={{'on_'+sc.fid+'_'+sc.key}}></e-input>
+          </block>
+        </view>
+        <!-- 子表增行按钮 -->
+        <button onTap="handleAdd" data-ci="{{ci}}" class="btn-add center color-theme opacity-btn">
+          <text style="margin-right: 8rpx;" class="fa fa-plus"/>增加{{c.label}}
+        </button>
       </view>
-    </form>
+    </block>
   </scroll-view>
+  <!-- 表单操作按钮 -->
+  <view class="flex-row">
+    <button onTap="handleSubmit" class="form-btn center shadow-default">提交</button>
+  </view>
+  <!-- 底部插槽 -->
   <slot name="footer"></slot>
 </view>

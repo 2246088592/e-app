@@ -2,6 +2,9 @@
   <view class="label" onTap="handleTap" hidden="{{!model.label}}">
     <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
     <text>{{model.label}}</text>
+    <text class="text-small color-label text-right flex" a:if="{{model.maxlength > -1}}">{{model.value.length}}/{{model.maxlength}}</text>
   </view>
-  <textarea class="text-area" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm" auto-height="{{model.autoHeight}}" maxlength="{{model.maxlength}}"/>
+  <view class="text-area-wrapper">
+    <textarea class="text-area" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm" auto-height="{{model.autoHeight}}" maxlength="{{model.maxlength}}"/>
+  </view>
 </view>

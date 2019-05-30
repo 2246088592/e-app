@@ -10,12 +10,14 @@
 }
 
 .input-wrapper>.depts-wrapper>.placeholder {
+  background-color: none;
   position: absolute;
   top: 0;
   left: 0;
   height: 60rpx;
   line-height: 60rpx;
   padding: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .input-wrapper>.depts-wrapper>.dept {

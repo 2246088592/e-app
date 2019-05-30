@@ -5,19 +5,18 @@ formPage({
   navigationBar: {
     title: '表单组件测试'
   },
+  
   // 业务对象
   bizObj: [
     {
       label: '单行输入',
       key: 'ask_dept',
-      component: 'e-input',
-      necessary: true
+      component: 'e-input'
     },
     {
       label: '定位',
       key: 'address',
-      component: 'e-address',
-      necessary: true
+      component: 'e-address'
     },
     {
       label: '联级选择',
@@ -52,30 +51,25 @@ formPage({
     {
       label: '日期时间',
       key: 'date',
-      component: 'e-date-picker',
-      format: 'yyyy-MM--dd',
-      necessary: true
+      component: 'e-date-picker'
     },
     {
       label: '部门选择',
       key: 'dept',
-      component: 'e-dept-chooser',
-      necessary: true
+      component: 'e-dept-chooser'
     },
     {
       label: '下拉',
       key: 'picker',
       component: 'e-picker',
-      necessary: true,
       options: {
-        array: [1,2,3,4,5,6]
+        array: [1, 2, 3, 4, 5, 6]
       }
     },
     {
       label: '滑动条',
       key: 'progress',
       component: 'e-progress-bar',
-      necessary: true,
       options: {
         unit: '条',
         showValue: true,
@@ -86,38 +80,23 @@ formPage({
     {
       label: '扫码',
       key: 'scan',
-      component: 'e-scan',
-      necessary: true
+      component: 'e-scan'
     },
     {
       label: '搜索',
       key: 'search',
       component: 'e-search',
-      necessary: true,
       options: {
         bindList: 'test',
         bindKey: 'spec'
       }
     },
     {
-      label: '搜索2',
-      key: 'search2',
-      component: 'e-search',
-      necessary: true,
-      options: {
-        bindList: 'test',
-        bindKey: 'name'
-      }
-    },
-    {
       label: '切换',
       key: 'switch',
-      component: 'e-switch',
-      checked: true,
-      trueValue: '12',
-      showValue: true
+      component: 'e-switch'
     },
-     {
+    {
       label: '多行输入',
       key: 'textArea',
       component: 'e-text-area',
@@ -126,12 +105,29 @@ formPage({
     {
       label: '人员选择',
       key: 'user',
-      component: 'e-user-chooser',
-      necessary: true
+      component: 'e-user-chooser'
     },
+    {
+      label: '子表',
+      key: 'goods',
+      component: 'e-subform',
+      subform: [
+        {
+          label: '品名',
+          key: 'good_name',
+          component: 'e-input'
+        },
+        {
+          label: '规格',
+          key: 'good_spec',
+          component: 'e-input'
+        }
+      ]
+    }
   ],
 
-  formChange(event){
+  // 表单change事件
+  formChange(event) {
     console.log(event)
   }
 })
