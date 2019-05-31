@@ -1,4 +1,2 @@
-<view class="full-parent">
-  <!-- onRules="onRules"为固定写法 -->
-  <e-form-wrapper bizObj="{{bizObj}}" onRules="onRules"></e-form-wrapper>
-</view>
+<!-- auth="{{auth}}" onRules="onRules" 为固定写法 -->
+<e-form-wrapper bizObj="{{bizObj}}" authPos="{{authPos}}" onRules="onRules"></e-form-wrapper>

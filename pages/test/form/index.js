@@ -5,7 +5,10 @@ formPage({
   navigationBar: {
     title: '表单组件测试'
   },
-  
+
+  // 权限标记，对应按钮的position
+  authPos: 1,
+
   // 业务对象
   bizObj: [
     {
@@ -129,5 +132,18 @@ formPage({
   // 表单change事件
   formChange(event) {
     console.log(event)
+  },
+
+  // 业务方法
+  methods: {
+    handle1(event) {
+      console.log(event)
+    },
+    handle2(event) {
+      console.log(event)
+    },
+    handle3(event) {
+      console.log(event)
+    }
   }
 })

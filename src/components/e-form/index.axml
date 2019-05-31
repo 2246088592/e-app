@@ -1,8 +1,6 @@
-<view class="full flex-column">
-  <!-- 头部插槽 -->
-  <slot name="header"></slot>
+<view class="pin absolute flex flex-col bg-color-white ">
   <!-- 表单 -->
-  <scroll-view scroll-y="{{true}}" class="flex">
+  <scroll-view scroll-y="{{true}}" class="flex-1">
     <block a:for="{{bizObj}}" a:for-item="c" a:for-index="ci">
       <!-- 单行输入 -->
       <e-input a:if="{{c.component === 'e-input'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-input>
@@ -29,14 +27,14 @@
       <!-- 人员选择 -->
       <e-user-chooser a:elif="{{c.component === 'e-user-chooser'}}" model="{{c}}" onValidate={{'on_'+c.fid+'_'+c.key}}></e-user-chooser>
       <!-- 子表组件 -->
-      <view a:elif="{{c.component === 'e-subform'}}" class="subform relative">
+      <view a:elif="{{c.component === 'e-subform'}}" class="relative border-bottom">
         <!-- 子表 -->
         <view a:for="{{c.children}}" a:for-item="sf" a:for-index="sfi">
           <!-- 子表头部 -->
-          <view class="relative subform-header">
-            <text class="color-text text-small">{{c.label}}({{sfi + 1}})</text>
-            <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-ci="{{ci}}" class="color-theme text-small-s">
-              <text style="margin-right: 8rpx;" class="fa fa-trash"></text>删除
+          <view class="relative border-bottom flex items-center justify-between py-2 pl-4 pr-2 bg-color-sub-separator">
+            <text class="color-sub-title text-xs">{{c.label}}({{sfi + 1}})</text>
+            <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-ci="{{ci}}" class="color-primary text-xs">
+              <text class="fa fa-trash mr-1"></text>删除
             </view>
           </view>
           <!-- 子表组件 -->
@@ -46,16 +44,15 @@
           </block>
         </view>
         <!-- 子表增行按钮 -->
-        <button onTap="handleAdd" data-ci="{{ci}}" class="btn-add center color-theme opacity-btn">
-          <text style="margin-right: 8rpx;" class="fa fa-plus"/>增加{{c.label}}
+        <button onTap="handleAdd" data-ci="{{ci}}" class="bg-color-white color-primary border-none radius-none">
+          <text class="fa fa-plus mr-1"/>增加{{c.label}}
         </button>
       </view>
     </block>
   </scroll-view>
-  <!-- 表单操作按钮 -->
-  <view class="flex-row">
-    <button onTap="handleSubmit" class="form-btn center shadow-default">提交</button>
+  <view slot="footer" class="flex flex-row py-3 relative border-top">
+    <button a:if="{{btn.position === authPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" style="{{index< btns.length - 1 ? 'border-right: 2px solid rgba(25,31,37,.08)' : ''}}" class="{{'btn-'+btn.xtype+' flex-1 border-none radius-none bg-opacity text-lg h-40 flex items-center justify-center'}}">
+      <text class="{{'fa fa-'+btn.icon_cls+' mr-1'}}"/>{{btn.action_name}}
+    </button>
   </view>
-  <!-- 底部插槽 -->
-  <slot name="footer"></slot>
 </view>

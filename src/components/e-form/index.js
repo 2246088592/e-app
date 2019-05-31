@@ -1,8 +1,20 @@
 import util from '/src/util.js'
 
 Component({
+  data: {
+    btns: [
+      {
+        action_name: "提交",
+        handler: "handleSubmit",
+        icon_cls: "save",
+        position: 1,
+        xtype: "primary"
+      }
+    ]
+  },
   props: {
     bizObj: [],
+    authPos: '',
     onRules: () => {
       return []
     }
@@ -11,9 +23,10 @@ Component({
     this.initRules()
   },
   methods: {
-    // 表单提交
-    handleSubmit() {
-      console.log(this.props.bizObj)
+    // 表单底部按钮事件
+    handleBtn(event) {
+      let btn = event.currentTarget.dataset.btn
+      this.$page[btn.handler](btn)
     },
 
     // 初始化校验函数

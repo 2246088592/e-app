@@ -2,6 +2,6 @@
   "pullRefresh": true,
   "usingComponents":{
     "e-list": "/src/components/list/e-list/index",
-    "e-input": "/src/components/form/e-input/index"
+    "e-input": "/src/components/base/e-input/index"
   }
 }

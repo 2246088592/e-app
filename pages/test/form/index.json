@@ -1,7 +1,6 @@
 {
   "allowsBounceVertical": "NO",
   "usingComponents":{
-    "e-form-wrapper": "/src/components/layout/e-form-wrapper/index",
-    "e-submit": "/src/components/form/e-submit/index"
+    "e-form": "/src/components/e-form/index"
   }
 }
