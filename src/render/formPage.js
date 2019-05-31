@@ -49,6 +49,12 @@ function initRules(f) {
 // 导出formPage渲染函数
 export default (f) => {
   return Page({
+    // data对象
+    data: {
+      // 权限标记
+      authPos: f.authPos !== undefined ? f.authPos : ''
+    },
+
     // 加载
     onLoad(query) {
       // 定义表单id
