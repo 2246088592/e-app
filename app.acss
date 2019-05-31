@@ -1,7 +1,4 @@
 @import "/src/assets/style/index.acss";
 page {
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
-  flex: 1;
-  display: flex;
-  background: #f7f7f7;
 }
