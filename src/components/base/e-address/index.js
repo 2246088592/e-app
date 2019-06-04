@@ -30,15 +30,15 @@ Component({
 
     // 定位方法
     position() {
-      let placeholder = `${this.props.model.path}.placeholder`
+      let placeholder = `${this.path}.placeholder`
       this.$page.setData({
         [placeholder]: '自动定位中...'
       })
       dd.getLocation({
         type: 2,
         success: (res) => {
-          let location = `${this.props.model.path}.location`
-          let value = `${this.props.model.path}.value`
+          let location = `${this.path}.location`
+          let value = `${this.path}.value`
           this.$page.setData({
             [placeholder]: this.props.model.necessary ? '请输入或选择地址' : '',
             [location]: res,
@@ -54,7 +54,7 @@ Component({
 
     // 输入事件同步value
     handleInput: util.debounce(function(event) {
-      let value = `${this.props.model.path}.value`
+      let value = `${this.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -62,7 +62,7 @@ Component({
 
     // 设置焦点
     handleTap() {
-      let focus = `${this.props.model.path}.focus`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -76,7 +76,7 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.model.path}.focus`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: false
       })
@@ -84,9 +84,10 @@ Component({
 
     // 初始化model的属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // address对象
       let address = {
-        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -98,10 +99,9 @@ Component({
         placeholder: model.necessary ? '必填' : '',
         notice: model.maxlength > -1 ? `长度不能超过${model.maxlength}` : ''
       }
-      let path = `${address.path}`
       // 补全属性
       this.$page.setData({
-        [path]: Object.assign(address, model)
+        [this.path]: Object.assign(address, model)
       })
       // 定位
       this.position()
@@ -126,7 +126,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

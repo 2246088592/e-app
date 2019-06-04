@@ -28,7 +28,7 @@ Component({
   methods: {
     // 输入事件同步value
     handleInput: util.debounce(function(event) {
-      let value = `${this.props.model.path}.value`
+      let value = `${this.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -39,7 +39,7 @@ Component({
       if (this.props.model.disabled) {
         return
       }
-      let focus = `${this.props.model.path}.focus`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -53,7 +53,7 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.model.path}.focus`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: false
       })
@@ -64,8 +64,8 @@ Component({
       if (this.props.model.disabled) {
         return
       }
-      let value = `${this.props.model.path}.value`
-      let focus = `${this.props.model.path}.focus`
+      let value = `${this.path}.value`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [value]: '',
         [focus]: true
@@ -74,9 +74,10 @@ Component({
 
     // 补充params的属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // textArea对象
       let textArea = {
-        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -88,10 +89,9 @@ Component({
         placeholder: model.necessary ? '必填' : '',
         notice: model.maxlength ? `长度不能超过${model.maxlength}` : ''
       }
-      let path = `${textArea.path}`
       // 补全属性
       this.$page.setData({
-        [path]: Object.assign(textArea, model)
+        [this.path]: Object.assign(textArea, model)
       })
     },
 
@@ -114,7 +114,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

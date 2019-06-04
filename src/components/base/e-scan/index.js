@@ -26,7 +26,7 @@ Component({
   methods: {
     // 输入事件同步value
     handleInput(event) {
-      let value = `${this.props.model.path}.value`
+      let value = `${this.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -34,7 +34,7 @@ Component({
 
     // 设置焦点
     handleTap() {
-      let focus = `${this.props.model.path}.focus`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
       })
@@ -48,7 +48,7 @@ Component({
 
     // 失去焦点
     handleBlur(event) {
-      let focus = `${this.props.model.path}.focus`
+      let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: false
       })
@@ -66,9 +66,10 @@ Component({
 
     // 初始化属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // scan对象
       let scan = {
-        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -80,10 +81,9 @@ Component({
         placeholder: model.necessary ? '必填' : '',
         notice: model.maxlength ? `长度不能超过${model.maxlength}` : ''
       }
-      let path = `${scan.path}`
       // 补全属性
       this.$page.setData({
-        [path]: Object.assign(scan, model)
+        [this.path]: Object.assign(scan, model)
       })
     },
 
@@ -106,7 +106,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

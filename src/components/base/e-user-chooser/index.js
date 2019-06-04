@@ -27,7 +27,7 @@ Component({
     // 删除已选人
     handleDelete(event) {
       let i = event.currentTarget.dataset.itemIndex
-      let pickedUsers = `${this.model.model.path}.value`
+      let pickedUsers = `${this.path}.value`
       this.$page.$spliceData({
         [pickedUsers]: [i, 1]
       })
@@ -53,7 +53,7 @@ Component({
         responseUserOnly: true,
         startWithDepartmentId: 0,
         success: (res) => {
-          let pickedUsers = `${this.props.model.path}.value`
+          let pickedUsers = `${this.path}.value`
           this.$page.$spliceData({
             [pickedUsers]: [0, this.props.model.value.length, ...res.users]
           })
@@ -68,9 +68,10 @@ Component({
 
     // 初始化属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // userChooser对象
       let userChooser = {
-        path: `bizObj[${model.formIndex}]`,
         max: 100,
         value: [],
         label: '',
@@ -80,14 +81,13 @@ Component({
         necessary: false,
         notice: model.necessary ? '至少选择一个人' : ''
       }
-      let path = `${userChooser.path}`
       // 补全属性
       model.users = Object.assign({
         disabledUsers: [],
         requiredUsers: []
       }, model.users)
       this.$page.setData({
-        [path]: Object.assign(userChooser, model)
+        [this.path]: Object.assign(userChooser, model)
       })
     },
 
@@ -100,7 +100,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

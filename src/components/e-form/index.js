@@ -14,7 +14,7 @@ Component({
   },
   props: {
     bizObj: [],
-    authPos: '',
+    btnPos: '',
     onRules: () => {
       return []
     }
@@ -50,11 +50,21 @@ Component({
 
     // 删除行
     handleDelete(event) {
-      let ci = event.currentTarget.dataset.ci
+      let c = event.currentTarget.dataset.c
       let sfi = event.currentTarget.dataset.sfi
-      let children = `bizObj[${ci}].children`
-      this.$page.$spliceData({
-        [children]: [sfi, 1]
+      dd.confirm({
+        title: '温馨提示',
+        content: `确认删除${c.label}${sfi + 1}吗?`,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        success: (res) => {
+          if (res.confirm) {
+            let children = `bizObj[${c.ci}].children`
+            this.$page.$spliceData({
+              [children]: [sfi, 1]
+            })
+          }
+        }
       })
     }
   }

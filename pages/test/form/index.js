@@ -7,24 +7,27 @@ formPage({
   },
 
   // 权限标记，对应按钮的position
-  authPos: 1,
+  btnPos: 1,
 
   // 业务对象
   bizObj: [
     {
-      label: '单行输入',
+      label: '单行输入12 3123 12312',
       key: 'ask_dept',
-      component: 'e-input'
+      component: 'e-input',
+      necessary: true
     },
     {
       label: '定位',
       key: 'address',
-      component: 'e-address'
+      component: 'e-address',
+      necessary: true
     },
     {
       label: '联级选择',
       key: 'ask_type',
       component: 'e-cascader',
+      necessary: true,
       options: {
         bindKey: 'name',
         tree: [
@@ -54,17 +57,27 @@ formPage({
     {
       label: '日期时间',
       key: 'date',
-      component: 'e-date-picker'
+      component: 'e-date-picker',
+      necessary: true
     },
     {
       label: '部门选择',
       key: 'dept',
-      component: 'e-dept-chooser'
+      component: 'e-dept-chooser',
+      value: [
+        {
+          name: '开发部'
+        },
+        {
+          name: '设计部'
+        }
+      ]
     },
     {
       label: '下拉',
       key: 'picker',
       component: 'e-picker',
+      necessary: true,
       options: {
         array: [1, 2, 3, 4, 5, 6]
       }
@@ -73,6 +86,7 @@ formPage({
       label: '滑动条',
       key: 'progress',
       component: 'e-progress-bar',
+      necessary: true,
       options: {
         unit: '条',
         showValue: true,
@@ -83,7 +97,8 @@ formPage({
     {
       label: '扫码',
       key: 'scan',
-      component: 'e-scan'
+      component: 'e-scan',
+      necessary: true
     },
     {
       label: '搜索',
@@ -92,23 +107,33 @@ formPage({
       options: {
         bindList: 'test',
         bindKey: 'spec'
-      }
+      },
+      necessary: true
     },
     {
       label: '切换',
       key: 'switch',
-      component: 'e-switch'
+      component: 'e-switch',
+      necessary: true,
+      showValue: true
     },
     {
       label: '多行输入',
       key: 'textArea',
       component: 'e-text-area',
-      maxlength: 200
+      maxlength: 200,
+      necessary: true
     },
     {
       label: '人员选择',
       key: 'user',
-      component: 'e-user-chooser'
+      component: 'e-user-chooser',
+      necessary: true,
+      value: [
+        {
+          name: '陈加隆'
+        }
+      ]
     },
     {
       label: '子表',

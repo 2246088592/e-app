@@ -1,18 +1,18 @@
-<view class="input-wrapper">
-  <view class="label" hidden="{{!model.label}}">
-    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{model.label}}</text>
+<view class="relative border-bottom p-2 text-base flex items-center">
+  <view class="flex items-center w-24 color-title" hidden="{{!model.label}}">
+    <view class="w-2 h-4 color-danger flex items-center justify-center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text class="flex-1 h-4 no-wrap">{{model.label}}</text>
   </view>
-  <view class="depts-wrapper">
-    <view class="dept center" a:if="{{model.value.length}}" a:for="{{model.value}}" data-item-index="{{index}}">
-      <text class="text-middle" style="margin-right: 8rpx;">{{item.name}}</text>
-      <view class="icon-32rpx center" onTap="handleDelete">
-        <icon class="icon-32rpx" size="16" color="#fff" type="cancel"></icon>
+  <view class="relative min-h-9 pl-1 pr-2 -mb-2 flex flex-1 flex-wrap">
+    <view class="h-7 px-1 mr-2 mb-2 flex items-center justify-center color-white bg-color-primary" style="border-radius: 4rpx;" a:if="{{model.value.length}}" a:for="{{model.value}}" data-item-index="{{index}}">
+      <text class="mr-1 h-4">{{item.name}}</text>
+      <view class="w-4 h-4" onTap="handleDelete">
+        <icon size="16" color="#fff" type="cancel"></icon>
       </view>
     </view>
-    <input class="placeholder" a:if="{{!model.value.length}}" placeholder="{{model.placeholder}}" disabled="{{true}}"/>
+    <input class="p-0 h-7 bg-opacity flex-1" a:if="{{!model.value.length}}" placeholder="{{model.placeholder}}" disabled="{{true}}"/>
   </view>
-  <view class="suffix-icon center" onTap="handleAdd">
-    <text class="text-big fa fa-chevron-right"></text>
+  <view class="flex items-center h-5 w-5 color-title" onTap="handleAdd">
+    <text class="fa fa-chevron-right"></text>
   </view>
 </view>

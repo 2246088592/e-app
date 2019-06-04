@@ -105,7 +105,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

@@ -41,7 +41,7 @@ Component({
         params: { params: JSON.stringify(options.params) }
       })
       if (res.data.status === 0) {
-        let array = `${this.props.model.path}.options.array`
+        let array = `${this.path}.options.array`
         this.$page.$spliceData({
           [array]: [0, this.props.model.options.array.length, ...res.data.items]
         })
@@ -54,8 +54,8 @@ Component({
     // 点击选项事件
     handleChange(event) {
       let i = event.detail.value
-      let value = `${this.props.model.path}.value`
-      let index = `${this.props.model.path}.options.index`
+      let value = `${this.path}.value`
+      let index = `${this.path}.options.index`
       this.$page.setData({
         [value]: this.props.model.options.array[i],
         [index]: i
@@ -65,9 +65,10 @@ Component({
 
     // 补充params的属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // picker
       let picker = {
-        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -76,7 +77,6 @@ Component({
         placeholder: model.necessary ? '必填' : '',
         notice: model.necessary ? '不能为空' : ''
       }
-      let path = `${picker.path}`
       // 补全属性
       model.options = Object.assign({
         url: '',
@@ -86,7 +86,7 @@ Component({
         index: -1,
       }, model.options)
       this.$page.setData({
-        [path]: Object.assign(picker, model)
+        [this.path]: Object.assign(picker, model)
       })
       // 初始化完成后请求选项
       this.initPicker(model.options)
@@ -111,7 +111,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

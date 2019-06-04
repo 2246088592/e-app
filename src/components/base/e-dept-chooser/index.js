@@ -3,7 +3,7 @@ let app = getApp()
 
 Component({
   props: {
-    params: {},
+    model: {},
     // 默认校验方法
     onValidate: (value) => {
       return true
@@ -31,7 +31,7 @@ Component({
     // 删除已选部门
     handleDelete(event) {
       let i = event.currentTarget.dataset.itemIndex
-      let pickedDepts = `${this.props.model.path}.value`
+      let pickedDepts = `${this.path}.value`
       this.$page.$spliceData({
         [pickedDepts]: [i, 1]
       })
@@ -55,7 +55,7 @@ Component({
         requiredDepartments: this.props.model.depts.requiredDepts,
         permissionType: "GLOBAL",
         success: (res) => {
-          let pickedDepts = `${this.props.model.path}.value`
+          let pickedDepts = `${this.path}.value`
           this.$page.$spliceData({
             [pickedDepts]: [0, this.props.model.value.length, ...res.departments]
           })
@@ -70,9 +70,10 @@ Component({
 
     // 初始化model的属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // dept-chooser对象
       let deptChooser = {
-        path: `bizObj[${model.formIndex}]`,
         max: 100,
         value: [],
         label: '',
@@ -83,14 +84,13 @@ Component({
         notice: model.necessary ? '至少选择一个部门' : '',
         placeholder: model.necessary ? '必填' : ''
       }
-      let path = `${deptChooser.path}`
       // 补全属性
       model.depts = Object.assign({
         disabledDepts: [],
         requiredDepts: []
       }, model.depts)
       this.$page.setData({
-        [path]: Object.assign(deptChooser, model)
+        [this.path]: Object.assign(deptChooser, model)
       })
     },
 
@@ -113,7 +113,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

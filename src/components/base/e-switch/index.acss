@@ -1,8 +1,0 @@
-@import "../base-style.acss";
-.switch-wrapper {
-  display: flex;
-  height: 60rpx;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-end;
-}

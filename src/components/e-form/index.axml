@@ -1,4 +1,4 @@
-<view class="pin absolute flex flex-col bg-color-white ">
+<view class="pin absolute flex flex-col bg-color-white">
   <!-- 表单 -->
   <scroll-view scroll-y="{{true}}" class="flex-1">
     <block a:for="{{bizObj}}" a:for-item="c" a:for-index="ci">
@@ -33,7 +33,8 @@
           <!-- 子表头部 -->
           <view class="relative border-bottom flex items-center justify-between py-2 pl-4 pr-2 bg-color-sub-separator">
             <text class="color-sub-title text-xs">{{c.label}}({{sfi + 1}})</text>
-            <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-ci="{{ci}}" class="color-primary text-xs">
+            <!-- 子表删除按钮 -->
+            <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-c="{{c}}" class="color-primary text-xs">
               <text class="fa fa-trash mr-1"></text>删除
             </view>
           </view>
@@ -51,7 +52,7 @@
     </block>
   </scroll-view>
   <view slot="footer" class="flex flex-row py-3 relative border-top">
-    <button a:if="{{btn.position === authPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" style="{{index< btns.length - 1 ? 'border-right: 2px solid rgba(25,31,37,.08)' : ''}}" class="{{'btn-'+btn.xtype+' flex-1 border-none radius-none bg-opacity text-lg h-40 flex items-center justify-center'}}">
+    <button a:if="{{btn.position === btnPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" style="{{index< btns.length - 1 ? 'border-right: 2px solid rgba(25,31,37,.08)' : ''}}" class="{{'btn-'+btn.xtype+' flex-1 border-none radius-none bg-opacity text-lg h-40 flex items-center justify-center'}}">
       <text class="{{'fa fa-'+btn.icon_cls+' mr-1'}}"/>{{btn.action_name}}
     </button>
   </view>

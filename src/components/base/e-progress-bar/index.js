@@ -22,7 +22,7 @@ Component({
   methods: {
     // 设置value
     handleChange(event) {
-      let value = `${this.props.model.path}.value`
+      let value = `${this.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
@@ -30,9 +30,10 @@ Component({
 
     // 补充params的属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // progress对象
       let progressBar = {
-        path: `bizObj[${model.formIndex}]`,
         value: 0,
         label: '',
         status: '',
@@ -40,7 +41,6 @@ Component({
         disabled: false,
         necessary: false
       }
-      let path = `${progressBar.path}`
       // 补全属性
       model.options = Object.assign({
         unit: '%',
@@ -53,7 +53,7 @@ Component({
         handleColor: '#fff'
       }, model.options)
       this.$page.setData({
-        [path]: Object.assign(progressBar, model)
+        [this.path]: Object.assign(progressBar, model)
       })
     },
 
@@ -76,7 +76,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

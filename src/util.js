@@ -98,6 +98,19 @@ const util = {
         func.apply(this, args)
       }, delay || 1000)
     }
+  },
+
+  // 确认函数
+  ddConfirm(options, success, fail, complete) {
+    dd.confirm({
+      title: options.title ? options.title : '标题',
+      content: options.content ? options.content : '内容',
+      confirmButtonText: options.confirmButtonText ? options.confirmButtonText : '确认',
+      cancelButtonText: options.cancelButtonText ? options.cancelButtonText : '取消',
+      success: success.apply(this, arguments),
+      fail: fail.apply(this, arguments),
+      complete: complete.apply(this, arguments)
+    })
   }
 }
 

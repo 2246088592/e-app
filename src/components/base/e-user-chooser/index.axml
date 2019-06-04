@@ -1,18 +1,18 @@
-<view class="text-wrapper">
-  <view class="label" hidden="{{!model.label}}">
-    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text>{{model.label}}</text>
-    <text class="text-small color-label text-right flex" a:if="{{model.max > -1}}">{{model.value.length}}/{{model.max}}</text>
+<view class="relative border-bottom p-2 text-base flex flex-col">
+  <view class="flex items-center h-7 color-title" hidden="{{!model.label}}">
+    <view class="w-2 color-danger" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text class="flex-1 no-wrap">{{model.label}}</text>
+    <text class="text-sm color-label" a:if="{{model.max}}">{{model.value.length || 0}}/{{model.max}}</text>
   </view>
-  <view class="users-wrapper">
-    <view class="avatar" onTap="handleDelete" a:for="{{model.value}}" data-item-index="{{index}}">
-      <image a:if="{{item.avatar}}" class="circle-btn icon-72rpx shadow-btn" src="{{item.avatar}}" mode="aspectFit" />
-      <text a:else class="no-wrap no-avatar circle-btn icon-72rpx shadow-btn">{{item.name}}</text>
-      <icon class="icon-close" type="clear" size="16" color="#C0C0C0" />
-      <text class="avatar-name">{{item.name}}</text>
+  <view class="flex flex-1 flex-wrap pl-2 -mb-2">
+    <view class="relative flex flex-col items-center pr-2 pb-2" onTap="handleDelete" a:for="{{model.value}}" data-item-index="{{index}}">
+      <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow" src="{{item.avatar}}" mode="aspectFit" />
+      <text a:else class="no-wrap bg-color-primary color-white circle w-9 h-9 shadow">{{item.name}}</text>
+      <icon class="absolute circle bg-color-white" style="top: -6rpx; right: 10rpx;" type="clear" size="16" color="#C0C0C0" />
+      <text class="mt-1 color-title text-sm">{{item.name}}</text>
     </view>
-    <button style="margin-bottom: 16rpx;" class="circle-btn icon-72rpx shadow-btn" type="primary" onTap="handleAdd">
-      <text class="text-big fa fa-plus"></text>
+    <button class="flex items-center justify-center circle w-9 h-9 mb-2 shadow" type="primary" onTap="handleAdd">
+      <text class="text-lg fa fa-plus"></text>
     </button>
   </view>
 </view>

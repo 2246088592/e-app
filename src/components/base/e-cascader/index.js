@@ -75,7 +75,7 @@ Component({
         util.ddToast('fail', '请选择一个有效值')
         return
       }
-      let value = `${this.props.model.path}.value`
+      let value = `${this.path}.value`
       this.$page.setData({
         [value]: this.data.current
       })
@@ -157,9 +157,10 @@ Component({
 
     // 初始化model的属性
     init(model) {
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // cascader对象
       let cascader = {
-        path: `bizObj[${model.formIndex}]`,
         value: '',
         label: '',
         status: '',
@@ -168,7 +169,6 @@ Component({
         placeholder: model.necessary ? '必填' : '',
         notice: model.necessary ? '不能为空' : ''
       }
-      let path = `${cascader.path}`
       // 补全属性
       model.options = Object.assign({
         url: '',
@@ -177,7 +177,7 @@ Component({
         bindKey: ''
       }, model.options)
       this.$page.setData({
-        [path]: Object.assign(cascader, model)
+        [this.path]: Object.assign(cascader, model)
       })
       // 初始化完成后请求选项
       this.initCascader(model.options)
@@ -202,7 +202,7 @@ Component({
       if (this.props.model.status === result) {
         return
       }
-      let status = `${this.props.model.path}.status`
+      let status = `${this.path}.status`
       this.$page.setData({
         [status]: result
       })

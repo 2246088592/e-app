@@ -21,8 +21,8 @@ Component({
   methods: {
     // 切换事件
     switchChange(event) {
-      let checked = `${this.props.model.path}.checked`
-      let value = `${this.props.model.path}.value`
+      let checked = `${this.path}.checked`
+      let value = `${this.path}.value`
       this.$page.setData({
         [checked]: event.detail.value,
         [value]: event.detail.value ? this.props.model.trueValue : this.props.model.falseValue
@@ -33,9 +33,10 @@ Component({
     init(model) {
       // 删除默认value，依据checked重新设置value
       delete model.value
+      // 配置path
+      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
       // switch对象
       let objSwitch = {
-        path: `bizObj[${model.formIndex}]`,
         label: '',
         value: model.checked ? model.trueValue !== undefined ? model.trueValue : true : model.falseValue !== undefined ? model.falseValue : false,
         trueValue: true,
@@ -44,13 +45,12 @@ Component({
         falseLabel: false,
         disabled: false,
         checked: model.checked !== undefined ? model.checked : false,
-        color: '#108ee9',
+        color: '#3296FA',
         showValue: false
       }
-      let path = `${objSwitch.path}`
       // 补全属性
       this.$page.setData({
-        [path]: Object.assign(objSwitch, model)
+        [this.path]: Object.assign(objSwitch, model)
       })
     }
   }

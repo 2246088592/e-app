@@ -1,10 +1,10 @@
-<view class="input-wrapper">
-  <view class="label" hidden="{{!model.label}}">
-    <view class="necessary center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text style="flex: 1;">{{model.label}}</text>
+<view class="relative border-bottom p-2 text-base flex items-center">
+  <view class="flex items-center w-24 color-title" hidden="{{!model.label}}">
+    <view class="w-2 h-4 color-danger flex items-center justify-center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
+    <text class="flex-1 h-4 no-wrap">{{model.label}}</text>
   </view>
-  <input class="input" type="{{model.type}}" maxlength="{{model.maxlength}}" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
-  <view class="suffix-icon center" a:if="{{model.value && !model.disabled}}" onTap="handleClear">
-    <text class="text-big fa fa-times-circle"></text>
+  <input class="pr-2 pl-1 py-0 h-7 bg-opacity flex-1" maxlength="{{model.maxlength}}" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm"/>
+  <view class="flex items-center h-5 w-5 color-title" a:if="{{model.value && !model.disabled}}" onTap="handleClear">
+    <text class="fa fa-times-circle"></text>
   </view>
 </view>
