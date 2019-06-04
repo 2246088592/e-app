@@ -1,3 +1,0 @@
-<view class="btn-wrapper" style="height: {{height}};">
-  <button class="btn-submit" onTap="submit" type="primary">提交</button>
-</view>
