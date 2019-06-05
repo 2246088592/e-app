@@ -5,14 +5,14 @@ import util from '/src/util.js'
 let app = getApp()
 
 // 初始化业务对象方法
-function initBizObj(f, fid) {
-  f.bizObj = f.bizObj.map((c, ci) => {
+function initBizObj(bizObj, fid) {
+  bizObj = util.cloneDeep(bizObj).map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
       c.subform = c.subform.map((sc, sci) => {
         return { ...sc, ci: ci, fid: fid, sci: sci }
       })
       if (c.children && c.children.length) {
-        c.children = c.children.map(sf, sfi => {
+        c.children = c.children.map((sf, sfi) => {
           sf = sf.map((sc, sci) => { return { ...sc, ci: ci, sfi: sfi, sci: sci, fid: fid } })
         })
       } else {
@@ -21,7 +21,7 @@ function initBizObj(f, fid) {
     }
     return { ...c, ci: ci, fid: fid }
   })
-  return f.bizObj
+  return bizObj
 }
 
 // 初始化校验函数合集
@@ -51,8 +51,8 @@ export default (f) => {
   return Page({
     // data对象
     data: {
-      // 权限标记
-      authPos: f.authPos !== undefined ? f.authPos : ''
+      // 权限标记，对应按钮position
+      btnPos: f.btnPos !== undefined ? f.btnPos : ''
     },
 
     // 加载
@@ -60,13 +60,13 @@ export default (f) => {
       // 定义表单id
       this.fid = `F${this.$viewId}`
       //  判断是否存在业务对象
-      if (!f.bizObj.length || !f.bizObj) {
+      if (!f.bizObj || !f.bizObj.length) {
         console.error('表单渲染函数需要配置业务对象')
         return
       }
       // 设置业务对象
       this.setData({
-        bizObj: initBizObj(f, this.fid)
+        bizObj: initBizObj(f.bizObj, this.fid)
       })
       // 设置导航栏
       util.setNavigationBar(f.navigationBar)

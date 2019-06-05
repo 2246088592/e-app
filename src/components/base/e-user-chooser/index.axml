@@ -5,13 +5,13 @@
     <text class="text-sm color-label" a:if="{{model.max}}">{{model.value.length || 0}}/{{model.max}}</text>
   </view>
   <view class="flex flex-1 flex-wrap pl-2 -mb-2">
-    <view class="relative flex flex-col items-center pr-2 pb-2" onTap="handleDelete" a:for="{{model.value}}" data-item-index="{{index}}">
-      <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow" src="{{item.avatar}}" mode="aspectFit" />
-      <text a:else class="no-wrap bg-color-primary color-white circle w-9 h-9 shadow">{{item.name}}</text>
-      <icon class="absolute circle bg-color-white" style="top: -6rpx; right: 10rpx;" type="clear" size="16" color="#C0C0C0" />
-      <text class="mt-1 color-title text-sm">{{item.name}}</text>
+    <view class="relative flex flex-col items-center pr-3 pb-2" onTap="handleDelete" a:for="{{model.value}}" data-item-index="{{index}}">
+      <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md" src="{{item.avatar}}" mode="aspectFit" />
+      <text a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md">{{item.name[0]}}</text>
+      <icon class="absolute circle bg-color-white" style="top: -4rpx; right: 18rpx;" type="clear" size="16" color="#191F25 56%" />
+      <text class="mt-1 color-title text-xs">{{item.name}}</text>
     </view>
-    <button class="flex items-center justify-center circle w-9 h-9 mb-2 shadow" type="primary" onTap="handleAdd">
+    <button class="flex items-center justify-center circle w-9 h-9 mb-2 shadow-md" type="primary" onTap="handleAdd">
       <text class="text-lg fa fa-plus"></text>
     </button>
   </view>

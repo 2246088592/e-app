@@ -64,6 +64,7 @@ formPage({
       label: '部门选择',
       key: 'dept',
       component: 'e-dept-chooser',
+      necessary: true,
       value: [
         {
           name: '开发部'
