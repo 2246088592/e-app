@@ -1,0 +1,20 @@
+<scroll-view scroll-y="{{true}}" class="absolute pin bg-sub-separator">
+  <view a:for="{{menuGroup}}" class="{{'bg-color-white '+(index === menuGroup.length - 1 ? '' : 'mb-5')}}">
+    <view onTap="handleSwitch" data-i="{{index}}" a:if="{{item.title}}" class="flex items-center justify-between px-2 py-3">
+      <text class="color-big-title">{{item.title}}</text>
+      <text class="text-sm color-title">{{opened[index] !== false ? '收起' : '展开'}}</text>
+    </view>
+    <view a:if="{{opened[index] !== false}}" class="flex flex-wrap relative pb-3">
+      <block a:for="{{item.children}}" a:for-item="menu">
+        <view style="width: {{100/columnNum}}%; padding-top: {{100/columnNum}}%;" class="relative">
+          <view class="pin absolute flex flex-col items-center justify-center">
+            <button onTap="handleTap" class="flex items-center justify-center radius-2 h-12 w-12 text-2xl" type="primary" data-menu="{{menu}}">
+              <text class="{{'fa fa-' + menu.icon_cls}}"></text>
+            </button>
+            <text class="absolute w-full text-center pin-b text-xs color-title">{{menu.menu_name}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</scroll-view>

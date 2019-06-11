@@ -2,11 +2,15 @@
 	"pages": [
 		"pages/index/index",
 
+    "pages/home/index",
+
     "pages/launch/list/index",
 
     "pages/good/list/index",
     
 		"pages/my-page/index",
+
+    "pages/purchasing/form/index",
 
     "pages/test/list/index",
     "pages/test/form/index"
@@ -25,7 +29,7 @@
 		"backgroundColor": "#F5F5F9",
 		"items": [
       {
-				"pagePath": "pages/index/index",
+				"pagePath": "pages/home/index",
 				"name": "审批",
 				"icon": "/src/assets/icon/sp.png",
 				"activeIcon": "/src/assets/icon/sp-active.png"

@@ -12,7 +12,7 @@
     </view>
     <input class="p-0 h-7 bg-opacity flex-1" a:if="{{!model.value.length}}" placeholder="{{model.placeholder}}" disabled="{{true}}"/>
   </view>
-  <view class="flex items-center h-5 w-5 color-title" onTap="handleAdd">
-    <text class="fa fa-chevron-right"></text>
+  <view class="flex items-center justify-center h-5 w-5 color-title" onTap="handleAdd">
+    <text class="text-xl fa fa-chevron-right"></text>
   </view>
 </view>

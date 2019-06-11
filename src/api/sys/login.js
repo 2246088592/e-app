@@ -9,7 +9,7 @@ const REFRESH_URL = '/uaa/auth/refresh'
 const REFRESH_INTERVAL = 900000
 
 // 登录
-function login() {
+function login(mock) {
   util.ddLoader.show('登录中...')
   dd.getAuthCode({
     success: (res) => {
@@ -19,12 +19,15 @@ function login() {
       }
       // 开始刷新token
       refreshToken()
-      http.get(options).then(res => {
+      http.get(options, mock).then(res => {
         util.ddLoader.hide()
         if (res.data.status === 0) {
           getApp().globalData.userInfo = res.data.data
           getApp().globalData.token = res.data.data.token
           welcome(res.data.data.user_name)
+          dd.switchTab({
+            url: '/pages/home/index'
+          })
         } else {
           util.ddToast('fail', res.data.message || '登录失败')
         }

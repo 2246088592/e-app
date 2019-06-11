@@ -19,7 +19,7 @@ const globalData = {
 
 // launch初始化
 function onLaunch(options) {
-  login()
+  login({ mock: 'login' })
 }
 
 // show事件

@@ -57,6 +57,10 @@ export default (f) => {
 
     // 加载
     onLoad(query) {
+      // 初始化菜单信息
+      if (query.menu) {
+        this.menu = JSON.parse(query.menu)
+      }
       // 定义表单id
       this.fid = `F${this.$viewId}`
       //  判断是否存在业务对象

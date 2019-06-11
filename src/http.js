@@ -1,10 +1,15 @@
 import util from '/src/util.js'
+import TDO from '/src/mock.js'
 
 // http对象
 const http = {
   // 通用get方法
-  get(options) {
+  get(options, mock) {
     return new Promise((resolve, reject) => {
+      if (mock && mock.mock && TDO[mock.mock]) {
+        resolve(TDO[mock.mock])
+        return
+      }
       dd.httpRequest({
         url: `${getApp().globalData.host + options.url}`,
         method: 'GET',
