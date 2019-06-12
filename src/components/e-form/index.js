@@ -60,19 +60,11 @@ Component({
 
     // 初始化动态按钮
     initBtns() {
-      let key = `permission${getApp().globalData.userInfo.user_name}`
-      dd.getStorage({
-        key: key,
-        success: (res) => {
-          let id = this.$page.menu.id
-          this.setData({
-            btns: res.data[id]
-          })
-        },
-        fail: (err) => {
-          util.ddToast('fail', '动态按钮加载失败，请联系管理员')
-          console.error(err)
-        }
+      util.db.get({ dbName: 'permission', user: true }).then(data => {
+        let id = this.$page.menu.id
+        this.setData({
+          btns: data[id]
+        })
       })
     }
   }

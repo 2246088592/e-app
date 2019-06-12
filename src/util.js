@@ -111,7 +111,68 @@ const util = {
       fail: fail.apply(this, arguments),
       complete: complete.apply(this, arguments)
     })
+  },
+
+  // 缓存
+  db: {
+    // 设置
+    set({ dbName = 'database', path = '', value = '', user = true }) {
+      return new Promise((resolve, reject) => {
+        dd.setStorage({
+          key: pathInit({ dbName, path, user }),
+          data: value,
+          success: (result) => {
+            resolve(result)
+          },
+          fail: (err) => {
+            reject(err)
+          }
+        })
+      })
+    },
+    // 获取
+    get({ dbName = 'database', path = '', defaultValue = '', user = true }) {
+      return new Promise((resolve, reject) => {
+        dd.getStorage({
+          key: pathInit({ dbName, path, user }),
+          success: (result) => {
+            resolve(result.data)
+          },
+          fail: (err) => {
+            reject(err)
+          }
+        })
+      })
+    },
+    // 删除缓存
+    remove({ dbName = 'database', path = '', user = true }) {
+      return new Promise((resolve, reject) => {
+        dd.removeStorage({
+          key: pathInit({ dbName, path, user }),
+          success: (result) => {
+            resolve(result)
+          },
+          fail: (err) => {
+            reject(err)
+          }
+        })
+      })
+    }
   }
+}
+
+// 初始化缓存路径
+function pathInit({ dbName = 'database', path = '', user = true, validator = () => true, defaultValue = '' }) {
+  const uuid = getApp().globalData.userInfo.id || 'ghost-uuid'
+  const currentPath = `${dbName}.${user ? `user.${uuid}` : 'public'}${path ? `.${path}` : ''}`
+  const value = dd.getStorageSync({ key: currentPath }).data
+  if (!(value !== undefined && validator(value))) {
+    dd.setStorageSync({
+      key: currentPath,
+      data: defaultValue
+    })
+  }
+  return currentPath
 }
 
 export default util

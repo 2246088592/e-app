@@ -4,7 +4,7 @@
     <text class="flex-1 h-4 no-wrap">{{model.label}}</text>
   </view>
   <view class="relative min-h-9 pl-1 pr-2 -mb-2 flex flex-1 flex-wrap">
-    <view class="h-7 px-1 mr-2 mb-2 flex items-center justify-center color-white bg-color-primary" style="border-radius: 4rpx;" a:if="{{model.value.length}}" a:for="{{model.value}}" data-item-index="{{index}}">
+    <view class="h-7 px-1 mr-2 mb-2 flex items-center justify-center color-white bg-color-primary radius-1" a:if="{{model.value.length}}" a:for="{{model.value}}" data-item-index="{{index}}">
       <text class="mr-1 h-4">{{item.name}}</text>
       <view class="w-4 h-4" onTap="handleDelete">
         <icon size="16" color="#fff" type="cancel"></icon>

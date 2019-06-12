@@ -1,4 +1,5 @@
 import { getPermissions } from '/src/api/sys/permission.js'
+import util from '/src/util.js'
 
 Page({
   data: {
@@ -22,16 +23,7 @@ Page({
   onLoad(query) {
     // 获取权限
     getPermissions({ mock: 'permission' }).then(res => {
-      // 定义唯一key
-      let key = `permission${getApp().globalData.userInfo.user_name}`
-      // 权限持久化
-      dd.setStorage({
-        key: key,
-        data: res.data,
-        fail: (err) => {
-          console.error(err)
-        }
-      })
+      util.db.set({ dbName: 'permission', user: true, value: res.data })
     })
   }
 })
