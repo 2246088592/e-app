@@ -4,11 +4,8 @@ Component({
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value, maxlength) => {
-      if (!maxlength || maxlength === -1) {
-        return true
-      }
-      return maxlength >= value.length
+    onValidate: (value) => {
+      return true
     }
   },
   // 挂载
@@ -74,11 +71,11 @@ Component({
         label: '',
         status: '',
         focus: false,
-        maxlength: -1,
+        maxlength: 200,
         disabled: false,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',
-        notice: model.maxlength > -1 ? `长度不能超过${model.maxlength}` : ''
+        notice: model.necessary ? '不能为空' : ''
       }
       // 补全属性
       this.$page.setData({
@@ -93,13 +90,13 @@ Component({
         if (!value) {
           result = 'error'
         } else {
-          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
         if (!value) {
           result = ''
         } else {
-          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
+          result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
       if (this.props.model.status === result) {

@@ -49,7 +49,7 @@ const util = {
     dd.alert({
       title: title || '缺少title',
       content: content || '缺少content',
-      buttonText: buttonText || 'OK',
+      buttonText: buttonText || '确定',
       success: () => { }
     })
   },
@@ -83,6 +83,9 @@ const util = {
 
   // 深拷贝
   cloneDeep(obj) {
+    if (typeof obj !== 'object') {
+      return obj
+    }
     let temp = {}
     temp = JSON.parse(JSON.stringify(obj))
     return temp
@@ -105,7 +108,7 @@ const util = {
     dd.confirm({
       title: options.title ? options.title : '标题',
       content: options.content ? options.content : '内容',
-      confirmButtonText: options.confirmButtonText ? options.confirmButtonText : '确认',
+      confirmButtonText: options.confirmButtonText ? options.confirmButtonText : '确定',
       cancelButtonText: options.cancelButtonText ? options.cancelButtonText : '取消',
       success: success.apply(this, arguments),
       fail: fail.apply(this, arguments),

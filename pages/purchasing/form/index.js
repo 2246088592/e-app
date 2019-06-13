@@ -59,15 +59,7 @@ formPage({
       label: '部门选择',
       key: 'dept',
       component: 'e-dept-chooser',
-      necessary: true,
-      value: [
-        {
-          name: '开发部'
-        },
-        {
-          name: '设计部'
-        }
-      ]
+      necessary: true
     },
     {
       label: '下拉',
@@ -124,12 +116,7 @@ formPage({
       label: '人员选择',
       key: 'user',
       component: 'e-user-chooser',
-      necessary: true,
-      value: [
-        {
-          name: '陈加隆'
-        }
-      ]
+      necessary: true
     },
     {
       label: '子表',
