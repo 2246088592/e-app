@@ -6,39 +6,44 @@ let app = getApp()
 
 // 初始化业务对象方法
 function initBizObj(bizObj, fid) {
-  bizObj = util.cloneDeep(bizObj).map((c, ci) => {
+  let obj = {}
+  obj = bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
       c.subform = c.subform.map((sc, sci) => {
         return { ...sc, ci: ci, fid: fid, sci: sci }
       })
       if (c.children && c.children.length) {
         c.children = c.children.map((sf, sfi) => {
-          sf = sf.map((sc, sci) => { return { ...sc, ci: ci, sfi: sfi, sci: sci, fid: fid } })
+          sf = sf.map((sc, sci) => {
+            return { ...sc, has_validate: c.validate ? true : false, ci: ci, sfi: sfi, sci: sci, fid: fid }
+          })
         })
       } else {
-        c.children = [c.subform.map((sc, sci) => { return { ...sc, ci: ci, fid: fid, sfi: 0, sci: sci } })]
+        c.children = [c.subform.map((sc, sci) => {
+          return { ...sc, has_validate: c.validate ? true : false, ci: ci, fid: fid, sfi: 0, sci: sci }
+        })]
       }
     }
-    return { ...c, ci: ci, fid: fid }
+    return { ...c, has_validate: c.validate ? true : false, ci: ci, fid: fid }
   })
-  return bizObj
+  return obj
 }
 
 // 初始化校验函数合集
-function initRules(f) {
+function initRules(f, fid) {
   // 校验函数集合
   let rules = []
   for (let i = 0; i < f.bizObj.length; i++) {
     let c = f.bizObj[i]
     if (c.validate && typeof c.validate === 'function') {
-      rules.push({ fid: this.fid, key: c.key, validate: c.validate })
+      rules.push({ fid: fid, key: c.key, validate: c.validate })
       continue
     }
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
       for (let j = 0; j < c.subform.length; j++) {
         let sc = c.subform[j]
         if (sc.validate && typeof sc.validate === 'function') {
-          rules.push({ fid: this.fid, key: sc.key, validate: sc.validate })
+          rules.push({ fid: fid, key: sc.key, validate: sc.validate })
         }
       }
     }
@@ -97,7 +102,7 @@ export default (f) => {
 
     // 校验方法
     onRules() {
-      return initRules(f)
+      return initRules(f, this.fid)
     },
 
     // 关闭
@@ -106,6 +111,68 @@ export default (f) => {
       if (f.formChange) {
         app.emitter.removeListener(`${this.fid}`, f.formChange, this)
       }
+    },
+
+    // 提交方法
+    handleSubmit() {
+      if (this.beforeSubmit) {
+        this.beforeSubmit()
+      }
+      if (!this.handleValidate()) {
+        return
+      }
+      let data = this.formatForm()
+      console.log(data)
+    },
+
+    // 校验提交数据
+    handleValidate() {
+      let key = ''
+      for (let i = 0; i < this.data.bizObj.length; i++) {
+        let c = this.data.bizObj[i]
+        key = c.label
+        if (c.component === 'e-subform') {
+          for (let j = 0; j < c.children.length; j++) {
+            key += `-${j}`
+            let sf = c.children[j]
+            for (let k = 0; k < sf.length; k++) {
+              if (sf[k].status === 'error') {
+                util.ddToast('fail', key + ' ' + sf[k].notice)
+                return false
+              }
+            }
+          }
+        } else {
+          if (c.status === 'error') {
+            util.ddToast('fail', key + ' ' + c.notice)
+            return false
+          }
+        }
+      }
+      return true
+    },
+
+    // 整理出可提交的数据
+    formatForm() {
+      let formatKV = function(arr) {
+        let o = {}
+        for (let i = 0; i < arr.length; i++) {
+          o[arr[i].key] = util.cloneDeep(arr[i].value)
+        }
+        return o
+      }
+      let data = {}
+      for (let k = 0; k < this.data.bizObj.length; k++) {
+        let c = this.data.bizObj[k]
+        if (c.component === 'e-subform') {
+          data[c.key] = c.children.map(sf => {
+            return formatKV(sf)
+          })
+        } else {
+          data[c.key] = util.cloneDeep(c.value)
+        }
+      }
+      return data
     },
 
     // 展开其他方法
