@@ -8,20 +8,20 @@
     <text class="text-xl fa fa-chevron-right"></text>
   </view>
 </view>
-<view class="fixed pin cascader-wrapper {{cascaderVisible ? 'cascader-wrapper-open' : ''}}">
-  <view class="cascader-content shadow-modal {{cascaderVisible ? 'cascader-content-open' : ''}}">
-    <breadcrumb values="{{breadcrumb}}" onItemTap="handleBreadcrumbTap"/>
-    <scroll-view style="flex: 1;" scroll-y="{{true}}">
-      <radio-group class="radio-group">
-        <view class="radio-wrapper" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
-          <radio class="radio" value="{{index}}" checked="{{currentIndex === index}}"/>
-          <text class="color-text">{{item[model.options.bindKey]}}</text>
+<view class="fixed pin z-1 flex items-center justify-center transition-300 pointer-events-none {{cascaderVisible ? 'bg-color-sub-title pointer-events-auto' : ''}}">
+  <view class="flex flex-col w-4-5 min-h-1-2 max-h-4-5 radius-2 overflow-hidden bg-color-white transition-300 shadow-md" style="transform: {{cascaderVisible ? 'translate3d(0,0,0)' : 'translate3d(113%,0,0)'}};">
+    <e-breadcrumb values="{{breadcrumb}}" className="px-2 relative border-bottom" onItemTap="handleBreadcrumbTap"/>
+    <scroll-view class="flex-1 px-2" scroll-y="{{true}}">
+      <radio-group class="flex flex-col">
+        <view class="flex items-center mx-2 mb-2 {{index === 0 ? 'mt-2' : ''}}" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
+          <radio class="mr-2 w-5 h-5 pointer-events-none" value="{{index}}" checked="{{currentIndex === index}}"/>
+          <text class="color-title">{{item[model.options.bindKey]}}</text>
         </view>
       </radio-group>
     </scroll-view>
-    <view class="cascader-btns-wrapper">
-      <button class="opacity-btn color-theme cascader-btn" onTap="handleClose">取消</button>
-      <button class="opacity-btn color-theme cascader-btn" onTap="handleSelect">确定</button>
+    <view class="relative border-top flex">
+      <button class="radius-none w-1-2 border-none bg-opacity color-primary" onTap="handleClose">取消</button>
+      <button class="radius-none w-1-2 border-none bg-opacity color-primary" onTap="handleSelect">确定</button>
     </view>
   </view>
 </view>

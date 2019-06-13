@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents":{
-    "breadcrumb":"/src/components/e-breadcrumb/index"
+    "e-breadcrumb":"/src/components/base/e-breadcrumb/index"
   }
 }

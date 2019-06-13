@@ -52,8 +52,8 @@
     </block>
   </scroll-view>
   <view class="flex flex-row relative border-top">
-    <button a:if="{{btn.position === btnPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="{{'btn-'+btn.xtype+' border-none radius-none bg-opacity flex-1 text-lg flex items-center justify-center'}}">
-      <text class="{{'fa fa-'+btn.icon_cls+' mr-1'}}"/>{{btn.action_name}}
+    <button a:if="{{btn.position === btnPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="border-none radius-none bg-opacity flex-1 text-lg flex items-center justify-center {{'btn-' + (btn.xtype || 'primary')}}">
+      <text class="fa mr-1 {{'fa-' + btn.icon_cls}}"/>{{btn.action_name}}
     </button>
   </view>
 </view>

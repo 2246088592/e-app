@@ -10,17 +10,17 @@ const REFRESH_INTERVAL = 900000
 
 // 登录
 function login(mock) {
-  util.ddLoader.show('登录中...')
   dd.getAuthCode({
-    success: (res) => {
+    success: async (res) => {
       let options = {
         params: { code: res.authCode, corp_id: getApp().globalData.appKey },
         url: LOGIN_URL
       }
       // 开始刷新token
       refreshToken()
+      // 模拟通信延迟
+      await util.sleep(3000)
       http.get(options, mock).then(res => {
-        util.ddLoader.hide()
         if (res.data.status === 0) {
           getApp().globalData.userInfo = res.data.data
           getApp().globalData.token = res.data.data.token
@@ -31,12 +31,9 @@ function login(mock) {
         } else {
           util.ddToast('fail', res.data.message || '登录失败')
         }
-      }).catch(err => {
-        util.ddLoader.hide()
       })
     },
     fail: (err) => {
-      util.ddLoader.hide()
       util.ddToast('fail', '获取免登授权码出错，请联系管理员')
     }
   })

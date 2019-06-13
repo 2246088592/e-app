@@ -62,7 +62,6 @@ Component({
           app.emitter.emit(`${this.props.model.formId}`, this.props.model.key)
         },
         fail: (err) => {
-          util.ddToast('fail', '选择部门失败')
           console.error(err)
         }
       })

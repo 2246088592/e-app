@@ -73,6 +73,9 @@ export default (f) => {
         bizObj: initBizObj(f.bizObj, this.fid)
       })
       // 设置导航栏
+      if (!f.navigationBar || !f.navigationBar.title) {
+        f.navigationBar = Object.assign({}, f.navigationBar, { title: this.menu.menu_name })
+      }
       util.setNavigationBar(f.navigationBar)
       // 执行业务onLoad
       if (f.onLoad) {

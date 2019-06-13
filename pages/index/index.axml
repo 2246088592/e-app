@@ -1,1 +1,17 @@
-<text>登录中...</text>
+<view class="fixed pin flex flex-col items-center justify-center bg-color-white">
+  <view class="lds-spinner">
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+    <view/>
+  </view>
+  <text class="color-label text-sm">加载中</text>
+</view>

@@ -1,11 +1,6 @@
 import formPage from '/src/render/formPage'
 
 formPage({
-  // 导航栏
-  navigationBar: {
-    title: '表单组件测试'
-  },
-
   // 权限标记，对应按钮的position
   btnPos: 1,
 

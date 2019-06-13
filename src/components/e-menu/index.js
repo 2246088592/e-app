@@ -39,7 +39,7 @@ Component({
           if (this.props.invisible.includes(child.menu_name)) {
             continue
           }
-          if (child.mobile_url || child.leaf_flag) {
+          if (child.mobile_url) {
             menus.push(child)
           } else {
             this.formatMenu(menuGroup, child)

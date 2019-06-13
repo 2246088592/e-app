@@ -12,18 +12,37 @@ Page({
       children: [
         {
           icon_cls: 'cubes',
-          menu_name: '物资申请',
+          menu_name: '表单演示',
           mobile_url: '/pages/purchasing/form/index',
-          id: 'testid'
+          id: 'form_test',
+          permission: [
+            {
+              "action_name": "提交演示",
+              "xtype": "danger",
+              "icon_cls": 'save',
+              "handler": 'handleSubmit',
+              "position": 1
+            }
+          ]
         }
       ]
     }
   },
 
   onLoad(query) {
-    // 获取权限
+    // 初始化固定菜单权限
+    let obj = {}
+    if (this.data.menus && this.data.menus.children.length) {
+      for (let i = 0; i < this.data.menus.children.length; i++) {
+        let menu = this.data.menus.children[i]
+        if (menu.permission && menu.permission.length) {
+          obj[menu.id] = menu.permission
+        }
+      }
+    }
+    // 获取动态菜单权限
     getPermissions({ mock: 'permission' }).then(res => {
-      util.db.set({ dbName: 'permission', user: true, value: res.data })
+      util.db.set({ dbName: 'permission', user: true, value: { ...obj, ...res.data } })
     })
   }
 })
