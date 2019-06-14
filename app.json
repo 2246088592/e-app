@@ -1,16 +1,15 @@
 {
 	"pages": [
 		"pages/index/index",
-
     "pages/home/index",
+    "pages/setting/index",
+    "pages/purchasing/form/index",
+    
 
     "pages/launch/list/index",
-
     "pages/good/list/index",
+		
     
-		"pages/my-page/index",
-
-    "pages/purchasing/form/index",
 
     "pages/test/list/index",
     "pages/test/form/index"

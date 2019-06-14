@@ -1,5 +1,5 @@
 // 工具类
-import util from '/src/util.js'
+import util from '/src/libs/util.js'
 
 // 全局app对象
 let app = getApp()
@@ -115,9 +115,9 @@ export default (f) => {
     },
 
     // 提交方法
-    handleSubmit() {
+    async handleSubmit() {
       if (this.beforeSubmit) {
-        this.beforeSubmit()
+        await this.beforeSubmit()
       }
       if (!this.handleValidate()) {
         return

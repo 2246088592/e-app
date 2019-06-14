@@ -1,5 +1,5 @@
-import http from '/src/http.js'
-import util from '/src/util.js'
+import http from '/src/http/index.js'
+import util from '/src/libs/util.js'
 
 // 登录接口
 const LOGIN_URL = '/dingding/jsapi/login'

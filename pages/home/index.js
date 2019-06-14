@@ -1,5 +1,5 @@
 import { getPermissions } from '/src/api/sys/permission.js'
-import util from '/src/util.js'
+import util from '/src/libs/util.js'
 
 Page({
   data: {

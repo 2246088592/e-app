@@ -1,5 +1,5 @@
-import http from '/src/http.js'
-import util from '/src/util.js'
+import http from '/src/http/index.js'
+import util from '/src/libs/util.js'
 
 // 权限接口
 const PERMISSION_URL = '/dingding/jsapi/login'

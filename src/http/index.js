@@ -1,5 +1,5 @@
-import util from '/src/util.js'
-import TDO from '/src/mock.js'
+import util from '/src/libs/util.js'
+import TDO from '/src/mock/index.js'
 
 // http对象
 const http = {
@@ -11,11 +11,11 @@ const http = {
         return
       }
       dd.httpRequest({
-        url: `${getApp().globalData.host + options.url}`,
+        url: getApp().globalData.host + options.url,
         method: 'GET',
         data: options.params ? options.params : undefined,
         headers: {
-          'Authorization': getApp().globalData.token || options.token || undefined
+          'Authorization': getApp().globalData.token || undefined
         },
         dataType: options.dataType ? options.dataType : 'json',
         success: (res) => {
@@ -30,14 +30,18 @@ const http = {
   },
 
   // 通用post方法
-  post(options) {
+  post(options, mock) {
     return new Promise((resolve, reject) => {
+      if (mock && mock.mock && TDO[mock.mock]) {
+        resolve(TDO[mock.mock])
+        return
+      }
       dd.httpRequest({
-        url: `${getApp().globalData.host + options.url}`,
+        url: getApp().globalData.host + options.url,
         method: 'POST',
-        data: JSON.stringify(options.params ? options.params : undefined),
+        data: options.params !== undefined ? JSON.stringify(options.params) : undefined,
         headers: {
-          'Authorization': getApp().globalData.token || options.token || undefined,
+          'Authorization': getApp().globalData.token || undefined,
           'Content-Type': 'application/json;charset=UTF-8'
         },
         dataType: options.dataType ? options.dataType : 'json',
@@ -53,9 +57,9 @@ const http = {
   },
 
   // 通用delete方法
-  delete(options) {
+  delete(options, mock) {
     options.url += '/delete'
-    return post(options)
+    return post(options, mock)
   }
 }
 

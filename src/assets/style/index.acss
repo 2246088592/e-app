@@ -1,12 +1,15 @@
-@import "./theme.acss";
 @import "./font-awesome.acss";
 *, *::after, *::before {
   box-sizing: border-box;
 }
 
+/* 是否可见 */
+
 .hidden {
   display: none;
 }
+
+/* 行内元素设置 */
 
 .inline-block {
   display: inline-block;

@@ -1,4 +1,4 @@
-import util from '/src/util.js'
+import util from '/src/libs/util.js'
 
 export default (lo) => {
   // 配置过滤对象

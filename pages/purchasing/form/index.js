@@ -89,7 +89,7 @@ formPage({
       key: 'reason',
       component: 'e-text-area',
       maxlength: 500,
-      validate: (val)=>{
+      validate: (val) => {
         console.log(val)
         return true
       }
@@ -103,14 +103,6 @@ formPage({
 
   // 业务方法
   methods: {
-    handle1(event) {
-      console.log(event)
-    },
-    handle2(event) {
-      console.log(event)
-    },
-    handle3(event) {
-      console.log(event)
-    }
+    
   }
 })

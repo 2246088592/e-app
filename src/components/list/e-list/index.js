@@ -1,5 +1,5 @@
-import util from '/src/util.js'
-import http from '/src/http.js'
+import util from '/src/libs/util.js'
+import http from '/src/http/index.js'
 
 let timer = null
 let app = getApp()

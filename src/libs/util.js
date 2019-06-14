@@ -14,7 +14,7 @@ const util = {
 
   // 格式化日期
   formatDate(fmt, date) {
-    // console.log('匹配规则\ny:年\nM:月\nd:日\nH:时\nm:分\ns:秒\nq:季节\nS:毫秒')
+    console.log('日期格式化匹配规则\ny:年\nM:月\nd:日\nH:时\nm:分\ns:秒\nq:季节\nS:毫秒')
     var o = {
       "M+": date.getMonth() + 1,
       "d+": date.getDate(),
@@ -38,25 +38,29 @@ const util = {
   ddToast(type, text, interval) {
     dd.showToast({
       type: type || 'none',
-      content: text || '缺少content',
+      content: text || '空内容',
       duration: interval || 2000,
-      success: () => { }
+      fail: (err) => {
+        console.error(err)
+      }
     })
   },
 
   // 全局alert
   ddAlert(title, content, buttonText) {
     dd.alert({
-      title: title || '缺少title',
-      content: content || '缺少content',
+      title: title || '警告',
+      content: content || '空内容',
       buttonText: buttonText || '确定',
-      success: () => { }
+      fail: (err) => {
+        console.error(err)
+      }
     })
   },
 
   // 暂停函数
   sleep(duration) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       setTimeout(resolve, duration)
     })
   },
@@ -66,6 +70,9 @@ const util = {
     show: (text) => {
       dd.showLoading({
         content: text || '加载中...',
+        fail: (err) => {
+          console.error(err)
+        }
       })
     },
     hide: () => {
@@ -76,8 +83,12 @@ const util = {
   // 设置导航栏
   setNavigationBar(options) {
     dd.setNavigationBar({
-      ...options,
-      success() { }
+      title: options.title || '空标题',
+      reset: options.reset || false,
+      backgroundColor: options.backgroundColor || '#3296FA',
+      fail: (err) => {
+        console.error(err)
+      }
     })
   },
 
@@ -103,23 +114,10 @@ const util = {
     }
   },
 
-  // 确认函数
-  ddConfirm(options, success, fail, complete) {
-    dd.confirm({
-      title: options.title ? options.title : '标题',
-      content: options.content ? options.content : '内容',
-      confirmButtonText: options.confirmButtonText ? options.confirmButtonText : '确定',
-      cancelButtonText: options.cancelButtonText ? options.cancelButtonText : '取消',
-      success: success.apply(this, arguments),
-      fail: fail.apply(this, arguments),
-      complete: complete.apply(this, arguments)
-    })
-  },
-
-  // 缓存
+  // 本地缓存，默认区分用户
   db: {
-    // 设置
-    set({ dbName = 'database', path = '', value = '', user = true }) {
+    // 写
+    set({ dbName = 'db', path = '', value = '', user = true }) {
       return new Promise((resolve, reject) => {
         dd.setStorage({
           key: pathInit({ dbName, path, user }),
@@ -133,11 +131,11 @@ const util = {
         })
       })
     },
-    // 获取
-    get({ dbName = 'database', path = '', defaultValue = '', user = true }) {
+    // 读
+    get({ dbName = 'db', path = '', defaultValue = '', user = true }) {
       return new Promise((resolve, reject) => {
         dd.getStorage({
-          key: pathInit({ dbName, path, user }),
+          key: pathInit({ dbName, path, user, defaultValue }),
           success: (result) => {
             resolve(result.data)
           },
@@ -147,8 +145,8 @@ const util = {
         })
       })
     },
-    // 删除缓存
-    remove({ dbName = 'database', path = '', user = true }) {
+    // 删除
+    remove({ dbName = 'db', path = '', user = true }) {
       return new Promise((resolve, reject) => {
         dd.removeStorage({
           key: pathInit({ dbName, path, user }),
@@ -165,7 +163,7 @@ const util = {
 }
 
 // 初始化缓存路径
-function pathInit({ dbName = 'database', path = '', user = true, validator = () => true, defaultValue = '' }) {
+function pathInit({ dbName = 'db', path = '', user = true, validator = () => true, defaultValue = '' }) {
   const uuid = getApp().globalData.userInfo.id || 'ghost-uuid'
   const currentPath = `${dbName}.${user ? `user.${uuid}` : 'public'}${path ? `.${path}` : ''}`
   const value = dd.getStorageSync({ key: currentPath }).data

@@ -1,4 +1,4 @@
-import util from '/src/util.js'
+import util from '/src/libs/util.js'
 
 Component({
   props: {

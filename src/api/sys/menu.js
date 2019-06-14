@@ -1,5 +1,5 @@
-import http from '/src/http.js'
-import util from '/src/util.js'
+import http from '/src/http/index.js'
+import util from '/src/libs/util.js'
 
 // 菜单树接口
 const MENU_TREE_URL = '/dingding/jsapi/login'
