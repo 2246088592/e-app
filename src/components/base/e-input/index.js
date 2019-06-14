@@ -1,6 +1,10 @@
 import util from '/src/libs/util.js'
+import validate from '../mixins/validate.js'
 
 Component({
+  // 混合校验
+  mixins: [validate],
+  // 接收参数
   props: {
     model: {},
     // 默认校验方法
@@ -64,7 +68,12 @@ Component({
     // 初始化model的属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // input对象
       let input = {
         value: '',
@@ -80,31 +89,6 @@ Component({
       // 补全属性
       this.$page.setData({
         [this.path]: Object.assign(input, model)
-      })
-    },
-
-    // 校验方法
-    validate(value) {
-      let result = ''
-      if (this.props.model.necessary) {
-        if (!value) {
-          result = 'error'
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      } else {
-        if (!value) {
-          result = ''
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      }
-      if (this.props.model.status === result) {
-        return
-      }
-      let status = `${this.path}.status`
-      this.$page.setData({
-        [status]: result
       })
     }
   }

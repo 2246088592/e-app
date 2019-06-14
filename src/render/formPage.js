@@ -4,30 +4,36 @@ import util from '/src/libs/util.js'
 // 全局app对象
 let app = getApp()
 
+// 克隆业务对象方法
+function cbo(obj) {
+  let str = JSON.stringify(obj, (k, v) => {
+    if (k === 'validate' && typeof v === 'function') {
+      return true
+    }
+    return v
+  })
+  return JSON.parse(str)
+}
+
 // 初始化业务对象方法
 function initBizObj(bizObj, fid) {
-  let arr = bizObj.map((c, ci) => {
+  return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let _c = { ...util.cloneDeep(c), ci: ci, fid: fid }
-      _c.subform = c.subform.map((sc, sci) => {
-        return { ...util.cloneDeep(sc), has_validate: c.validate ? true : false, ci: ci, fid: fid, sci: sci }
-      })
+      let newc = { ...cbo(c), ci: ci, fid: fid }
+      newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
       if (c.children && c.children.length) {
-        _c.children = c.children.map((sf, sfi) => {
-          return sf.map((sc, sci) => {
-            return { ...util.cloneDeep(sc), has_validate: c.validate ? true : false, ci: ci, sfi: sfi, sci: sci, fid: fid }
-          })
+        newc.children = c.children.map((sf, sfi) => {
+          return sf.map((sc, sci) => { return { ...cbo(sc), ci: ci, sfi: sfi, sci: sci, fid: fid } })
         })
       } else {
-        _c.children = [c.subform.map((sc, sci) => {
-          return { ...util.cloneDeep(sc), has_validate: c.validate ? true : false, ci: ci, fid: fid, sfi: 0, sci: sci }
+        newc.children = [c.subform.map((sc, sci) => {
+          return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci }
         })]
       }
-      return _c
+      return newc
     }
-    return { ...util.cloneDeep(c), has_validate: c.validate ? true : false, ci: ci, fid: fid }
+    return { ...cbo(c), ci: ci, fid: fid }
   })
-  return arr
 }
 
 // 初始化校验函数合集
@@ -93,7 +99,7 @@ export default (f) => {
     onReady() {
       // 监听表单change事件
       if (f.formChange) {
-        app.emitter.on(`${this.fid}`, f.formChange, this)
+        app.emitter.on(this.fid, f.formChange, this)
       }
       // 执行业务onReady
       if (f.onReady) {
@@ -110,7 +116,7 @@ export default (f) => {
     onUnload() {
       // 销毁表单change事件
       if (f.formChange) {
-        app.emitter.removeListener(`${this.fid}`, f.formChange, this)
+        app.emitter.removeListener(this.fid, f.formChange, this)
       }
     },
 

@@ -1,9 +1,13 @@
 import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
+import validate from '../mixins/validate.js'
 
 let app = getApp()
 
 Component({
+  // 混合校验
+  mixins: [validate],
+  // data
   data: {
     tree: [], // 树结构
     cascaderVisible: false, // 是否展开选择器
@@ -13,7 +17,7 @@ Component({
     current: '', // 当前所选项
     currentIndex: '' // 当前选中对象索引
   },
-
+  // 接收参数
   props: {
     model: {},
     // 默认校验方法
@@ -21,17 +25,17 @@ Component({
       return true
     }
   },
-
+  // 挂载
   didMount() {
     this.init(this.props.model)
     this.initBreadcrumb()
     this.validate(this.props.model.value)
   },
-
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
     if (prevProps.model.value !== this.props.model.value) {
+
       this.validate(this.props.model.value)
     }
     // 搜索条件变化 重新请求选项
@@ -40,7 +44,6 @@ Component({
       this.initCascader(this.props.model.options)
     }
   },
-
   methods: {
     // 初始化面包屑
     initBreadcrumb() {
@@ -158,7 +161,12 @@ Component({
     // 初始化model的属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // cascader对象
       let cascader = {
         value: '',
@@ -181,31 +189,6 @@ Component({
       })
       // 初始化完成后请求选项
       this.initCascader(model.options)
-    },
-
-    // 校验方法
-    validate(value) {
-      let result = ''
-      if (this.props.model.necessary) {
-        if (!value) {
-          result = 'error'
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      } else {
-        if (!value) {
-          result = ''
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      }
-      if (this.props.model.status === result) {
-        return
-      }
-      let status = `${this.path}.status`
-      this.$page.setData({
-        [status]: result
-      })
     }
   }
 })

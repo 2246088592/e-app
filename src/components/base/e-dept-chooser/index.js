@@ -1,32 +1,16 @@
 import util from '/src/libs/util.js'
+
 let app = getApp()
 
 Component({
+  // 接收参数
   props: {
-    model: {},
-    // 默认校验方法
-    onValidate: (value) => {
-      return true
-    }
+    model: {}
   },
-
-  // 挂载方法
+  // 挂载
   didMount() {
     this.init(this.props.model)
-    this.validate()
   },
-
-  // 更新
-  didUpdate(prevProps, prevData) {
-    if (!prevProps.model.value || !this.props.model.value) {
-      return
-    }
-    // setData后校验
-    if (prevProps.model.value.length !== this.props.model.value.length) {
-      this.validate()
-    }
-  },
-
   methods: {
     // 删除已选部门
     handleDelete(event) {
@@ -36,7 +20,6 @@ Component({
         [pickedDepts]: [i, 1]
       })
     },
-
     // 打开部门界面
     handleAdd() {
       if (this.props.model.disabled) {
@@ -66,11 +49,15 @@ Component({
         }
       })
     },
-
     // 初始化model的属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // dept-chooser对象
       let deptChooser = {
         max: 100,
@@ -80,7 +67,7 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
-        notice: model.necessary ? '至少选择一个部门' : '',
+        notice: model.necessary ? '不能为空' : '',
         placeholder: model.necessary ? '必填' : ''
       }
       // 补全属性
@@ -90,31 +77,6 @@ Component({
       }, model.depts)
       this.$page.setData({
         [this.path]: Object.assign(deptChooser, model)
-      })
-    },
-
-    // 校验方法
-    validate(value) {
-      let result = ''
-      if (this.props.model.necessary) {
-        if (!value || !this.props.model.value.length) {
-          result = 'error'
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      } else {
-        if (!value) {
-          result = ''
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      }
-      if (this.props.model.status === result) {
-        return
-      }
-      let status = `${this.path}.status`
-      this.$page.setData({
-        [status]: result
       })
     }
   }

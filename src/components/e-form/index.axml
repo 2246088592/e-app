@@ -3,29 +3,29 @@
   <scroll-view scroll-y="{{true}}" class="flex-1">
     <block a:for="{{bizObj}}" a:for-item="c" a:for-index="ci">
       <!-- 单行输入 -->
-      <e-input a:if="{{c.component === 'e-input'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-input>
+      <e-input a:if="{{c.component === 'e-input'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-input>
       <!-- 定位、地图 -->
-      <e-address a:elif="{{c.component === 'e-address'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-address>
+      <e-address a:elif="{{c.component === 'e-address'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-address>
       <!-- 联级选择 -->
-      <e-cascader a:elif="{{c.component === 'e-cascader'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-cascader>
+      <e-cascader a:elif="{{c.component === 'e-cascader'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-cascader>
       <!-- 日期时间选择 -->
-      <e-date-picker a:elif="{{c.component === 'e-date-picker'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-date-picker>
+      <e-date-picker a:elif="{{c.component === 'e-date-picker'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-date-picker>
       <!-- 部门选择 -->
-      <e-dept-chooser a:elif="{{c.component === 'e-dept-chooser'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-dept-chooser>
+      <e-dept-chooser a:elif="{{c.component === 'e-dept-chooser'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-dept-chooser>
       <!-- 下拉 -->
-      <e-picker a:elif="{{c.component === 'e-picker'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-picker>
+      <e-picker a:elif="{{c.component === 'e-picker'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-picker>
       <!-- 进度条 -->
-      <e-progress-bar a:elif="{{c.component === 'e-progress-bar'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-progress-bar>
+      <e-progress-bar a:elif="{{c.component === 'e-progress-bar'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-progress-bar>
       <!-- 扫码 -->
-      <e-scan a:elif="{{c.component === 'e-scan'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-scan>
+      <e-scan a:elif="{{c.component === 'e-scan'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-scan>
       <!-- 跳转搜索 -->
-      <e-search a:elif="{{c.component === 'e-search'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-search>
+      <e-search a:elif="{{c.component === 'e-search'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-search>
       <!-- 切换按钮 -->
-      <e-switch a:elif="{{c.component === 'e-switch'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-switch>
+      <e-switch a:elif="{{c.component === 'e-switch'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-switch>
       <!-- 多行输入 -->
-      <e-text-area a:elif="{{c.component === 'e-text-area'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-text-area>
+      <e-text-area a:elif="{{c.component === 'e-text-area'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-text-area>
       <!-- 人员选择 -->
-      <e-user-chooser a:elif="{{c.component === 'e-user-chooser'}}" model="{{c}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-user-chooser>
+      <e-user-chooser a:elif="{{c.component === 'e-user-chooser'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-user-chooser>
       <!-- 子表组件 -->
       <view a:elif="{{c.component === 'e-subform'}}" class="relative border-bottom">
         <!-- 子表 -->
@@ -40,18 +40,18 @@
           </view>
           <!-- 子表组件 -->
           <block a:for="{{sf}}" a:for-item="sc" a:for-index="sci">
-            <e-input a:if="{{sc.component === 'e-input'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-input>
-            <e-address a:elif="{{sc.component === 'e-address'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-address>
-            <e-cascader a:elif="{{sc.component === 'e-cascader'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-cascader>
-            <e-date-picker a:elif="{{sc.component === 'e-date-picker'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-date-picker>
-            <e-dept-chooser a:elif="{{sc.component === 'e-dept-chooser'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-dept-chooser>
-            <e-picker a:elif="{{sc.component === 'e-picker'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-picker>
-            <e-progress-bar a:elif="{{sc.component === 'e-progress-bar'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-progress-bar>
-            <e-scan a:elif="{{sc.component === 'e-scan'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-scan>
-            <e-search a:elif="{{sc.component === 'e-search'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-search>
-            <e-switch a:elif="{{sc.component === 'e-switch'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-switch>
-            <e-text-area a:elif="{{sc.component === 'e-text-area'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-text-area>
-            <e-user-chooser a:elif="{{sc.component === 'e-user-chooser'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-user-chooser>
+            <e-input a:if="{{sc.component === 'e-input'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-input>
+            <e-address a:elif="{{sc.component === 'e-address'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-address>
+            <e-cascader a:elif="{{sc.component === 'e-cascader'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-cascader>
+            <e-date-picker a:elif="{{sc.component === 'e-date-picker'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-date-picker>
+            <e-dept-chooser a:elif="{{sc.component === 'e-dept-chooser'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-dept-chooser>
+            <e-picker a:elif="{{sc.component === 'e-picker'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-picker>
+            <e-progress-bar a:elif="{{sc.component === 'e-progress-bar'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-progress-bar>
+            <e-scan a:elif="{{sc.component === 'e-scan'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-scan>
+            <e-search a:elif="{{sc.component === 'e-search'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-search>
+            <e-switch a:elif="{{sc.component === 'e-switch'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-switch>
+            <e-text-area a:elif="{{sc.component === 'e-text-area'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-text-area>
+            <e-user-chooser a:elif="{{sc.component === 'e-user-chooser'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-user-chooser>
           </block>
         </view>
         <!-- 子表增行按钮 -->

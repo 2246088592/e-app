@@ -7,6 +7,11 @@ formPage({
   // 业务对象
   bizObj: [
     {
+      label: '地址测试',
+      key: 'address',
+      component: 'e-address'
+    },
+    {
       label: '申请部门',
       key: 'dept',
       component: 'e-dept-chooser',
@@ -88,11 +93,7 @@ formPage({
       label: '申请理由',
       key: 'reason',
       component: 'e-text-area',
-      maxlength: 500,
-      validate: (val) => {
-        console.log(val)
-        return true
-      }
+      maxlength: 500
     }
   ],
 

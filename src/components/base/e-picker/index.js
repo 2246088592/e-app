@@ -1,9 +1,13 @@
 import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
+import validate from '../mixins/validate.js'
 
 let app = getApp()
 
 Component({
+  // 混合校验
+  mixins: [validate],
+  // 接收参数
   props: {
     model: {},
     // 默认校验函数

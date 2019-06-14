@@ -1,14 +1,15 @@
 import util from '/src/libs/util.js'
+import validate from '../mixins/validate.js'
 
 Component({
+  // 混合校验
+  mixins: [validate],
+  // 接收参数
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value, maxlength) => {
-      if (!maxlength || maxlength === -1) {
-        return true
-      }
-      return maxlength >= value.length
+    onValidate: (value) => {
+      return true
     }
   },
   // 挂载
@@ -25,11 +26,15 @@ Component({
   },
 
   methods: {
-    // 唤起地图
+    // 唤起地图（未实现）
     oepnMap(event) { },
 
     // 定位方法
     position() {
+      if (this.props.model.disabled) {
+        return
+      }
+      let oldPlaceholder = this.props.model.placeholder
       let placeholder = `${this.path}.placeholder`
       this.$page.setData({
         [placeholder]: '自动定位中...'
@@ -40,13 +45,13 @@ Component({
           let location = `${this.path}.location`
           let value = `${this.path}.value`
           this.$page.setData({
-            [placeholder]: this.props.model.necessary ? '请输入或选择地址' : '',
+            [placeholder]: oldPlaceholder,
             [location]: res,
             [value]: res.address
           })
         },
         fail: (err) => {
-          util.ddToast('fail', '自动定位失败,请手动输入或选择...')
+          util.ddToast('fail', '自动定位失败，请手动定位或输入地址')
           console.error(err)
         }
       })
@@ -85,7 +90,12 @@ Component({
     // 初始化model的属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // address对象
       let address = {
         value: '',
@@ -93,11 +103,11 @@ Component({
         status: '',
         focus: false,
         location: {},
-        maxlength: -1,
+        maxlength: 200,
         disabled: false,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',
-        notice: model.maxlength > -1 ? `长度不能超过${model.maxlength}` : ''
+        notice: model.necessary ? '不能为空' : ''
       }
       // 补全属性
       this.$page.setData({
@@ -105,31 +115,6 @@ Component({
       })
       // 定位
       this.position()
-    },
-
-    // 校验方法
-    validate(value) {
-      let result = ''
-      if (this.props.model.necessary) {
-        if (!value) {
-          result = 'error'
-        } else {
-          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
-        }
-      } else {
-        if (!value) {
-          result = ''
-        } else {
-          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
-        }
-      }
-      if (this.props.model.status === result) {
-        return
-      }
-      let status = `${this.path}.status`
-      this.$page.setData({
-        [status]: result
-      })
     }
   }
 })
