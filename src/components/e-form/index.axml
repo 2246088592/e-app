@@ -40,8 +40,18 @@
           </view>
           <!-- 子表组件 -->
           <block a:for="{{sf}}" a:for-item="sc" a:for-index="sci">
-            <!-- 单行输入 -->
-            <e-input a:if="{{sc.component === 'e-input'}}" model="{{sc}}" onValidate="{{c.has_validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-input>
+            <e-input a:if="{{sc.component === 'e-input'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-input>
+            <e-address a:elif="{{sc.component === 'e-address'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-address>
+            <e-cascader a:elif="{{sc.component === 'e-cascader'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-cascader>
+            <e-date-picker a:elif="{{sc.component === 'e-date-picker'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-date-picker>
+            <e-dept-chooser a:elif="{{sc.component === 'e-dept-chooser'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-dept-chooser>
+            <e-picker a:elif="{{sc.component === 'e-picker'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-picker>
+            <e-progress-bar a:elif="{{sc.component === 'e-progress-bar'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-progress-bar>
+            <e-scan a:elif="{{sc.component === 'e-scan'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-scan>
+            <e-search a:elif="{{sc.component === 'e-search'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-search>
+            <e-switch a:elif="{{sc.component === 'e-switch'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-switch>
+            <e-text-area a:elif="{{sc.component === 'e-text-area'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-text-area>
+            <e-user-chooser a:elif="{{sc.component === 'e-user-chooser'}}" model="{{sc}}" onValidate="{{sc.has_validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-user-chooser>
           </block>
         </view>
         <!-- 子表增行按钮 -->

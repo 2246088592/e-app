@@ -7,133 +7,92 @@ formPage({
   // 业务对象
   bizObj: [
     {
-      label: '单行输入12 3123 12312',
-      key: 'ask_dept',
-      component: 'e-input',
-      necessary: true
-    },
-    {
-      label: '定位',
-      key: 'address',
-      component: 'e-address',
-      necessary: true
-    },
-    {
-      label: '联级选择',
-      key: 'ask_type',
-      component: 'e-cascader',
-      necessary: true,
-      options: {
-        bindKey: 'name',
-        tree: [
-          {
-            name: '医用耗材',
-            children: [
-              { name: '针头' },
-              { name: '针筒' },
-              { name: '导尿管' },
-              { name: '留置针' },
-              { name: '手套/指套' },
-              { name: '绷带' }
-            ]
-          },
-          {
-            name: '办公用品',
-            children: [
-              { name: '纸' },
-              { name: '资料册' },
-              { name: '笔' },
-              { name: '夹子' }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      label: '日期时间',
-      key: 'date',
-      component: 'e-date-picker',
-      necessary: true
-    },
-    {
-      label: '部门选择',
+      label: '申请部门',
       key: 'dept',
       component: 'e-dept-chooser',
       necessary: true
     },
     {
-      label: '下拉',
-      key: 'picker',
-      component: 'e-picker',
-      necessary: true,
-      options: {
-        array: [1, 2, 3, 4, 5, 6]
-      }
-    },
-    {
-      label: '滑动条',
-      key: 'progress',
-      component: 'e-progress-bar',
-      necessary: true,
-      options: {
-        unit: '条',
-        showValue: true,
-        max: 20,
-        step: 2
-      }
-    },
-    {
-      label: '扫码',
-      key: 'scan',
-      component: 'e-scan',
-      necessary: true
-    },
-    {
-      label: '搜索',
-      key: 'search',
-      component: 'e-search',
-      options: {
-        bindList: 'test',
-        bindKey: 'spec'
-      },
-      necessary: true
-    },
-    {
-      label: '切换',
-      key: 'switch',
-      component: 'e-switch',
-      necessary: true,
-      showValue: true
-    },
-    {
-      label: '多行输入',
-      key: 'textArea',
-      component: 'e-text-area',
-      maxlength: 200,
-      necessary: true
-    },
-    {
-      label: '人员选择',
+      label: '申请人',
       key: 'user',
       component: 'e-user-chooser',
       necessary: true
     },
     {
-      label: '子表',
+      label: '申请时间',
+      key: 'date',
+      component: 'e-date-picker',
+      default: true,
+      disabled: true,
+      format: 'yyyy-MM-dd HH:mm'
+    },
+    {
+      label: '申请物品',
       key: 'goods',
       component: 'e-subform',
       subform: [
         {
+          label: '类型',
+          key: 'good_type',
+          component: 'e-cascader',
+          necessary: true,
+          options: {
+            bindKey: 'name',
+            tree: [
+              {
+                name: '医用耗材',
+                children: [
+                  { name: '针头' },
+                  { name: '针筒' },
+                  { name: '导尿管' },
+                  { name: '留置针' },
+                  { name: '手套/指套' },
+                  { name: '绷带' }
+                ]
+              },
+              {
+                name: '办公用品',
+                children: [
+                  { name: '纸' },
+                  { name: '资料册' },
+                  { name: '笔' },
+                  { name: '夹子' }
+                ]
+              }
+            ]
+          }
+        },
+        {
           label: '品名',
-          key: 'good_name',
+          key: 'search',
+          component: 'e-search',
+          options: {
+            bindList: 'test',
+            bindKey: 'spec'
+          },
+          necessary: true
+        },
+        {
+          label: '建议规格',
+          key: 'good_spec',
           component: 'e-input'
         },
         {
-          label: '规格',
+          label: '申请数量',
           key: 'good_spec',
           component: 'e-input'
         }
       ]
+    },
+    {
+      label: '申请理由',
+      key: 'reason',
+      component: 'e-text-area',
+      maxlength: 500,
+      validate: (val)=>{
+        console.log(val)
+        return true
+      }
     }
   ],
 

@@ -11,17 +11,16 @@ Page({
     menus: {
       children: [
         {
-          icon_cls: 'cubes',
-          menu_name: '表单演示',
+          icon_cls: 'cube',
+          menu_name: '物品申请',
           mobile_url: '/pages/purchasing/form/index',
-          id: 'form_test',
+          id: 'purchasing',
           permission: [
             {
-              "action_name": "提交演示",
-              "xtype": "danger",
-              "icon_cls": 'save',
-              "handler": 'handleSubmit',
-              "position": 1
+              "position": 1,
+              "action_name": "提交",
+              "xtype": "primary",
+              "handler": 'handleSubmit'
             }
           ]
         }
