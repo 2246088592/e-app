@@ -6,27 +6,28 @@ let app = getApp()
 
 // 初始化业务对象方法
 function initBizObj(bizObj, fid) {
-  let obj = {}
-  obj = bizObj.map((c, ci) => {
+  let arr = bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      c.subform = c.subform.map((sc, sci) => {
-        return { ...sc, ci: ci, fid: fid, sci: sci }
+      let _c = { ...util.cloneDeep(c), ci: ci, fid: fid }
+      _c.subform = c.subform.map((sc, sci) => {
+        return { ...util.cloneDeep(sc), has_validate: c.validate ? true : false, ci: ci, fid: fid, sci: sci }
       })
       if (c.children && c.children.length) {
-        c.children = c.children.map((sf, sfi) => {
-          sf = sf.map((sc, sci) => {
-            return { ...sc, has_validate: c.validate ? true : false, ci: ci, sfi: sfi, sci: sci, fid: fid }
+        _c.children = c.children.map((sf, sfi) => {
+          return sf.map((sc, sci) => {
+            return { ...util.cloneDeep(sc), has_validate: c.validate ? true : false, ci: ci, sfi: sfi, sci: sci, fid: fid }
           })
         })
       } else {
-        c.children = [c.subform.map((sc, sci) => {
-          return { ...sc, has_validate: c.validate ? true : false, ci: ci, fid: fid, sfi: 0, sci: sci }
+        _c.children = [c.subform.map((sc, sci) => {
+          return { ...util.cloneDeep(sc), has_validate: c.validate ? true : false, ci: ci, fid: fid, sfi: 0, sci: sci }
         })]
       }
+      return _c
     }
-    return { ...c, has_validate: c.validate ? true : false, ci: ci, fid: fid }
+    return { ...util.cloneDeep(c), has_validate: c.validate ? true : false, ci: ci, fid: fid }
   })
-  return obj
+  return arr
 }
 
 // 初始化校验函数合集
