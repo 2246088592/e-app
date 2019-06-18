@@ -43,7 +43,7 @@ Component({
       dd.complexChoose({
         title: `选择${this.props.model.label}`,
         multiple: this.props.model.multiple,
-        limitTips: `超过限定人数${this.props.model.max}`,
+        limitTips: `最多选择${this.props.model.max}人`,
         maxUsers: this.props.model.max,
         // 已选
         pickedUsers: this.props.model.value.map(row => row.userId),

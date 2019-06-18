@@ -18,8 +18,6 @@ function login(mock) {
       }
       // 开始刷新token
       // refreshToken()
-      // 模拟通信延迟
-      await util.sleep(3000)
       http.get(options, mock).then(res => {
         if (res.data.errcode === 0) {
           getApp().globalData.userInfo = res.data

@@ -1,9 +1,0 @@
-<view class="customer-list full-parent">
-  <e-list listOptions="{{launchList}}">
-    <view slot="filter">
-      <e-input params="{{cus_code}}"></e-input>
-      <e-input params="{{assign_dept_name}}"></e-input>
-      <e-input params="{{assign_person_name}}"></e-input>
-    </view>
-  </e-list>
-</view>
