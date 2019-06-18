@@ -23,6 +23,12 @@ Page({
               "handler": 'handleSubmit'
             }
           ]
+        },
+        {
+          icon_cls: 'tag',
+          menu_name: '表单测试',
+          mobile_url: '/pages/test/form/index',
+          id: 'formtest'
         }
       ]
     }

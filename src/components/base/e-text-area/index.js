@@ -1,13 +1,14 @@
 import util from '/src/libs/util.js'
+import validate from '../mixins/validate.js'
 
 Component({
+  // 混合校验
+  mixins: [validate],
+  // 接收参数
   props: {
     model: {},
-    onValidate: (value, maxlength) => {
-      if (!length || length === -1) {
-        return true
-      }
-      return length >= model.length
+    onValidate: (value) => {
+      return true
     }
   },
 
@@ -75,7 +76,12 @@ Component({
     // 补充params的属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // textArea对象
       let textArea = {
         value: '',
@@ -87,36 +93,11 @@ Component({
         necessary: false,
         autoHeight: true,
         placeholder: model.necessary ? '必填' : '',
-        notice: model.maxlength ? `长度不能超过${model.maxlength}` : ''
+        notice: model.necessary ? '不能为空' : ''
       }
       // 补全属性
       this.$page.setData({
         [this.path]: Object.assign(textArea, model)
-      })
-    },
-
-    // 校验方法
-    validate(value) {
-      let result = ''
-      if (this.props.model.necessary) {
-        if (!value) {
-          result = 'error'
-        } else {
-          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
-        }
-      } else {
-        if (!value) {
-          result = ''
-        } else {
-          result = this.props.onValidate(value, this.props.model.maxlength) ? 'success' : 'error'
-        }
-      }
-      if (this.props.model.status === result) {
-        return
-      }
-      let status = `${this.path}.status`
-      this.$page.setData({
-        [status]: result
       })
     }
   }

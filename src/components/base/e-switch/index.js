@@ -34,7 +34,12 @@ Component({
       // 删除默认value，依据checked重新设置value
       delete model.value
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // switch对象
       let objSwitch = {
         label: '',
