@@ -17,19 +17,19 @@ function login(mock) {
         params: { code: res.authCode, appKey: getApp().globalData.appKey }
       }
       // 开始刷新token
-      refreshToken()
+      // refreshToken()
       // 模拟通信延迟
       await util.sleep(3000)
       http.get(options, mock).then(res => {
-        if (res.data.status === 0) {
-          getApp().globalData.userInfo = res.data.data
-          getApp().globalData.token = res.data.data.token
-          welcome(res.data.data.user_name)
+        if (res.data.errcode === 0) {
+          getApp().globalData.userInfo = res.data
+          // getApp().globalData.token = res.data.token
+          welcome(res.data.name)
           dd.switchTab({
             url: '/pages/home/index'
           })
         } else {
-          util.ddToast('fail', res.data.message || '登录失败')
+          util.ddToast('fail', res.data.errmsg || '登录失败')
         }
       })
     },
