@@ -25,12 +25,6 @@ Page({
           ]
         },
         {
-          icon_cls: 'book',
-          menu_name: '日志接口测试',
-          mobile_url: '/pages/diary/list/index',
-          id: 'diaryAPItest'
-        },
-        {
           icon_cls: 'tag',
           menu_name: '表单测试',
           mobile_url: '/pages/test/form/index',
@@ -52,7 +46,7 @@ Page({
       }
     }
     // 获取动态菜单权限
-    getPermissions({ mock: 'permission' }).then(res => {
+    getPermissions().then(res => {
       util.db.set({ dbName: 'permission', user: true, value: { ...obj, ...res.data } })
     })
   }

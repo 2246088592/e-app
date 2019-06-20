@@ -1,6 +1,0 @@
-<e-date-picker model="{{start_time}}"></e-date-picker>
-<e-date-picker model="{{end_time}}"></e-date-picker>
-<e-picker model="{{template_name}}"></e-picker>
-<e-user-chooser model="{{userid}}"></e-user-chooser>
-<e-input model="{{size}}"></e-input>
-<button onTap="handleDiary">查询</button>
