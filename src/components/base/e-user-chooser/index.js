@@ -1,7 +1,12 @@
 import util from '/src/libs/util.js'
+import equal from '../mixins/equal.js'
+
 let app = getApp()
 
 Component({
+  // 混合
+  mixins: [equal],
+  // 接收参数
   props: {
     model: {}
   },
@@ -9,17 +14,14 @@ Component({
   // 挂载方法
   didMount() {
     this.init(this.props.model)
-    this.validate()
+    this.validate(this.props.model.value)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
-    if (!prevProps.model.value || !this.props.model.value) {
-      return
-    }
     // setData后校验
-    if (prevProps.model.value.length !== this.props.model.value.length) {
-      this.validate()
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
+      this.validate(this.props.model.value)
     }
   },
 
@@ -41,7 +43,7 @@ Component({
       dd.complexChoose({
         title: `选择${this.props.model.label}`,
         multiple: this.props.model.multiple,
-        limitTips: `超过限定人数${this.props.model.max}`,
+        limitTips: `最多选择${this.props.model.max}人`,
         maxUsers: this.props.model.max,
         // 已选
         pickedUsers: this.props.model.value.map(row => row.userId),
@@ -60,7 +62,6 @@ Component({
           app.emitter.emit(`${this.props.model.formId}`, this.props.model)
         },
         fail: (err) => {
-          util.ddToast('fail', '选择人员失败')
           console.error(err)
         }
       })
@@ -69,7 +70,12 @@ Component({
     // 初始化属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // userChooser对象
       let userChooser = {
         max: 100,
@@ -79,7 +85,7 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
-        notice: model.necessary ? '至少选择一个人' : ''
+        notice: model.necessary ? '不能为空' : ''
       }
       // 补全属性
       model.users = Object.assign({
@@ -92,10 +98,12 @@ Component({
     },
 
     // 校验方法
-    validate() {
+    validate(value) {
       let result = ''
-      if (this.props.model.necessary && this.props.model.value && !this.props.model.value.length) {
-        result = 'error'
+      if (this.props.model.necessary) {
+        if (!value || !value.length) {
+          result = 'error'
+        }
       }
       if (this.props.model.status === result) {
         return

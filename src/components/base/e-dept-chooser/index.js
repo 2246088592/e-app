@@ -1,8 +1,10 @@
-import util from '/src/libs/util.js'
+import equal from '../mixins/equal.js'
 
 let app = getApp()
 
 Component({
+  // 混合
+  mixins: [equal],
   // 接收参数
   props: {
     model: {}
@@ -10,6 +12,14 @@ Component({
   // 挂载
   didMount() {
     this.init(this.props.model)
+    this.validate(this.props.model.value)
+  },
+  // 更新
+  didUpdate(prevProps, prevData) {
+    // value变化时校验
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
+      this.validate(this.props.model.value)
+    }
   },
   methods: {
     // 删除已选部门
@@ -77,6 +87,23 @@ Component({
       }, model.depts)
       this.$page.setData({
         [this.path]: Object.assign(deptChooser, model)
+      })
+    },
+
+    // 校验函数，只校验是否必填
+    validate(value) {
+      let result = ''
+      if (this.props.model.necessary) {
+        if (!value || !value.length) {
+          result = 'error'
+        }
+      }
+      if (this.props.model.status === result) {
+        return
+      }
+      let status = `${this.path}.status`
+      this.$page.setData({
+        [status]: result
       })
     }
   }

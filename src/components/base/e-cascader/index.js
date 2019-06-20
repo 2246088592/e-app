@@ -1,12 +1,13 @@
 import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 import validate from '../mixins/validate.js'
+import equal from '../mixins/equal.js'
 
 let app = getApp()
 
 Component({
   // 混合校验
-  mixins: [validate],
+  mixins: [validate, equal],
   // data
   data: {
     tree: [], // 树结构
@@ -34,12 +35,11 @@ Component({
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (prevProps.model.value !== this.props.model.value) {
-
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
     // 搜索条件变化 重新请求选项
-    if (JSON.stringify(prevProps.model.options.params) !== JSON.stringify(this.props.model.options.params)) {
+    if (!this.equal(prevProps.model.options.params, this.props.model.options.params)) {
       this.initBreadcrumb()
       this.initCascader(this.props.model.options)
     }
@@ -142,20 +142,22 @@ Component({
     },
 
     // 获取下拉选项
-    async initCascader(options) {
-      if (!options.url) {
-        if (options.tree) {
-          this.initTree(options.tree)
-        }
+    initCascader(options) {
+      if (options.tree.length) {
+        this.initTree(options.tree)
         return
       }
-      let res = await http.get({
+      if (!options.url && !this.props.model.mock) {
+        return
+      }
+      http.get({
         url: options.url,
         params: { params: JSON.stringify(options.params) }
+      }, { mock: this.props.model.mock }).then(res => {
+        if (res.data.status === 0) {
+          this.initTree(res.data.data)
+        }
       })
-      if (res.data.status === 0) {
-        this.initTree(resp.data)
-      }
     },
 
     // 初始化model的属性
@@ -169,6 +171,7 @@ Component({
       }
       // cascader对象
       let cascader = {
+        mock: '',
         value: '',
         label: '',
         status: '',

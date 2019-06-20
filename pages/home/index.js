@@ -23,6 +23,18 @@ Page({
               "handler": 'handleSubmit'
             }
           ]
+        },
+        {
+          icon_cls: 'book',
+          menu_name: '日志接口测试',
+          mobile_url: '/pages/diary/list/index',
+          id: 'diaryAPItest'
+        },
+        {
+          icon_cls: 'tag',
+          menu_name: '表单测试',
+          mobile_url: '/pages/test/form/index',
+          id: 'formtest'
         }
       ]
     }

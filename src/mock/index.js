@@ -1873,5 +1873,37 @@ export default {
       "message": "",
       "status": 0
     }
+  },
+
+  cascader: {
+    "data": {
+      "data": [
+        {
+          name: 'test1',
+          children: [
+            { name: 'test1-1' },
+            { name: 'test1-2' },
+            { name: 'test1-3' }
+          ]
+        },
+        {
+          name: 'test2',
+          children: [
+            { name: 'test2-1' },
+            { name: 'test2-2' },
+            {
+              name: 'test2-3',
+              children: [
+                { name: 'test2-3-1' },
+                { name: 'test2-3-2' },
+                { name: 'test2-3-3' }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": 0,
+      "message": "登录成功"
+    }
   }
 }

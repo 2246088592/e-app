@@ -1,7 +1,7 @@
 <view class="relative border-bottom p-2 text-base flex items-center">
   <view class="flex items-center w-24 color-title" hidden="{{!model.label}}">
-    <view class="w-2 h-4 color-danger flex items-center justify-center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text class="flex-1 h-4 no-wrap">{{model.label}}{{model.options.showValue ? (model.value || 0) + model.options.unit : ''}}</text>
+    <view class="w-2 h-4 color-danger flex items-center justify-center invisible"></view>
+    <text class="flex-1 h-4 no-wrap">{{model.label}}{{model.options.showValue ? model.value + model.options.unit : ''}}</text>
   </view>
-  <slider onChange="handleChange" class="flex-1" style="margin-top: 4rpx; margin-bottom: 12rpx; padding-right: 32rpx; padding-left: 28rpx;" value="{{model.value || 0}}" trackSize="4" handleSize="20" step="{{model.options.step}}" min="{{model.options.min}}" max="{{model.options.max}}" activeColor="{{model.options.activeColor}}" backgroundColor="{{model.options.backgroundColor}}" handleColor="{{model.options.handleColor}}" disabled="{{model.disabled}}"/>
+  <slider onChange="handleChange" class="flex-1" style="margin-top: 4rpx; margin-bottom: 12rpx; padding-right: 32rpx; padding-left: 28rpx;" value="{{model.value}}" trackSize="4" handleSize="20" step="{{model.options.step}}" min="{{model.options.min}}" max="{{model.options.max}}" activeColor="{{model.options.activeColor}}" backgroundColor="{{model.options.backgroundColor}}" handleColor="{{model.options.handleColor}}" disabled="{{model.disabled}}"/>
 </view>

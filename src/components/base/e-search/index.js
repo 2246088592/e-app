@@ -1,7 +1,12 @@
+import validate from '../mixins/validate.js'
+import equal from '../mixins/equal.js'
+
 let app = getApp()
 
 Component({
-
+  // 混合校验
+  mixins: [validate, equal],
+  // 接收参数
   props: {
     model: {},
     onValidate: (value) => {
@@ -19,7 +24,7 @@ Component({
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (prevProps.model.value !== this.props.model.value) {
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
   },
@@ -61,7 +66,12 @@ Component({
     // 初始化属性
     init(model) {
       // 配置path
-      this.path = model.sfi !== undefined ? `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]` : `bizObj[${model.ci}]`
+      this.path = model.path !== undefined ? model.path : ''
+      if (model.sfi !== undefined) {
+        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
+      } else if (model.ci !== undefined) {
+        this.path = `bizObj[${model.ci}]`
+      }
       // search对象
       let search = {
         value: '',
@@ -80,31 +90,6 @@ Component({
       }, model.options)
       this.$page.setData({
         [this.path]: Object.assign(search, model)
-      })
-    },
-
-    // 校验方法
-    validate(value) {
-      let result = ''
-      if (this.props.model.necessary) {
-        if (!value) {
-          result = 'error'
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      } else {
-        if (!value) {
-          result = ''
-        } else {
-          result = this.props.onValidate(value) ? 'success' : 'error'
-        }
-      }
-      if (this.props.model.status === result) {
-        return
-      }
-      let status = `${this.path}.status`
-      this.$page.setData({
-        [status]: result
       })
     }
   }

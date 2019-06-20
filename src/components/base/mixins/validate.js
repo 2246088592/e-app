@@ -10,9 +10,7 @@ export default {
           result = this.props.onValidate(value) ? 'success' : 'error'
         }
       } else {
-        if (!value) {
-          result = ''
-        } else {
+        if (value) {
           result = this.props.onValidate(value) ? 'success' : 'error'
         }
       }
