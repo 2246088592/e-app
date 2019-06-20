@@ -17,7 +17,7 @@ Component({
   // 更新
   didUpdate(prevProps, prevData) {
     // value变化时校验
-    if (!equal(prevProps.model.value, this.props.model.value)) {
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
   },

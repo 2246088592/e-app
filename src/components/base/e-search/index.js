@@ -1,10 +1,11 @@
 import validate from '../mixins/validate.js'
+import equal from '../mixins/equal.js'
 
 let app = getApp()
 
 Component({
   // 混合校验
-  mixins: [validate],
+  mixins: [validate, equal],
   // 接收参数
   props: {
     model: {},
@@ -23,7 +24,7 @@ Component({
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (!equal(prevProps.model.value, this.props.model.value)) {
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
   },

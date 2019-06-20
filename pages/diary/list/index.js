@@ -30,6 +30,12 @@ Page({
     }
   },
 
+  onLoad(query) {
+    this.setData({
+      'template_name.options.url': `/diaryTemplate?access_token=${getApp().globalData.userInfo.access_token}`
+    })
+  },
+
   // 获取日志数据
   handleDiary() {
     let params = {

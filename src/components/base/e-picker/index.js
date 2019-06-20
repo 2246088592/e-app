@@ -25,11 +25,11 @@ Component({
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
-    if (!equal(prevProps.model.value, this.props.model.value)) {
+    if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
     // 搜索条件变化 重新请求选项
-    if (!equal(prevProps.model.options.params, this.props.model.options.params)) {
+    if (!this.equal(prevProps.model.options.params, this.props.model.options.params)) {
       this.initPicker(this.props.model.options)
     }
   },

@@ -1,4 +1,3 @@
-<text>日志接口测试</text>
 <e-date-picker model="{{start_time}}"></e-date-picker>
 <e-date-picker model="{{end_time}}"></e-date-picker>
 <e-picker model="{{template_name}}"></e-picker>
