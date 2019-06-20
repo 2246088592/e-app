@@ -11,12 +11,12 @@ App({
     appKey: 'dingj7prkry52glpajgm',
     agentId: '264238079',
     // 域名，用于发送请求
-    host: 'http://8080.boyo.vaiwan.com'
+    host: 'http://dingding.boyo-tech.vaiwan.com'
   },
 
   // 小程序初始化
   onLaunch(options) {
     // 登录
-    login({ mock: 'login' })
+    login()
   }
 })

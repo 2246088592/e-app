@@ -2,7 +2,7 @@ import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 
 // 登录接口
-const LOGIN_URL = '/dingding/jsapi/login'
+const LOGIN_URL = '/dingding/v1/login'
 // token刷新接口
 const REFRESH_URL = '/uaa/auth/refresh'
 // token刷新间隔
@@ -13,13 +13,13 @@ function login(mock) {
   dd.getAuthCode({
     success: async (res) => {
       let options = {
-        params: { code: res.authCode, corp_id: getApp().globalData.appKey },
+        params: { code: res.authCode },
         url: LOGIN_URL
       }
       // 开始刷新token
       refreshToken()
       // 模拟通信延迟
-      await util.sleep(3000)
+      // await util.sleep(3000)
       http.get(options, mock).then(res => {
         if (res.data.status === 0) {
           getApp().globalData.userInfo = res.data.data
