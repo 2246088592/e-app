@@ -1,4 +1,3 @@
-import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 import validate from '../mixins/validate.js'
 import equal from '../mixins/equal.js'
@@ -38,11 +37,6 @@ Component({
     if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
-    // 搜索条件变化 重新请求选项
-    if (!this.equal(prevProps.model.options.params, this.props.model.options.params)) {
-      this.initBreadcrumb()
-      this.initCascader(this.props.model.options)
-    }
   },
   methods: {
     // 初始化面包屑
@@ -61,7 +55,7 @@ Component({
       if (item.children) {
         this.$spliceData({
           'array': [0, this.data.array.length, ...item.children],
-          'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.options.bindKey]],
+          'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.bindkey]],
           'childrenIndexArr': [this.data.childrenIndexArr.length, 0, i]
         })
       } else {
@@ -82,14 +76,9 @@ Component({
       this.$page.setData({
         [value]: this.data.current
       })
-      // app.emitter.emit(`${this.props.model.formId ? this.props.model.formId + '_' : ''}inputChange`, {
-      //   detail: {
-      //     inputId: this.props.model.id,
-      //     objId: this.props.model.objId || null,
-      //     sublist: this.props.model.sublist || null,
-      //     subindex: this.props.model.subindex === 0 ? 0 : null
-      //   }
-      // })
+      if (this.props.model.fid) {
+        app.emitter.emit(`${this.props.model.fid}`, this.path)
+      }
       this.handleClose()
     },
 
@@ -141,25 +130,6 @@ Component({
       })
     },
 
-    // 获取下拉选项
-    initCascader(options) {
-      if (options.tree.length) {
-        this.initTree(options.tree)
-        return
-      }
-      if (!options.url && !this.props.model.mock) {
-        return
-      }
-      http.get({
-        url: options.url,
-        params: { params: JSON.stringify(options.params) }
-      }, { mock: this.props.model.mock }).then(res => {
-        if (res.data.status === 0) {
-          this.initTree(res.data.data)
-        }
-      })
-    },
-
     // 初始化model的属性
     init(model) {
       // 配置path
@@ -172,26 +142,21 @@ Component({
       // cascader对象
       let cascader = {
         mock: '',
+        tree: [],
         value: '',
         label: '',
         status: '',
+        bindkey: '',
         disabled: false,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',
         notice: model.necessary ? '不能为空' : ''
       }
-      // 补全属性
-      model.options = Object.assign({
-        url: '',
-        tree: [],
-        params: {},
-        bindKey: ''
-      }, model.options)
       this.$page.setData({
-        [this.path]: Object.assign(cascader, model)
+        [this.path]: Object.assign(cascader, model) // 补全属性
       })
-      // 初始化完成后请求选项
-      this.initCascader(model.options)
+      // 初始化完成后初始化树
+      this.initTree(cascader.tree)
     }
   }
 })

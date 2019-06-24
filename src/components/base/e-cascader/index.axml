@@ -3,7 +3,7 @@
     <view class="w-2 h-4 color-danger flex items-center justify-center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
     <text class="flex-1 h-4 no-wrap">{{model.label}}</text>
   </view>
-  <input class="pr-2 pl-1 py-0 h-7 bg-opacity flex-1 pointer-events-none" value="{{model.options.bindKey ? model.value[model.options.bindKey] : model.value}}" placeholder="{{model.placeholder}}" />
+  <input class="pr-2 pl-1 py-0 h-7 bg-opacity flex-1 pointer-events-none" value="{{model.bindkey ? model.value[model.bindkey] : model.value}}" placeholder="{{model.placeholder}}" />
   <view class="flex items-center justify-center h-5 w-5 color-title">
     <text class="text-xl fa fa-chevron-right"></text>
   </view>
@@ -15,7 +15,7 @@
       <radio-group a:if="{{array.length}}" class="flex flex-col">
         <view class="flex items-center mx-2 mb-2 {{index === 0 ? 'mt-2' : ''}}" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
           <radio class="mr-2 w-5 h-5 pointer-events-none" value="{{index}}" checked="{{currentIndex === index}}"/>
-          <text class="color-title">{{model.options.bindKey ? item[model.options.bindKey] : item}}</text>
+          <text class="color-title">{{model.bindkey ? item[model.bindkey] : item}}</text>
         </view>
       </radio-group>
       <text a:else>空</text>
