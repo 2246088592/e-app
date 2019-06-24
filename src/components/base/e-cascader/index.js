@@ -2,8 +2,6 @@ import util from '/src/libs/util.js'
 import validate from '../mixins/validate.js'
 import equal from '../mixins/equal.js'
 
-let app = getApp()
-
 Component({
   // 混合校验
   mixins: [validate, equal],
@@ -76,9 +74,6 @@ Component({
       this.$page.setData({
         [value]: this.data.current
       })
-      if (this.props.model.fid) {
-        app.emitter.emit(`${this.props.model.fid}`, util.cloneDeep(this.props.model))
-      }
       this.handleClose()
     },
 
