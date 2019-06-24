@@ -77,7 +77,7 @@ Component({
         [value]: this.data.current
       })
       if (this.props.model.fid) {
-        app.emitter.emit(`${this.props.model.fid}`, this.path)
+        app.emitter.emit(`${this.props.model.fid}`, util.cloneDeep(this.props.model))
       }
       this.handleClose()
     },
