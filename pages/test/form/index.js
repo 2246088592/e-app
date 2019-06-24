@@ -18,9 +18,32 @@ formPage({
       component: 'e-cascader',
       necessary: true,
       mock: 'cascader',
-      options: {
-        bindKey: 'name'
-      }
+      bindkey: 'name',
+      tree: [
+        {
+          name: 'test1',
+          children: [
+            { name: 'test1-1' },
+            { name: 'test1-2' },
+            { name: 'test1-3' }
+          ]
+        },
+        {
+          name: 'test2',
+          children: [
+            { name: 'test2-1' },
+            { name: 'test2-2' },
+            {
+              name: 'test2-3',
+              children: [
+                { name: 'test2-3-1' },
+                { name: 'test2-3-2' },
+                { name: 'test2-3-3' }
+              ]
+            }
+          ]
+        }
+      ]
     },
     // {
     //   label: '日期时间',

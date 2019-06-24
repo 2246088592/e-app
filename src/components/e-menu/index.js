@@ -18,7 +18,7 @@ Component({
   methods: {
     // 初始化菜单
     initMenu() {
-      getMenuTree().then(res => {
+      getMenuTree({mock: 'menuTree'}).then(res => {
         let menuGroup = []
         if (this.props.menus.children && this.props.menus.children.length) {
           menuGroup.push(this.props.menus)

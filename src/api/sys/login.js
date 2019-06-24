@@ -17,7 +17,7 @@ function login(mock) {
         url: LOGIN_URL
       }
       // 开始刷新token
-      refreshToken()
+      // refreshToken()
       // 模拟通信延迟
       // await util.sleep(3000)
       http.get(options, mock).then(res => {
@@ -34,6 +34,7 @@ function login(mock) {
       })
     },
     fail: (err) => {
+      console.log(err)
       util.ddToast('fail', '获取免登授权码出错，请联系管理员')
     }
   })
