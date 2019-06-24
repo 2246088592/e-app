@@ -422,7 +422,10 @@ export default {
         "dept_id": "00000000-0000-0000-0000-000000000000",
         "id": "6eb38e46-5866-436b-af25-0e7445e22786",
         "account": "xd",
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiLmkq3pmLMiLCJpYXQiOjE1NjAyMzY5NjguMCwiYXVkIjoiaHR0cDovL3d3dy5ib3lvLXRlY2guY29tLmNuIiwic3ViIjoiQk9ZTy5WSVAiLCJqdGkiOiI2M2FmODk2My1jZDU0LTRmZGItYWUwNi04NDcxNTU0MjhlODciLCJhY2NvdW50IjoieGQifQ.03i0jy0i2CaZ_ORXzLZf3sn71QIRL_IliSg7cnb3UrE"
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiLmkq3pmLMiLCJpYXQiOjE1NjAyMzY5NjguMCwiYXVkIjoiaHR0cDovL3d3dy5ib3lvLXRlY2guY29tLmNuIiwic3ViIjoiQk9ZTy5WSVAiLCJqdGkiOiI2M2FmODk2My1jZDU0LTRmZGItYWUwNi04NDcxNTU0MjhlODciLCJhY2NvdW50IjoieGQifQ.03i0jy0i2CaZ_ORXzLZf3sn71QIRL_IliSg7cnb3UrE",
+        "dd_user_info": {
+          "Name": "陈加隆"
+        }
       },
       "status": 0,
       "message": "登录成功"
@@ -1872,38 +1875,6 @@ export default {
       },
       "message": "",
       "status": 0
-    }
-  },
-
-  cascader: {
-    "data": {
-      "data": [
-        {
-          name: 'test1',
-          children: [
-            { name: 'test1-1' },
-            { name: 'test1-2' },
-            { name: 'test1-3' }
-          ]
-        },
-        {
-          name: 'test2',
-          children: [
-            { name: 'test2-1' },
-            { name: 'test2-2' },
-            {
-              name: 'test2-3',
-              children: [
-                { name: 'test2-3-1' },
-                { name: 'test2-3-2' },
-                { name: 'test2-3-3' }
-              ]
-            }
-          ]
-        }
-      ],
-      "status": 0,
-      "message": "登录成功"
     }
   }
 }
