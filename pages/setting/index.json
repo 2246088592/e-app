@@ -1,3 +1,5 @@
 {
-  "usingComponents": { }
+  "usingComponents":{
+    "dingui-input": "dingui-mini/es/input/src"
+  }
 }

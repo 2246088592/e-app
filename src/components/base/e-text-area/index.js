@@ -60,19 +60,6 @@ Component({
       })
     },
 
-    // 清空输入并获取焦点
-    handleClear(event) {
-      if (this.props.model.disabled) {
-        return
-      }
-      let value = `${this.path}.value`
-      let focus = `${this.path}.focus`
-      this.$page.setData({
-        [value]: '',
-        [focus]: true
-      })
-    },
-
     // 补充params的属性
     init(model) {
       // 配置path
@@ -92,12 +79,11 @@ Component({
         disabled: false,
         necessary: false,
         autoHeight: true,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        notice: model.necessary ? '不能为空' : '',
+        placeholder: model.necessary ? '必填' : ''
       }
-      // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(textArea, model)
+        [this.path]: Object.assign(textArea, model) // 补全属性
       })
     }
   }

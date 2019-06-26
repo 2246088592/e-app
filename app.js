@@ -14,9 +14,13 @@ App({
     host: 'http://dingding.boyo-tech.vaiwan.com'
   },
 
-  // 小程序切换到前台
-  onShow(options) {
+  // 小程序初始化
+  onLaunch(options) {
     // 登录
     login({ mock: 'login' })
+  },
+
+  onShow(){
+    
   }
 })

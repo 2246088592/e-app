@@ -2,17 +2,17 @@
   <view class="flex items-center h-7 color-title" hidden="{{!model.label}}">
     <view class="w-2 color-danger" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
     <text class="flex-1 no-wrap">{{model.label}}</text>
-    <text class="text-sm color-label" a:if="{{model.max}}">{{model.value.length || 0}}/{{model.max}}</text>
+    <text class="text-xs color-label">{{model.value.length || 0}}/{{model.max}}</text>
   </view>
   <view class="flex flex-1 flex-wrap pl-2 -mb-2">
     <view class="relative flex flex-col items-center pr-3 pb-2" onTap="handleDelete" a:for="{{model.value}}" data-item-index="{{index}}">
-      <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md" src="{{item.avatar}}" mode="aspectFit" />
+      <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md" src="{{item.avatar}}" mode="aspectFill" />
       <text a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md">{{item.name[0]}}</text>
-      <icon class="absolute circle bg-color-white" style="top: -4rpx; right: 18rpx;" type="clear" size="16" color="#191F25 56%" />
+      <icon class="absolute circle bg-color-white" style="top: -4rpx; right: 18rpx;" type="clear" size="16" color="#191F25 72%" />
       <text class="mt-1 color-title text-xs">{{item.name}}</text>
     </view>
-    <button class="flex items-center justify-center circle w-9 h-9 mb-2 shadow-md" type="primary" onTap="handleAdd">
-      <text class="text-lg fa fa-plus"></text>
+    <button style="border: 1rpx dashed #3296FA;" class="flex items-center justify-center circle w-9 h-9 mb-2 bg-opacity border-none" onTap="handleAdd">
+      <text class="text-lg color-primary fa fa-plus"></text>
     </button>
   </view>
 </view>

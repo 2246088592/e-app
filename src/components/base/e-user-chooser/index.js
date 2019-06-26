@@ -1,4 +1,3 @@
-import util from '/src/libs/util.js'
 import equal from '../mixins/equal.js'
 
 let app = getApp()
@@ -48,9 +47,9 @@ Component({
         // 已选
         pickedUsers: this.props.model.value.map(row => row.userId),
         // 不可选
-        disabledUsers: this.props.model.users.disabledUsers,
+        disabledUsers: this.props.model.disabledUsers,
         // 必选
-        requiredUsers: this.props.model.users.requiredUsers,
+        requiredUsers: this.props.model.requiredUsers,
         permissionType: "GLOBAL",
         responseUserOnly: true,
         startWithDepartmentId: 0,
@@ -59,7 +58,6 @@ Component({
           this.$page.$spliceData({
             [pickedUsers]: [0, this.props.model.value.length, ...res.users]
           })
-          app.emitter.emit(`${this.props.model.formId}`, this.props.model)
         },
         fail: (err) => {
           console.error(err)
@@ -85,15 +83,12 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
+        disabledUsers: [],
+        requiredUsers: [],
         notice: model.necessary ? '不能为空' : ''
       }
-      // 补全属性
-      model.users = Object.assign({
-        disabledUsers: [],
-        requiredUsers: []
-      }, model.users)
       this.$page.setData({
-        [this.path]: Object.assign(userChooser, model)
+        [this.path]: Object.assign(userChooser, model) // 补全属性
       })
     },
 
@@ -104,6 +99,9 @@ Component({
         if (!value || !value.length) {
           result = 'error'
         }
+      }
+      if (this.props.model.fid) {
+        app.emitter.emit(`${this.props.model.fid}`, Object.assign({ ...this.props.model }, { status: result }))
       }
       if (this.props.model.status === result) {
         return

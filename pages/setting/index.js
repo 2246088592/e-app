@@ -1,6 +1,7 @@
 
 Page({
   data: {
+    value: '',
     userinfo: {},
     items: [
       {
@@ -13,6 +14,12 @@ Page({
   onLoad(query) {
     this.setData({
       'userinfo': getApp().globalData.userInfo
+    })
+  },
+
+  handleInput(e){
+    this.setData({
+      value: e.detail.value
     })
   },
 

@@ -1,4 +1,5 @@
 import validate from '../mixins/validate.js'
+import util from '/src/libs/util.js'
 
 Component({
   // 混合校验
@@ -27,12 +28,12 @@ Component({
 
   methods: {
     // 输入事件同步value
-    handleInput(event) {
+    handleInput: util.debounce(function(event) {
       let value = `${this.path}.value`
       this.$page.setData({
         [value]: event.detail.value
       })
-    },
+    }, 500),
 
     // 设置焦点
     handleTap() {
@@ -85,12 +86,11 @@ Component({
         scanType: 'qr',
         disabled: false,
         necessary: false,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        notice: model.necessary ? '不能为空' : '',
+        placeholder: model.necessary ? '必填' : ''
       }
-      // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(scan, model)
+        [this.path]: Object.assign(scan, model) // 补全属性
       })
     }
   }

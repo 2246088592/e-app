@@ -13,8 +13,8 @@ function login(mock) {
   dd.getAuthCode({
     success: async (res) => {
       let options = {
-        params: { code: res.authCode },
-        url: LOGIN_URL
+        url: LOGIN_URL,
+        params: { code: res.authCode }
       }
       // 开始刷新token
       // refreshToken()

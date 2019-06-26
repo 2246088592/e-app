@@ -61,7 +61,7 @@
       </view>
     </block>
   </scroll-view>
-  <view class="flex flex-row relative border-top">
+  <view a:if="{{btns.length}}" class="flex flex-row relative border-top">
     <button a:if="{{btn.position === btnPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="border-none radius-none bg-opacity flex-1 text-lg flex items-center justify-center {{'btn-' + (btn.xtype || 'primary')}}">
       <text class="fa mr-1 {{'fa-' + btn.icon_cls}}"/>{{btn.action_name}}
     </button>

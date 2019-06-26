@@ -11,25 +11,29 @@
     "pages/test/form/index"
 	],
 	"window": {
-		"enableWK": "YES",
-		"enableDSL": true,
-		"defaultTitle": "审批",
-		"backgroundColor": "#F5F5F9",
+    "defaultTitle": "耗材管理系统",
+    "titleBarColor": "#FFF",
+		"backgroundColor": "#FFF",
 		"pullRefresh": false,
 		"allowsBounceVertical": "YES"
 	},
 	"tabBar": {
 		"textColor": "#404040",
-		"selectedColor": "#108ee9",
-		"backgroundColor": "#F5F5F9",
+		"selectedColor": "#3296FA",
+		"backgroundColor": "#FFF",
 		"items": [
       {
 				"pagePath": "pages/home/index",
 				"name": "审批",
 				"icon": "/src/assets/icon/sp.png",
 				"activeIcon": "/src/assets/icon/sp-active.png"
+			},
+      {
+				"pagePath": "pages/setting/index",
+				"name": "设置",
+				"icon": "/src/assets/icon/sp.png",
+				"activeIcon": "/src/assets/icon/sp-active.png"
 			}
 		]
-	},
-	"debug": true
+	}
 }

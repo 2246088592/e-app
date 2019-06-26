@@ -85,7 +85,7 @@ const util = {
     dd.setNavigationBar({
       title: options.title || '空标题',
       reset: options.reset || false,
-      backgroundColor: options.backgroundColor || '#3296FA',
+      backgroundColor: options.backgroundColor || '#FFF',
       fail: (err) => {
         console.error(err)
       }

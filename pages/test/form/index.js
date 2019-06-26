@@ -17,114 +17,98 @@ formPage({
       key: 'ask_type',
       component: 'e-cascader',
       necessary: true,
-      mock: 'cascader',
       bindkey: 'name',
       tree: [
         {
-          name: 'test1',
+          name: '1',
           children: [
-            { name: 'test1-1' },
-            { name: 'test1-2' },
-            { name: 'test1-3' }
+            { name: '1-1' },
+            { name: '1-2' },
+            {
+              name: '1-3',
+              children: [
+                { name: '1-3-1' },
+                { name: '1-3-2' },
+                { name: '1-3-3' },
+                { name: '1-3-4' }
+              ]
+            }
           ]
         },
         {
-          name: 'test2',
+          name: '2',
           children: [
-            { name: 'test2-1' },
-            { name: 'test2-2' },
-            {
-              name: 'test2-3',
-              children: [
-                { name: 'test2-3-1' },
-                { name: 'test2-3-2' },
-                { name: 'test2-3-3' }
-              ]
-            }
+            { name: '2-1' },
+            { name: '2-2' },
+            { name: '2-3' }
           ]
         }
       ]
     },
-    // {
-    //   label: '日期时间',
-    //   key: 'date',
-    //   component: 'e-date-picker',
-    //   necessary: true
-    // },
-    // {
-    //   label: '部门选择',
-    //   key: 'dept',
-    //   component: 'e-dept-chooser',
-    //   necessary: true
-    // },
-    // {
-    //   label: '单行输入',
-    //   key: 'ask_dept',
-    //   component: 'e-input',
-    //   necessary: true
-    // },
-    // {
-    //   label: '下拉',
-    //   key: 'picker',
-    //   component: 'e-picker',
-    //   necessary: true,
-    //   options: {
-    //     array: [1, 2, 3, 4, 5, 6]
-    //   }
-    // },
-    // {
-    //   label: '滑动条',
-    //   key: 'progress',
-    //   component: 'e-progress-bar',
-    //   necessary: true,
-    //   options: {
-    //     unit: '条',
-    //     showValue: true,
-    //     max: 20,
-    //     step: 2
-    //   }
-    // },
-    // {
-    //   label: '扫码',
-    //   key: 'scan',
-    //   component: 'e-scan',
-    //   necessary: true
-    // },
+    {
+      label: '日期时间',
+      key: 'date',
+      component: 'e-date-picker',
+      necessary: true
+    },
+    {
+      label: '部门选择',
+      key: 'dept',
+      component: 'e-dept-chooser',
+      necessary: true
+    },
+    {
+      label: '单行输入',
+      key: 'ask_dept',
+      component: 'e-input',
+      necessary: true
+    },
+    {
+      label: '下拉',
+      key: 'picker',
+      component: 'e-picker',
+      necessary: true
+    },
+    {
+      label: '滑动条',
+      key: 'progress',
+      component: 'e-progress-bar',
+      necessary: true,
+      showValue: true
+    },
+    {
+      label: '扫码',
+      key: 'scan',
+      component: 'e-scan',
+      necessary: true
+    },
     // {
     //   label: '搜索',
     //   key: 'search',
     //   component: 'e-search',
-    //   options: {
-    //     bindList: 'test',
-    //     bindKey: 'spec'
-    //   },
+    //   bindList: 'test',
+    //   bindkey: 'spec',
+    //   params: {},
     //   necessary: true
     // },
-    // {
-    //   label: '切换',
-    //   key: 'switch',
-    //   component: 'e-switch',
-    //   necessary: true,
-    //   showValue: true
-    // },
-    // {
-    //   label: '多行输入',
-    //   key: 'textArea',
-    //   component: 'e-text-area',
-    //   maxlength: 200,
-    //   necessary: true
-    // },
-    // {
-    //   label: '人员选择',
-    //   key: 'user',
-    //   component: 'e-user-chooser',
-    //   necessary: true,
-    //   value: [
-    //     {
-    //       name: '陈加隆'
-    //     }
-    //   ]
-    // },
+    {
+      label: '切换',
+      key: 'switch',
+      component: 'e-switch',
+      showValue: true
+    },
+    {
+      label: '多行输入',
+      key: 'textArea',
+      component: 'e-text-area',
+      necessary: true
+    },
+    {
+      label: '人员选择',
+      key: 'user',
+      component: 'e-user-chooser',
+      necessary: true
+    },
     // {
     //   label: '子表',
     //   key: 'goods',
@@ -146,7 +130,9 @@ formPage({
 
   // 表单change事件
   formChange(event) {
-    console.log(event)
+    let obj = event
+
+    console.log(obj)
   },
 
   // 业务方法

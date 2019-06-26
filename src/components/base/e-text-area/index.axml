@@ -2,7 +2,7 @@
   <view class="flex items-center h-7 color-title" onTap="handleTap" hidden="{{!model.label}}">
     <view class="w-2 color-danger" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
     <text class="flex-1 no-wrap">{{model.label}}</text>
-    <text class="text-sm color-label" a:if="{{model.maxlength}}">{{model.value.length || 0}}/{{model.maxlength}}</text>
+    <text class="text-xs color-label">{{model.value.length || 0}}/{{model.maxlength === -1 ? '∞' : model.maxlength}}</text>
   </view>
   <view class="overflow-hidden">
     <textarea class="relative z-0 pt-0 pr-0 pb-6 pl-2 -mb-6 bg-opacity" value="{{model.value}}" focus="{{model.focus}}" disabled="{{model.disabled}}" placeholder="{{model.placeholder}}" onInput="handleInput" onBlur="handleBlur" onFocus="handleFocus" onConfirm="handleConfirm" auto-height="{{model.autoHeight}}" maxlength="{{model.maxlength}}"/>

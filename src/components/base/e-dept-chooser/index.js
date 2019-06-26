@@ -43,16 +43,15 @@ Component({
         //已选部门
         pickedDepartments: this.props.model.value.map(row => row.id),
         //不可选部门
-        disabledDepartments: this.props.model.depts.disabledDepts,
+        disabledDepartments: this.props.model.disabledDepts,
         //必选部门（不可取消选中状态）
-        requiredDepartments: this.props.model.depts.requiredDepts,
+        requiredDepartments: this.props.model.requiredDepts,
         permissionType: "GLOBAL",
         success: (res) => {
           let pickedDepts = `${this.path}.value`
           this.$page.$spliceData({
             [pickedDepts]: [0, this.props.model.value.length, ...res.departments]
           })
-          app.emitter.emit(`${this.props.model.formId}`, this.props.model.key)
         },
         fail: (err) => {
           console.error(err)
@@ -77,16 +76,13 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
+        disabledDepts: [],
+        requiredDepts: [],
         notice: model.necessary ? '不能为空' : '',
         placeholder: model.necessary ? '必填' : ''
       }
-      // 补全属性
-      model.depts = Object.assign({
-        disabledDepts: [],
-        requiredDepts: []
-      }, model.depts)
       this.$page.setData({
-        [this.path]: Object.assign(deptChooser, model)
+        [this.path]: Object.assign(deptChooser, model) // 补全属性
       })
     },
 
@@ -97,6 +93,9 @@ Component({
         if (!value || !value.length) {
           result = 'error'
         }
+      }
+      if (this.props.model.fid) {
+        app.emitter.emit(`${this.props.model.fid}`, Object.assign({ ...this.props.model }, { status: result }))
       }
       if (this.props.model.status === result) {
         return

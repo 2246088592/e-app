@@ -28,7 +28,15 @@ Page({
           icon_cls: 'tag',
           menu_name: '表单测试',
           mobile_url: '/pages/test/form/index',
-          id: 'formtest'
+          id: 'formtest',
+          permission: [
+            // {
+            //   "position": 1,
+            //   "action_name": "提交",
+            //   "xtype": "primary",
+            //   "handler": 'handleSubmit'
+            // }
+          ]
         }
       ]
     }
@@ -46,7 +54,7 @@ Page({
       }
     }
     // 获取动态菜单权限
-    getPermissions().then(res => {
+    getPermissions({mock: 'permission'}).then(res => {
       util.db.set({ dbName: 'permission', user: true, value: { ...obj, ...res.data } })
     })
   }

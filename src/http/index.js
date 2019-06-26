@@ -13,7 +13,7 @@ const http = {
       dd.httpRequest({
         url: getApp().globalData.host + options.url,
         method: 'GET',
-        data: options.params ? options.params : undefined,
+        data: options.params !== undefined ? options.params : undefined,
         headers: {
           'Authorization': getApp().globalData.token || undefined
         },

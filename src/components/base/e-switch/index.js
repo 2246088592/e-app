@@ -1,20 +1,27 @@
-let app = getApp()
+import validate from '../mixins/validate.js'
 
 Component({
+  // 混合校验
+  mixins: [validate],
+  // 接收参数
   props: {
-    model: {}
+    model: {},
+    onValidate: (value) => {
+      return true
+    }
   },
 
   // 挂载方法
   didMount() {
     this.init(this.props.model)
+    this.validate(this.props.model.value)
   },
 
   // 更新
   didUpdate(prevProps, prevData) {
     // setData后校验
     if (prevProps.model.value !== this.props.model.value) {
-      app.emitter.emit(`${this.props.model.formId}`, this.props.model)
+      this.validate(this.props.model.value)
     }
   },
 
@@ -51,7 +58,9 @@ Component({
         disabled: false,
         checked: model.checked !== undefined ? model.checked : false,
         color: '#3296FA',
-        showValue: false
+        showValue: false,
+        notice: '',
+        status: ''
       }
       // 补全属性
       this.$page.setData({

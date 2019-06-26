@@ -44,26 +44,22 @@ Component({
       }
       // progress对象
       let progressBar = {
+        step: 1, // 间隔
+        min: 0, // 最小值
+        max: 100, // 最大值
         value: 0,
+        unit: '%', // 单位
         label: '',
         status: '',
         notice: '',
         disabled: false,
-        notice: ''
+        showValue: false, // 是否显示value
+        handleColor: '#fff', // 拖动按钮颜色
+        activeColor: '#108ee9', // 激活拖动条颜色
+        backgroundColor: '#ddd', // 拖动条颜色
       }
-      // 补全属性
-      model.options = Object.assign({
-        unit: '%',
-        step: 1,
-        min: 0,
-        max: 100,
-        showValue: false,
-        activeColor: '#108ee9',
-        backgroundColor: '#ddd',
-        handleColor: '#fff'
-      }, model.options)
       this.$page.setData({
-        [this.path]: Object.assign(progressBar, model)
+        [this.path]: Object.assign(progressBar, model) // 补全属性
       })
     }
   }

@@ -1,8 +1,6 @@
-import http from '/src/http/index.js'
 import validate from '../mixins/validate.js'
 import equal from '../mixins/equal.js'
-
-let app = getApp()
+import util from '/src/libs/util.js'
 
 Component({
   // 混合
@@ -28,43 +26,28 @@ Component({
     if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
-    // 搜索条件变化 重新请求选项
-    if (!this.equal(prevProps.model.options.params, this.props.model.options.params)) {
-      this.initPicker(this.props.model.options)
-    }
   },
 
   methods: {
-    // 获取下拉选项
-    async initPicker(options) {
-      if (!options.url) {
-        return
-      }
-      let res = await http.get({
-        url: options.url,
-        params: { params: JSON.stringify(options.params) }
-      })
-      if (res.data.status === 0) {
-        let array = `${this.path}.options.array`
-        this.$page.$spliceData({
-          [array]: [0, this.props.model.options.array.length, ...res.data.items]
-        })
-      }
-    },
-
     // 输入框点击事件
-    handleTap(event) { },
+    handleTap(event) {
+      // if (this.props.model.disabled) {
+      //   return
+      // }
+      // if (!this.props.model.array.length) {
+      //   util.ddToast('none', '没有数据')
+      // }
+    },
 
     // 点击选项事件
     handleChange(event) {
       let i = event.detail.value
       let value = `${this.path}.value`
-      let index = `${this.path}.options.index`
+      let index = `${this.path}.index`
       this.$page.setData({
-        [value]: this.props.model.options.array[i],
+        [value]: this.props.model.array[i],
         [index]: i
       })
-      app.emitter.emit(`${this.props.model.formId}`, this.props.model.key)
     },
 
     // 补充params的属性
@@ -78,27 +61,20 @@ Component({
       }
       // picker
       let picker = {
+        index: -1, // 当前选择的选项索引
+        array: [], // 选项
         value: '',
         label: '',
         status: '',
+        bindkey: '',
         disabled: false,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',
         notice: model.necessary ? '不能为空' : ''
       }
-      // 补全属性
-      model.options = Object.assign({
-        url: '',
-        params: {},
-        bindKey: '',
-        array: [],
-        index: -1,
-      }, model.options)
       this.$page.setData({
-        [this.path]: Object.assign(picker, model)
+        [this.path]: Object.assign(picker, model) // 补全属性
       })
-      // 初始化完成后请求选项
-      this.initPicker(model.options)
     }
   }
 })

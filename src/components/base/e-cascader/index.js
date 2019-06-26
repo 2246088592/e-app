@@ -35,6 +35,10 @@ Component({
     if (!this.equal(prevProps.model.value, this.props.model.value)) {
       this.validate(this.props.model.value)
     }
+    if (!this.equal(prevProps.model.tree, this.props.model.tree)) {
+      this.initBreadcrumb()
+      this.initTree(this.props.model.tree)
+    }
   },
   methods: {
     // 初始化面包屑
@@ -83,6 +87,7 @@ Component({
         return
       }
       this.setData({
+        'current': '',
         'currentIndex': ''
       })
       let arr = this.data.tree.slice(0)
@@ -101,6 +106,10 @@ Component({
       if (this.props.model.disabled) {
         return
       }
+      if (!this.props.model.tree.length) {
+        util.ddToast('none', '没有数据')
+        return
+      }
       this.setData({
         'cascaderVisible': true
       })
@@ -115,13 +124,14 @@ Component({
 
     // 初始化树
     initTree(tree) {
+      let temp = util.cloneDeep(tree)
       let array = []
-      for (let i = 0; i < tree.length; i++) {
-        array.push(tree[i])
+      for (let i = 0; i < temp.length; i++) {
+        array.push(temp[i])
       }
       this.$spliceData({
-        'array': [0, this.data.array.length || 0, ...array],
-        'tree': [0, this.data.array.length || 0, ...array]
+        'array': [0, this.data.array.length, ...array],
+        'tree': [0, this.data.array.length, ...array]
       })
     },
 
