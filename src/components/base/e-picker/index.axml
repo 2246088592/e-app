@@ -1,5 +1,5 @@
 <picker onChange="handleChange" value="{{model.index}}" range="{{model.array}}" range-key="{{model.bindkey}}" disabled="{{model.disabled}}">
-  <view class="relative border-bottom p-2 text-base flex items-center" onLongTap="clear">
+  <view class="{{model.sfi !== undefined ? 'relative border-bottom' : 'mb-3'}} p-2 text-base flex items-center bg-color-white" onLongTap="clear">
     <view class="flex items-center w-24 color-title" hidden="{{!model.label}}">
       <view class="w-2 h-4 color-danger flex items-center justify-center" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
       <text class="flex-1 h-4 no-wrap">{{model.label}}</text>

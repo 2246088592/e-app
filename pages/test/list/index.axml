@@ -1,9 +1,2 @@
-<view class="customer-list full-parent">
-  <e-list listOptions="{{testList}}">
-    <view slot="filter">
-      <e-input params="{{cus_code}}"></e-input>
-      <e-input params="{{assign_dept_name}}"></e-input>
-      <e-input params="{{assign_person_name}}"></e-input>
-    </view>
-  </e-list>
-</view>
+<!-- bizObj="{{bizObj}}" btnPos="{{btnPos}}" 为固定写法 -->
+<e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}"></e-list>

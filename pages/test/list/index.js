@@ -2,14 +2,22 @@ import listPage from '/src/render/listPage'
 
 listPage({
   id: 'testList',
-  name: 'test',
+  name: 'good',
   bindKey: 'name',
   searchPlaceholder: '搜索',
   url: 'url',
   auth: { add: true, delete: true, filter: true, check: true },
-  navbarOptions: {
-    title: '我发起的审批',
+  
+
+  // 权限标记，对应按钮的position
+  btnPos: 1,
+  // 业务对象
+  bizObj:{
+    url: 'url', // 请求地址
+    template: 'good', // 模板名称
   },
+
+
   filterParams: {},
   beforeEnterList() {
     this.setData({

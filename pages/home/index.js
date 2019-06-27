@@ -30,12 +30,38 @@ Page({
           mobile_url: '/pages/test/form/index',
           id: 'formtest',
           permission: [
-            // {
-            //   "position": 1,
-            //   "action_name": "提交",
-            //   "xtype": "primary",
-            //   "handler": 'handleSubmit'
-            // }
+            {
+              "position": 1,
+              "action_name": "提交",
+              "xtype": "primary",
+              "handler": 'handleSubmit'
+            },
+             {
+              "position": 1,
+              "action_name": "提交",
+              "xtype": "primary",
+              "handler": 'handleSubmit'
+            },
+             {
+              "position": 1,
+              "action_name": "提交",
+              "xtype": "primary",
+              "handler": 'handleSubmit'
+            }
+          ]
+        },
+        {
+          icon_cls: 'list',
+          menu_name: '列表测试',
+          mobile_url: '/pages/test/list/index',
+          id: 'listtest',
+          permission: [
+            {
+              "position": 1,
+              "action_name": "新增",
+              "xtype": "primary",
+              "handler": 'handleSubmit'
+            }
           ]
         }
       ]

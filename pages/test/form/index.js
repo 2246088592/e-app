@@ -105,7 +105,8 @@ formPage({
       label: '多行输入',
       key: 'textArea',
       component: 'e-text-area',
-      necessary: true
+      necessary: true,
+      maxlength: 200
     },
     {
       label: '人员选择',
@@ -113,23 +114,28 @@ formPage({
       component: 'e-user-chooser',
       necessary: true
     },
-    // {
-    //   label: '子表',
-    //   key: 'goods',
-    //   component: 'e-subform',
-    //   subform: [
-    //     {
-    //       label: '品名',
-    //       key: 'good_name',
-    //       component: 'e-input'
-    //     },
-    //     {
-    //       label: '规格',
-    //       key: 'good_spec',
-    //       component: 'e-input'
-    //     }
-    //   ]
-    // }
+    {
+      label: '子表',
+      key: 'goods',
+      component: 'e-subform',
+      subform: [
+        {
+          label: '子表输入',
+          key: 'good_name',
+          component: 'e-input'
+        },
+        {
+          label: '子表单选',
+          key: 'good_name',
+          component: 'e-picker'
+        },
+        {
+          label: '子表日期',
+          key: 'good_name',
+          component: 'e-date-picker'
+        }
+      ]
+    }
   ],
 
   // 表单change事件

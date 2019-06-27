@@ -1,7 +1,7 @@
-<view class="relative border-bottom p-2 text-base flex flex-col">
+<view class="{{model.sfi !== undefined ? 'relative border-bottom' : 'mb-3'}} p-2 text-base flex flex-col bg-color-white">
   <view class="flex items-center h-7 color-title" hidden="{{!model.label}}">
     <view class="w-2 color-danger" style="visibility: {{model.necessary ? 'visible' : 'hidden'}};">*</view>
-    <text class="flex-1 no-wrap">{{model.label}}</text>
+    <text class="flex-1 h-4 no-wrap">{{model.label}}</text>
     <text class="text-xs color-label">{{model.value.length || 0}}/{{model.max}}</text>
   </view>
   <view class="flex flex-1 flex-wrap pl-2 -mb-2">

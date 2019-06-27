@@ -1,6 +1,6 @@
-<view class="pin absolute flex flex-col bg-color-white">
+<view class="pin absolute flex flex-col">
   <!-- 表单 -->
-  <scroll-view scroll-y="{{true}}" class="flex-1">
+  <scroll-view scroll-y="{{true}}" class="flex-1 pt-3">
     <block a:for="{{bizObj}}" a:for-item="c" a:for-index="ci">
       <!-- 单行输入 -->
       <e-input a:if="{{c.component === 'e-input'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-input>
@@ -27,11 +27,11 @@
       <!-- 人员选择 -->
       <e-user-chooser a:elif="{{c.component === 'e-user-chooser'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-user-chooser>
       <!-- 子表组件 -->
-      <view a:elif="{{c.component === 'e-subform'}}" class="relative border-bottom">
+      <view a:elif="{{c.component === 'e-subform'}}" class="mb-3">
         <!-- 子表 -->
-        <view a:for="{{c.children}}" a:for-item="sf" a:for-index="sfi">
+        <block a:for="{{c.children}}" a:for-item="sf" a:for-index="sfi">
           <!-- 子表头部 -->
-          <view class="relative border-bottom flex items-center justify-between py-2 pl-4 pr-2 bg-color-sub-separator">
+          <view class="flex items-center justify-between mb-3 ml-4 mr-2 {{sfi > 0 ? 'mt-3' : ''}}">
             <text class="color-sub-title text-xs">{{c.label}}-{{sfi + 1}}</text>
             <!-- 子表删除按钮 -->
             <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-c="{{c}}" class="color-primary text-xs">
@@ -53,15 +53,15 @@
             <e-text-area a:elif="{{sc.component === 'e-text-area'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-text-area>
             <e-user-chooser a:elif="{{sc.component === 'e-user-chooser'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-user-chooser>
           </block>
-        </view>
+        </block>
         <!-- 子表增行按钮 -->
-        <button onTap="handleAdd" data-ci="{{ci}}" class="bg-color-white color-primary border-none radius-none">
-          <text class="fa fa-plus mr-1"/>增加{{c.label}}
+        <button onTap="handleAdd" data-ci="{{ci}}" class="flex items-center justify-center bg-color-white color-primary border-none radius-none">
+          <text class="text-2xl mr-1">+</text>增加{{c.label}}
         </button>
       </view>
     </block>
   </scroll-view>
-  <view a:if="{{btns.length}}" class="flex flex-row relative border-top">
+  <view a:if="{{btns.length}}" class="flex flex-row bg-color-white relative border-top">
     <button a:if="{{btn.position === btnPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="border-none radius-none bg-opacity flex-1 text-lg flex items-center justify-center {{'btn-' + (btn.xtype || 'primary')}}">
       <text class="fa mr-1 {{'fa-' + btn.icon_cls}}"/>{{btn.action_name}}
     </button>
