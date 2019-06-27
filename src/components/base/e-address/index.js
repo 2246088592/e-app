@@ -26,6 +26,16 @@ Component({
   },
 
   methods: {
+    // 清空
+    clear() {
+      if (this.props.model.disabled && !this.props.model.gps) {
+        return
+      }
+      let value = `${this.path}.value`
+      this.$page.setData({
+        [value]: ''
+      })
+    },
     // 定位方法
     position() {
       if (this.props.model.gps === false) {
@@ -64,9 +74,6 @@ Component({
 
     // 设置焦点
     handleTap() {
-      if (this.props.model.disabled) {
-        return
-      }
       let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
@@ -115,7 +122,7 @@ Component({
         [this.path]: Object.assign(address, model)
       })
       // 有默认值时不主动定位
-      if(model.value){
+      if (model.value) {
         return
       }
       // 定位

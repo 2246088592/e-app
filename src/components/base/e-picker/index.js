@@ -29,16 +29,6 @@ Component({
   },
 
   methods: {
-    // 输入框点击事件
-    handleTap(event) {
-      // if (this.props.model.disabled) {
-      //   return
-      // }
-      // if (!this.props.model.array.length) {
-      //   util.ddToast('none', '没有数据')
-      // }
-    },
-
     // 点击选项事件
     handleChange(event) {
       let i = event.detail.value

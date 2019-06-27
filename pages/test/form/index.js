@@ -81,7 +81,8 @@ formPage({
       label: '扫码',
       key: 'scan',
       component: 'e-scan',
-      necessary: true
+      necessary: true,
+      disabled: true
     },
     {
       label: '搜索',

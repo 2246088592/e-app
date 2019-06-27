@@ -1,10 +1,9 @@
 import validate from '../mixins/validate.js'
 import util from '/src/libs/util.js'
-import clear from '../mixins/clear.js'
 
 Component({
   // 混合校验
-  mixins: [validate, clear],
+  mixins: [validate],
   // 接收参数
   props: {
     model: {},
@@ -28,6 +27,17 @@ Component({
   },
 
   methods: {
+    // 清空
+    clear() {
+      if (this.props.model.disabled && !this.props.model.camera) {
+        return
+      }
+      let value = `${this.path}.value`
+      this.$page.setData({
+        [value]: ''
+      })
+    },
+
     // 输入事件同步value
     handleInput: util.debounce(function(event) {
       let value = `${this.path}.value`
@@ -36,7 +46,7 @@ Component({
       })
     }, 500),
 
-    // 设置焦点
+    // 点击事件
     handleTap() {
       let focus = `${this.path}.focus`
       this.$page.setData({
@@ -60,6 +70,9 @@ Component({
 
     // 扫码
     handleScan(event) {
+      if (!this.props.model.camera) {
+        return
+      }
       dd.scan({
         type: this.props.model.scanType,
         success: (res) => {
@@ -82,6 +95,7 @@ Component({
         value: '',
         label: '',
         status: '',
+        camera: true, // 可扫描
         focus: false,
         maxlength: 200,
         scanType: 'qr',
