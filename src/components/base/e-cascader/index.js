@@ -1,10 +1,11 @@
 import util from '/src/libs/util.js'
 import validate from '../mixins/validate.js'
 import equal from '../mixins/equal.js'
+import clear from '../mixins/clear.js'
 
 Component({
   // 混合校验
-  mixins: [validate, equal],
+  mixins: [validate, equal, clear],
   // data
   data: {
     tree: [], // 树结构
@@ -50,6 +51,14 @@ Component({
       })
     },
 
+    // 清空当前所选
+    clearCurrent() {
+      this.setData({
+        'current': '',
+        'currentIndex': ''
+      })
+    },
+
     // 单选切换
     radioChange(event) {
       let i = event.currentTarget.dataset.itemIndex
@@ -60,6 +69,7 @@ Component({
           'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.bindkey]],
           'childrenIndexArr': [this.data.childrenIndexArr.length, 0, i]
         })
+        this.clearCurrent()
       } else {
         this.setData({
           'current': item,
@@ -86,10 +96,7 @@ Component({
       if (this.data.childrenIndexArr.length - 1 === index) {
         return
       }
-      this.setData({
-        'current': '',
-        'currentIndex': ''
-      })
+      this.clearCurrent()
       let arr = this.data.tree.slice(0)
       for (let i = 0; i < index; i++) {
         arr = arr[this.data.childrenIndexArr[i + 1]].children

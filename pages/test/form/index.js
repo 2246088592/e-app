@@ -67,7 +67,8 @@ formPage({
       label: '下拉',
       key: 'picker',
       component: 'e-picker',
-      necessary: true
+      necessary: true,
+      array: [1, 2, 3, 4, 5]
     },
     {
       label: '滑动条',
@@ -82,15 +83,17 @@ formPage({
       component: 'e-scan',
       necessary: true
     },
-    // {
-    //   label: '搜索',
-    //   key: 'search',
-    //   component: 'e-search',
-    //   bindList: 'test',
-    //   bindkey: 'spec',
-    //   params: {},
-    //   necessary: true
-    // },
+    {
+      label: '搜索',
+      key: 'search',
+      component: 'e-search',
+      bindlist: '/pages/test/list/index',
+      bindkey: 'name',
+      params: {
+        minAge: 20
+      },
+      necessary: true
+    },
     {
       label: '切换',
       key: 'switch',

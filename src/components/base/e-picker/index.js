@@ -1,10 +1,10 @@
 import validate from '../mixins/validate.js'
 import equal from '../mixins/equal.js'
-import util from '/src/libs/util.js'
+import clear from '../mixins/clear.js'
 
 Component({
   // 混合
-  mixins: [validate, equal],
+  mixins: [validate, equal, clear],
   // 接收参数
   props: {
     model: {},
@@ -69,8 +69,8 @@ Component({
         bindkey: '',
         disabled: false,
         necessary: false,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        notice: model.necessary ? '不能为空' : '',
+        placeholder: model.necessary ? '必填' : ''
       }
       this.$page.setData({
         [this.path]: Object.assign(picker, model) // 补全属性

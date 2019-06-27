@@ -8,11 +8,11 @@
     <view class="relative flex flex-col items-center pr-3 pb-2" onTap="handleDelete" a:for="{{model.value}}" data-item-index="{{index}}">
       <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md" src="{{item.avatar}}" mode="aspectFill" />
       <text a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md">{{item.name[0]}}</text>
-      <icon class="absolute circle bg-color-white" style="top: -4rpx; right: 18rpx;" type="clear" size="16" color="#191F25 72%" />
+      <icon class="absolute circle bg-color-white" style="top: -4rpx; right: 18rpx;" type="clear" size="16" color="#191F25 88%" />
       <text class="mt-1 color-title text-xs">{{item.name}}</text>
     </view>
     <button style="border: 1rpx dashed #3296FA;" class="flex items-center justify-center circle w-9 h-9 mb-2 bg-opacity border-none" onTap="handleAdd">
-      <text class="text-lg color-primary fa fa-plus"></text>
+      <text class="text-2xl color-primary">+</text>
     </button>
   </view>
 </view>

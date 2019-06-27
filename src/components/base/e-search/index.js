@@ -1,11 +1,12 @@
 import validate from '../mixins/validate.js'
 import equal from '../mixins/equal.js'
+import clear from '../mixins/clear.js'
 
 let app = getApp()
 
 Component({
   // 混合校验
-  mixins: [validate, equal],
+  mixins: [validate, equal, clear],
   // 接收参数
   props: {
     model: {},
@@ -36,19 +37,11 @@ Component({
 
   methods: {
     // 点击选项事件
-    handleSelect(result) {
+    handleSelect(event) {
       let value = `${this.path}.value`
       this.$page.setData({
-        [value]: result
+        [value]: event
       })
-      // app.emitter.emit(`${this.props.params.formId ? this.props.params.formId + '_' : ''}inputChange`, {
-      //   detail: {
-      //     inputId: this.props.params.id,
-      //     objId: this.props.params.objId || null,
-      //     sublist: this.props.params.sublist || null,
-      //     subindex: this.props.params.subindex === 0 ? 0 : null
-      //   }
-      // })
     },
 
     // 跳转到搜索页面
@@ -56,10 +49,9 @@ Component({
       if (this.props.model.disabled) {
         return
       }
-      let params = JSON.stringify({ ...this.props.model, cid: `C${this.$page.$viewId + this.$id}` })
+      let esearch = JSON.stringify({ cid: `C${this.$page.$viewId + this.$id}`, params: this.props.model.params })
       dd.navigateTo({
-        // 固定路径
-        url: `/pages/${this.props.model.options.bindList}/list/index?params=${params}`
+        url: `${this.props.model.bindlist}?esearch=${esearch}`
       })
     },
 
@@ -76,20 +68,17 @@ Component({
       let search = {
         value: '',
         label: '',
+        params: {}, // 过滤条件
         status: '',
+        bindkey: '', // 要显示的key
+        bindlist: '', // 目标列表，路径
         disabled: false,
         necessary: false,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        notice: model.necessary ? '不能为空' : '',
+        placeholder: model.necessary ? '必填' : ''
       }
-      // 补全属性
-      model.options = Object.assign({
-        bindList: '',
-        params: {},
-        bindKey: '',
-      }, model.options)
       this.$page.setData({
-        [this.path]: Object.assign(search, model)
+        [this.path]: Object.assign(search, model) // 补全属性
       })
     }
   }

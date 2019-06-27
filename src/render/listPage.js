@@ -27,20 +27,19 @@ export default (lo) => {
     },
     // onload
     onLoad(query) {
-      if (query.params) {
-        let params = JSON.parse(query.params)
-        if (params.options.bindList === this.data[lo.id].name) {
+      if (query.esearch) {
+        let esearch = JSON.parse(query.esearch)
           let type = `${lo.id}.type`
           let eSearchId = `${lo.id}.eSearchId`
           let _params = `${lo.id}.params`
           let searchAuth = `${lo.id}.searchAuth`
           this.setData({
             [type]: 'search',
-            [eSearchId]: params.cid,
-            [_params]: params.options.params,
-            [searchAuth]: Object.assign({}, this.data[lo.id].auth, params.auth)
+            [eSearchId]: esearch.cid,
+            [_params]: esearch.params,
+            [searchAuth]: Object.assign({}, this.data[lo.id].auth)
           })
-        }
+        
       }
       if (lo.navbarOptions) {
         util.setNavigationBar(lo.navigationBar)

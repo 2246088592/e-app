@@ -26,12 +26,9 @@ Component({
   },
 
   methods: {
-    // 唤起地图（未实现）
-    oepnMap(event) { },
-
     // 定位方法
     position() {
-      if (this.props.model.disabled) {
+      if (this.props.model.gps === false) {
         return
       }
       let oldPlaceholder = this.props.model.placeholder
@@ -67,6 +64,9 @@ Component({
 
     // 设置焦点
     handleTap() {
+      if (this.props.model.disabled) {
+        return
+      }
       let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
@@ -98,6 +98,7 @@ Component({
       }
       // address对象
       let address = {
+        gps: true, // 能否定位
         value: '',
         label: '',
         status: '',
@@ -113,6 +114,10 @@ Component({
       this.$page.setData({
         [this.path]: Object.assign(address, model)
       })
+      // 有默认值时不主动定位
+      if(model.value){
+        return
+      }
       // 定位
       this.position()
     }

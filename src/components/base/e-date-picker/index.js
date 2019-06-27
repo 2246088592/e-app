@@ -1,9 +1,10 @@
 import util from '/src/libs/util.js'
 import validate from '../mixins/validate.js'
+import clear from '../mixins/clear.js'
 
 Component({
   // 混合校验
-  mixins: [validate],
+  mixins: [validate, clear],
   // 接收参数
   props: {
     model: {},
