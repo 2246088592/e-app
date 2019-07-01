@@ -10,8 +10,7 @@ formPage({
       label: '定位',
       key: 'address',
       component: 'e-address',
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '联级选择',
@@ -19,7 +18,6 @@ formPage({
       component: 'e-cascader',
       necessary: true,
       bindkey: 'name',
-      disabled: true,
       tree: [
         {
           name: '1',
@@ -52,45 +50,39 @@ formPage({
       key: 'date',
       icon: 'time',
       component: 'e-date-picker',
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '部门选择',
       key: 'dept',
       component: 'e-dept-chooser',
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '单行输入',
       key: 'ask_dept',
       component: 'e-input',
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '下拉',
       key: 'picker',
       component: 'e-picker',
       necessary: true,
-      array: [1, 2, 3, 4, 5],
-      disabled: true
+      array: [1, 2, 3, 4, 5]
     },
     {
       label: '滑动条',
       key: 'progress',
       component: 'e-progress-bar',
       necessary: true,
-      showValue: true,
-      disabled: true
+      showValue: true
     },
     {
       label: '扫码',
       key: 'scan',
       component: 'e-scan',
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '搜索',
@@ -101,30 +93,26 @@ formPage({
       params: {
         minAge: 20
       },
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '切换',
       key: 'switch',
       component: 'e-switch',
-      showValue: true,
-      disabled: true
+      showValue: true
     },
     {
       label: '多行输入',
       key: 'textArea',
       component: 'e-text-area',
       necessary: true,
-      maxlength: 200,
-      disabled: true
+      maxlength: 200
     },
     {
       label: '人员选择',
       key: 'user',
       component: 'e-user-chooser',
-      necessary: true,
-      disabled: true
+      necessary: true
     },
     {
       label: '子表',

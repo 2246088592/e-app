@@ -3,7 +3,14 @@
 		"pages/index/index",
     "pages/home/index",
     "pages/setting/index",
-    "pages/purchasing/form/index",
+
+    "pages/hy/good/form/index",
+    "pages/hy/depository/form/index",
+    "pages/hy/supplier/form/index",
+    "pages/hy/request/form/index",
+    "pages/hy/purchase/form/index",
+    "pages/hy/stock-in/form/index",
+    "pages/hy/stock-out/form/index",
 
     "pages/test/list/index",
     "pages/test/form/index"

@@ -34,7 +34,7 @@
           <view class="flex items-center justify-between mb-3 ml-4 mr-2 {{sfi > 0 ? 'mt-3' : ''}}">
             <text class="color-sub-title text-xs">{{c.label}}-{{sfi + 1}}</text>
             <!-- 子表删除按钮 -->
-            <view onTap="handleDelete" a:if="{{c.children.length > 1}}" data-sfi="{{sfi}}" data-c="{{c}}" class="color-primary text-xs">
+            <view onTap="handleDelete" a:if="{{c.children.length > 1 && !c.disabled}}" data-sfi="{{sfi}}" data-c="{{c}}" class="color-primary text-xs">
               <text class="fa fa-trash mr-1"></text>删除
             </view>
           </view>
@@ -55,7 +55,7 @@
           </block>
         </block>
         <!-- 子表增行按钮 -->
-        <button onTap="handleAdd" data-ci="{{ci}}" class="flex items-center justify-center bg-color-white color-primary border-none radius-none">
+        <button a:if="{{!c.disabled}}" onTap="handleAdd" data-ci="{{ci}}" class="flex items-center justify-center bg-color-white color-primary border-none radius-none">
           <text class="text-2xl mr-1">+</text>添加{{c.label}}
         </button>
       </view>

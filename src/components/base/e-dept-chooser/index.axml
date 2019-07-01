@@ -12,7 +12,7 @@
     </view>
     <input class="p-0 h-7 bg-opacity flex-1 pointer-events-none" a:if="{{!model.value.length}}" placeholder="{{model.placeholder}}"/>
   </view>
-  <view class="flex items-center justify-center h-5 w-5 color-title" onTap="handleAdd">
+  <view class="flex items-center justify-center h-5 w-5 color-title" catchTap="handleAdd">
     <image class="w-4 h-4" mode="scaleToFill" src="/src/assets/icon/base/right.png"/>
   </view>
 </view>

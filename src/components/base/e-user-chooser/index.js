@@ -83,6 +83,7 @@ Component({
         multiple: true,
         disabled: false,
         necessary: false,
+        type: 'complete', // 显示模式，默认完整模式，适合同时选择多人，占位较大，显示头像；精简模式（simple）只显示名字
         disabledUsers: [],
         requiredUsers: [],
         notice: model.necessary ? '不能为空' : ''
