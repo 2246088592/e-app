@@ -59,6 +59,7 @@ Component({
         status: '',
         disabled: false,
         necessary: false,
+        icon: 'calendar',
         format: 'yyyy-MM-dd',
         default: model.default ? model.default : false,
         placeholder: model.necessary ? '必填' : '',

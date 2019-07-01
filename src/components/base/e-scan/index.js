@@ -48,6 +48,9 @@ Component({
 
     // 点击事件
     handleTap() {
+      if (this.props.model.disabled  && !this.props.model.value) {
+        this.handleScan()
+      }
       let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
@@ -99,7 +102,7 @@ Component({
         focus: false,
         maxlength: 200,
         scanType: 'qr',
-        disabled: false,
+        disabled: true,
         necessary: false,
         notice: model.necessary ? '不能为空' : '',
         placeholder: model.necessary ? '必填' : ''

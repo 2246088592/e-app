@@ -1876,23 +1876,25 @@
 
 .border-bottom:after {
   position: absolute;
-  display: block;
   left: 0;
   right: 0;
   bottom: 0;
   height: 1rpx;
   content: '';
+  transform: scaleY(.5);
+  transform-origin: bottom;
   background-color: rgba(25, 31, 37, .05);
 }
 
 .border-top:before {
   position: absolute;
-  display: block;
   top: 0;
   left: 0;
   right: 0;
   height: 1rpx;
   content: '';
+  transform: scaleY(.5);
+  transform-origin: top;
   background-color: rgba(25, 31, 37, .05);
 }
 

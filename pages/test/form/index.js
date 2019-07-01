@@ -48,6 +48,7 @@ formPage({
     {
       label: '日期时间',
       key: 'date',
+      icon: 'time',
       component: 'e-date-picker',
       necessary: true
     },

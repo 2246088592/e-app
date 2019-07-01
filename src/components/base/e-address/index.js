@@ -41,18 +41,12 @@ Component({
       if (this.props.model.gps === false) {
         return
       }
-      let oldPlaceholder = this.props.model.placeholder
-      let placeholder = `${this.path}.placeholder`
-      this.$page.setData({
-        [placeholder]: '自动定位中...'
-      })
       dd.getLocation({
         type: 2,
         success: (res) => {
           let location = `${this.path}.location`
           let value = `${this.path}.value`
           this.$page.setData({
-            [placeholder]: oldPlaceholder,
             [location]: res,
             [value]: res.address
           })
@@ -74,6 +68,9 @@ Component({
 
     // 设置焦点
     handleTap() {
+      if (this.props.model.disabled && !this.props.model.value) {
+        this.position()
+      }
       let focus = `${this.path}.focus`
       this.$page.setData({
         [focus]: true
@@ -112,7 +109,7 @@ Component({
         focus: false,
         location: {},
         maxlength: 200,
-        disabled: false,
+        disabled: true,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',
         notice: model.necessary ? '不能为空' : ''

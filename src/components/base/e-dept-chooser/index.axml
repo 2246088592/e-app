@@ -4,15 +4,15 @@
     <text class="flex-1 h-4 no-wrap">{{model.label}}</text>
   </view>
   <view class="relative min-h-9 pl-1 pr-2 -mb-2 flex flex-1 flex-wrap">
-    <view class="h-7 px-1 mr-2 mb-2 flex items-center justify-center color-white bg-color-primary radius-1" catchTap a:if="{{model.value.length}}" a:for="{{model.value}}" data-item-index="{{index}}">
-      <text class="mr-1 h-4">{{item.name}}</text>
-      <view class="w-4 h-4" catchTap="handleDelete">
-        <icon size="16" color="#fff" type="cancel"></icon>
+    <view style="margin-top: 4rpx; margin-bottom: 20rpx; background-color: #f4f4f5; color: #909399; border: 1px solid #e9e9eb;" class="h-6 pl-2 pr-1 mr-2 flex items-center justify-center radius-2" catchTap a:if="{{model.value.length}}" a:for="{{model.value}}">
+      <text style="height: 12px;" class="mr-1 text-xs">{{item.name}}</text>
+      <view class="h-5 w-5 flex items-center justify-center" data-item-index="{{index}}" catchTap="handleDelete">
+        <image style="height: 12px; width: 12px;" mode="scaleToFill" src="/src/assets/icon/base/round_close_fill.png"/>
       </view>
     </view>
     <input class="p-0 h-7 bg-opacity flex-1 pointer-events-none" a:if="{{!model.value.length}}" placeholder="{{model.placeholder}}"/>
   </view>
   <view class="flex items-center justify-center h-5 w-5 color-title" onTap="handleAdd">
-    <text class="text-xl fa fa-chevron-right"></text>
+    <image class="w-4 h-4" mode="scaleToFill" src="/src/assets/icon/base/right.png"/>
   </view>
 </view>
