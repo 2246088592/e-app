@@ -11,6 +11,8 @@ listPage({
 
   // 权限标记，对应按钮的position
   btnPos: 1,
+  // 权限标记，对应按钮的position，由于列表有可多选状态
+  editBtnPos: 2,
   // 业务对象
   bizObj:{
     url: 'url', // 请求地址

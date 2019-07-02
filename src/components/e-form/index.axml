@@ -1,4 +1,4 @@
-<view class="pin absolute flex flex-col">
+<view class="absolute pin flex flex-col">
   <!-- 表单 -->
   <scroll-view scroll-y="{{true}}" class="flex-1 pt-3">
     <block a:for="{{bizObj}}" a:for-item="c" a:for-index="ci">

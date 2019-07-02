@@ -16,6 +16,7 @@ export default (l) => {
     data: {
       // 权限标记，对应按钮position
       btnPos: l.btnPos !== undefined ? l.btnPos : '',
+      editBtnPos: l.editBtnPos !== undefined ? l.editBtnPos : '',
       // 业务对象
       bizObj: l.bizObj
     },

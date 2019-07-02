@@ -34,6 +34,14 @@ Page({
               "position": 1,
               "action_name": "新增",
               "xtype": "primary",
+              'icon_cls': 'plus',
+              "handler": 'handleSubmit'
+            },
+            {
+              "position": 2,
+              "action_name": "删除",
+              "xtype": "primary",
+              'icon_cls': 'trash',
               "handler": 'handleSubmit'
             }
           ]

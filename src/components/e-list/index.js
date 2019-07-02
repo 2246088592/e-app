@@ -15,7 +15,7 @@ Component({
       orderBy: 'id',
       params: {}
     },
-    editable: false, // 控制checkbox开关
+    editable: false, // 控制checkbox开关，是否可多选状态
     isLoading: false, // 是否正在加载中
     noMore: false, // 是否全部加载完成
     checkedItems: [], // 已勾选项目的id数组
@@ -31,11 +31,12 @@ Component({
     listOptions: {},
     bizObj: {}, // 业务对象
     btnPos: '', // 权限按钮位置
+    editBtnPos: '', // 多选状态的按钮位置
   },
 
   didMount() {
     // 初始化列表权限
-    this.initAuth()
+    this.initBtns()
     // 初始化searchbox右侧按钮
     this.searchBoxBlur()
     // 首次加载数据
@@ -60,10 +61,13 @@ Component({
   },
 
   methods: {
-    // 初始化列表权限
-    initAuth() {
-      this.setData({
-        permission: this.$page.menu.permission
+    // 初始化动态按钮
+    initBtns() {
+      util.db.get({ dbName: 'permission', user: true }).then(data => {
+        let id = this.$page.menu.id
+        this.setData({
+          btns: data[id]
+        })
       })
     },
 
@@ -120,7 +124,7 @@ Component({
     // 获取已选择的项的id
     getCheckedItems() {
       let arr = []
-      this.props.listOptions.array.forEach((item) => {
+      this.data.array.forEach((item) => {
         if (item.checked) {
           arr.push(item.id)
         }
@@ -261,11 +265,11 @@ Component({
         return
       }
       let i = event.currentTarget.dataset.itemIndex
-      let checked = `${this.props.listOptions.id}.array[${i}].checked`
+      let checked = `array[${i}].checked`
       this.setData({
         'editable': true
       })
-      this.$page.setData({
+      this.setData({
         [checked]: true
       })
     },
@@ -273,7 +277,7 @@ Component({
     // 单个项目点击事件
     selectItem(event) {
       let i = event.currentTarget.dataset.itemIndex
-      let item = this.props.listOptions.array[i]
+      let item = this.data.array[i]
       // 编辑模式下 点击事件为切换选中状态
       if (this.data.editable) {
         this.toggleCheckeBox(i, item)
@@ -296,13 +300,13 @@ Component({
 
     // 切换单个checkbox状态
     toggleCheckeBox(index, item) {
-      let key = `${this.props.listOptions.id}.array[${index}].checked`
-      let checked = true
-      if (item.checked) {
-        checked = false
-      }
-      this.$page.setData({
-        [key]: checked
+      let key = `array[${index}].checked`
+      // let checked = true
+      // if (item.checked) {
+      //   checked = false
+      // }
+      this.setData({
+        [key]: !item.checked
       })
     },
 
@@ -348,7 +352,7 @@ Component({
 
     // 全选/全不选切换
     selectAll() {
-      if (this.data.checkedItems.length === this.props.listOptions.array.length) {
+      if (this.data.checkedItems.length === this.data.array.length) {
         this.handleSelectAll(false)
         return
       }
@@ -357,14 +361,12 @@ Component({
 
     // 选择函数
     handleSelectAll(checked) {
-      let arr = this.props.listOptions.array.slice(0)
+      let arr = this.data.array.slice(0)
       for (let i = 0; i < arr.length; i++) {
         arr[i].checked = checked
       }
-      let array = `${this.props.listOptions.id}.array`
-
-      this.$page.$spliceData({
-        [array]: [0, this.props.listOptions.array.length, ...arr]
+      this.$spliceData({
+        array: [0, this.data.array.length, ...arr]
       })
     },
 
