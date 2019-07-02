@@ -122,6 +122,7 @@ export default (f) => {
 
     // 提交方法
     async handleSubmit() {
+      console.log(JSON.stringify(this.data.bizObj))
       if (this.beforeSubmit) {
         await this.beforeSubmit()
       }

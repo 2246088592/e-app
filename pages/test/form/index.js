@@ -139,22 +139,8 @@ formPage({
   ],
 
   // 表单change事件
-  formChange(event) {
-    let obj = event
-
-    console.log(obj)
-  },
+  formChange(event) { },
 
   // 业务方法
-  methods: {
-    handle1(event) {
-      console.log(event)
-    },
-    handle2(event) {
-      console.log(event)
-    },
-    handle3(event) {
-      console.log(event)
-    }
-  }
+  methods: {}
 })

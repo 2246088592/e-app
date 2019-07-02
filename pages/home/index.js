@@ -54,6 +54,26 @@ Page({
         },
         {
           icon_cls: 'cube',
+          menu_name: '商品资料列表',
+          mobile_url: '/pages/hy/good/list/index',
+          id: 'good_l',
+          permission: [
+            {
+              "position": 1,
+              "action_name": "新增",
+              "xtype": "primary",
+              "handler": 'handleSubmit'
+            },
+            {
+              "position": 1,
+              "action_name": "删除",
+              "xtype": "danger",
+              "handler": 'handleSubmit'
+            }
+          ]
+        },
+        {
+          icon_cls: 'cube',
           menu_name: '仓库资料',
           mobile_url: '/pages/hy/depository/form/index',
           id: 'depository_f',
@@ -68,6 +88,12 @@ Page({
         },
         {
           icon_cls: 'cube',
+          menu_name: '仓库资料列表',
+          mobile_url: '/pages/hy/depository/list/index',
+          id: 'depository_l'
+        },
+        {
+          icon_cls: 'cube',
           menu_name: '供应商资料',
           mobile_url: '/pages/hy/supplier/form/index',
           id: 'supplier_f',
@@ -79,6 +105,12 @@ Page({
               "handler": 'handleSubmit'
             }
           ]
+        },
+        {
+          icon_cls: 'cube',
+          menu_name: '供应商资料列表',
+          mobile_url: '/pages/hy/supplier/list/index',
+          id: 'supplier_l'
         },
         {
           icon_cls: 'cube',
@@ -114,6 +146,26 @@ Page({
         },
         {
           icon_cls: 'cube',
+          menu_name: '请购申请列表',
+          mobile_url: '/pages/hy/request/list/index',
+          id: 'request_l',
+          permission: [
+            {
+              "position": 1,
+              "action_name": "转领用单",
+              "xtype": "warning",
+              "handler": 'handleSubmit'
+            }
+          ]
+        },
+        {
+          icon_cls: 'cube',
+          menu_name: '请购需求生成订单',
+          mobile_url: '/pages/hy/request-to-purchase/list/index',
+          id: 'rtp_l'
+        },
+        {
+          icon_cls: 'cube',
           menu_name: '采购单',
           mobile_url: '/pages/hy/purchase/form/index',
           id: 'purchase_f',
@@ -131,6 +183,18 @@ Page({
               "handler": 'handleSubmit'
             }
           ]
+        },
+        {
+          icon_cls: 'cube',
+          menu_name: '采购单列表',
+          mobile_url: '/pages/hy/purchase/list/index',
+          id: 'purchase_l'
+        },
+        {
+          icon_cls: 'cube',
+          menu_name: '采购单入库',
+          mobile_url: '/pages/hy/purchase-to-stock-in/list/index',
+          id: 'ptsi_l'
         },
         {
           icon_cls: 'cube',
@@ -154,6 +218,12 @@ Page({
         },
         {
           icon_cls: 'cube',
+          menu_name: '采购入库单列表',
+          mobile_url: '/pages/hy/stock-in/list/index',
+          id: 'ptsi_l'
+        },
+        {
+          icon_cls: 'cube',
           menu_name: '耗材领用单',
           mobile_url: '/pages/hy/stock-out/form/index',
           id: 'stock_in_f',
@@ -171,7 +241,13 @@ Page({
               "handler": 'handleSubmit'
             }
           ]
-        }
+        },
+        {
+          icon_cls: 'cube',
+          menu_name: '耗材领用单列表',
+          mobile_url: '/pages/hy/stock/list/index',
+          id: 'stock_out_l'
+        },
       ]
     }
   },

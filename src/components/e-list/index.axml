@@ -5,35 +5,38 @@
   <e-search-bar class="{{editable ? 'search-bar-hide' : ''}}" value="{{keyWord}}" placeholder="{{listOptions.searchPlaceholder || '搜索'}}" rightBtnText="{{searchBoxRightBtnText}}" onInput="searchBoxInput" onClear="searchBoxClear" onFocus="searchBoxFocus" onBlur="searchBoxBlur" onCancel="searchBoxCancel" onSubmit="loadMore" showCancelButton="{{true}}"/>
   <!-- 长按显示，多选模式头部 -->
   <view class="editmode-title-wrapper {{editable ? 'editmode-title-wrapper-open' : ''}}">
-    <button class="opacity-btn icon-48rpx center" onTap="hideCheckBox">
-      <text class="color-text text-big-x fa fa-times"></text>
+    <button class="bg-opacity w-6 h-6 flex items-center justify-center border-none" onTap="hideCheckBox">
+      <image class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/close.png"/>
     </button>
     <text class="color-text text-middle">已选择{{checkedItems.length || 0}}项</text>
-    <button class="opacity-btn icon-48rpx" onTap="selectAll">
-      <text a:if="{{checkedItems.length === listOptions.array.length}}" class="color-text text-big-x fa fa-check-square"></text>
-      <text a:else class="color-text text-big-x fa fa-square-o"></text>
+    <button class="bg-opacity w-6 h-6 flex items-center justify-center border-none" onTap="selectAll">
+      <image a:if="{{checkedItems.length === listOptions.array.length}}" class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/square_check_fill.png"/>
+      <image a:else class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/square.png"/>
     </button>
   </view>
   <!-- 滚动部分 -->
   <scroll-view class="scroll-wrapper" onScrollToLower="loadMore" scroll-with-animation="{{true}}" scroll-y="{{true}}" lower-threshold="{{40}}">
-    <view class="list-item" onTap="selectItem" onLongTap="showCheckBox" data-item-index="{{index}}" a:for="{{listOptions.array}}">
+    <view class="list-item" onTap="selectItem" onLongTap="showCheckBox" data-item-index="{{index}}" a:for="{{array}}">
       <checkbox class="item-check-box {{editable ? 'item-check-box-show' : ''}}" value="{{item.id}}" checked="{{item.checked}}"/>
       <view class="item-content">
-        <template is="{{listOptions.name}}" data="{{...item}}"></template>
+        <template is="{{bizObj.template}}" data="{{...item}}"></template>
       </view>
     </view>
     <e-loader noMore="{{noMore}}" noData="{{listOptions.array.length === 0}}"></e-loader>
   </scroll-view>
   <!-- 右下角按钮组-!editable -->
   <view class="rb-btn-wrapper {{!editable ? 'rb-btn-wrapper-show' : ''}}">
-    <button class="circle-btn shadow-btn icon-96rpx" a:if="{{listOptions.type === 'search' ? listOptions.searchAuth.add : listOptions.auth.add}}" style="margin-top: 16rpx;" type="primary" onTap="goAddPage">
+    <!-- <button class="circle-btn shadow-btn icon-96rpx circle" style="margin-top: 16rpx;" type="primary" onTap="goAddPage">
       <text class="color-white text-big-x fa fa-plus"></text>
-    </button>
+    </button> -->
   </view>
   <!-- 右下角按钮组-editable -->
   <view class="rb-btn-wrapper {{editable ? 'rb-btn-wrapper-show' : ''}}">
-    <button class="circle-btn shadow-btn icon-96rpx" a:if="{{listOptions.type === 'search' ? listOptions.searchAuth.delete : listOptions.auth.delete}}" style="margin-top: 16rpx;" type="warn" onTap="deleteItems">
+    <!-- <button class="circle-btn shadow-btn icon-96rpx circle" style="margin-top: 16rpx;" type="warn" onTap="deleteItems">
       <text class="color-white text-big-x fa fa-trash"></text>
+    </button> -->
+    <button class="circle-btn border-none shadow-btn icon-96rpx circle" style="margin-top: 16rpx;" type="primary" onTap="deleteItems">
+      <text class="color-white text-xs">生成</text>
     </button>
   </view>
   <!-- 过滤部件 -->

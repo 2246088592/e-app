@@ -7,39 +7,36 @@ listPage({
   searchPlaceholder: '搜索',
   url: 'url',
   auth: { add: true, delete: true, filter: true, check: true },
-  
+
 
   // 权限标记，对应按钮的position
   btnPos: 1,
   // 业务对象
-  bizObj:{
+  bizObj: {
     url: 'url', // 请求地址
-    template: 'good', // 模板名称
+    template: 'ptsi', // 模板名称
     array: [
       {
         id: 1,
-        good_code: 'GOOG0001',
-        good_name: '测试耗材1',
-        good_type: '日常用品',
-        good_spec: 'SCP-001',
-        good_unit: '个'
-      },
-      {
-        id: 2,
-        good_code: 'GOOG0002',
-        good_name: '测试耗材2',
-        good_type: '日常用品',
-        good_spec: 'SCP-002',
-        good_unit: '盒'
-      },
-      {
-        id: 3,
-        good_code: 'GOOG0003',
-        good_name: '测试耗材4',
-        good_type: '日常用品',
-        good_spec: 'SCP-003',
-        good_unit: '箱'
-      },
+        code: 'RKD0001',
+        date: '2019-07-02',
+        supplier: 'XXXXXX有限公司',
+        depository: '仓库',
+        creator: '陈加隆',
+        create_date: '2019-07-02',
+        sp_person: '刘孟霞',
+        sp_date: '2019-07-02',
+        
+        
+        // code: 'CGD0001',
+        // date: '2019-07-02',
+        // person: {avatar: 'https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg', name: '陈加隆'},
+        // dept: '开发部',
+        // sp_status: '成功',
+        // sp_person: '刘孟霞',
+        // sp_date: '2019-07-02'
+      
+      }
     ]
   },
 

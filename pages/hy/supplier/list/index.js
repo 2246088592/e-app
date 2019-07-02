@@ -14,32 +14,16 @@ listPage({
   // 业务对象
   bizObj:{
     url: 'url', // 请求地址
-    template: 'good', // 模板名称
+    template: 'supplier', // 模板名称
     array: [
       {
         id: 1,
-        good_code: 'GOOG0001',
-        good_name: '测试耗材1',
-        good_type: '日常用品',
-        good_spec: 'SCP-001',
-        good_unit: '个'
-      },
-      {
-        id: 2,
-        good_code: 'GOOG0002',
-        good_name: '测试耗材2',
-        good_type: '日常用品',
-        good_spec: 'SCP-002',
-        good_unit: '盒'
-      },
-      {
-        id: 3,
-        good_code: 'GOOG0003',
-        good_name: '测试耗材4',
-        good_type: '日常用品',
-        good_spec: 'SCP-003',
-        good_unit: '箱'
-      },
+        code: 'GYS0001',
+        name: 'XXXXXX有限公司',
+        contact: '王女士',
+        phone: '15246154784',
+        address: '上海市浦东新区民生路118号滨江万科中心311'
+      }
     ]
   },
 

@@ -5,12 +5,24 @@
     "pages/setting/index",
 
     "pages/hy/good/form/index",
+    "pages/hy/good/list/index",
     "pages/hy/depository/form/index",
+    "pages/hy/depository/list/index",
     "pages/hy/supplier/form/index",
+    "pages/hy/supplier/list/index",
     "pages/hy/request/form/index",
+    "pages/hy/request/list/index",
+    "pages/hy/request-to-purchase/list/index",
     "pages/hy/purchase/form/index",
+    "pages/hy/purchase/list/index",
+    "pages/hy/purchase-to-stock-in/list/index",
     "pages/hy/stock-in/form/index",
+    "pages/hy/stock-in/list/index",
     "pages/hy/stock-out/form/index",
+    "pages/hy/stock-out/list/index",
+    "pages/hy/stock/list/index",
+    
+
 
     "pages/test/list/index",
     "pages/test/form/index"

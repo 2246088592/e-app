@@ -1414,6 +1414,10 @@
 
 /* 阴影 */
 
+.-shadow {
+  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, .1);
+}
+
 .shadow {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
 }

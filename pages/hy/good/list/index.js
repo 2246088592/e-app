@@ -35,7 +35,7 @@ listPage({
       {
         id: 3,
         good_code: 'GOOG0003',
-        good_name: '测试耗材4',
+        good_name: '测试耗材3',
         good_type: '日常用品',
         good_spec: 'SCP-003',
         good_unit: '箱'

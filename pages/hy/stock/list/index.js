@@ -7,39 +7,39 @@ listPage({
   searchPlaceholder: '搜索',
   url: 'url',
   auth: { add: true, delete: true, filter: true, check: true },
-  
+
 
   // 权限标记，对应按钮的position
   btnPos: 1,
   // 业务对象
-  bizObj:{
+  bizObj: {
     url: 'url', // 请求地址
-    template: 'good', // 模板名称
+    template: 'stock', // 模板名称
     array: [
       {
         id: 1,
-        good_code: 'GOOG0001',
-        good_name: '测试耗材1',
-        good_type: '日常用品',
-        good_spec: 'SCP-001',
-        good_unit: '个'
+        depository: 'CK001',
+        name: '耗材0001',
+        code: 'HC0001',
+        spec: 'SCP001',
+        number: '30'
       },
       {
         id: 2,
-        good_code: 'GOOG0002',
-        good_name: '测试耗材2',
-        good_type: '日常用品',
-        good_spec: 'SCP-002',
-        good_unit: '盒'
+        depository: 'CK001',
+        name: '耗材0002',
+        code: 'HC0002',
+        spec: 'SCP002',
+        number: '10'
       },
       {
         id: 3,
-        good_code: 'GOOG0003',
-        good_name: '测试耗材4',
-        good_type: '日常用品',
-        good_spec: 'SCP-003',
-        good_unit: '箱'
-      },
+        depository: 'CK001',
+        name: '耗材0003',
+        code: 'HC0002',
+        spec: 'SCP002',
+        number: '2'
+      }
     ]
   },
 

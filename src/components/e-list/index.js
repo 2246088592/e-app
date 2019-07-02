@@ -28,7 +28,9 @@ Component({
 
   props: {
     // 接收listOptions配置文件
-    listOptions: {}
+    listOptions: {},
+    bizObj: {}, // 业务对象
+    btnPos: '', // 权限按钮位置
   },
 
   didMount() {
@@ -60,9 +62,8 @@ Component({
   methods: {
     // 初始化列表权限
     initAuth() {
-      let auth = `${this.props.listOptions.id}.auth`
-      this.$page.setData({
-        [auth]: Object.assign({}, this.data.auth, this.props.listOptions.auth)
+      this.setData({
+        permission: this.$page.menu.permission
       })
     },
 
@@ -198,37 +199,42 @@ Component({
 
     // 加载方法
     async loadMore() {
-      if (this.data.noMore || this.data.isLoading) {
-        return
-      }
-      this.setData({
-        'isLoading': true,
-        'params.params': JSON.stringify({ [this.props.listOptions.bindKey]: this.data.keyWord, ...this.props.listOptions.params })
-      })
-      let options = {
-        url: this.props.listOptions.url,
-        params: this.data.params
-      }
-      let resp = await http.get(options)
-      if (resp.status === 0) {
-        let array = `${this.props.listOptions.id}.array`
-        this.$page.$spliceData({
-          [array]: [this.props.listOptions.array.length, 0, ...resp.data.items],
-        })
+      if (this.props.bizObj.array) {
         this.setData({
-          'params.page': this.data.params.page += 1
+          array: this.props.bizObj.array
         })
-        if (!resp.data.items.length || resp.data.items.length < this.data.params.limit) {
-          this.setData({
-            'noMore': true
-          })
-        }
       }
-      this.setData({
-        'isLoading': false
-      })
-      this.closeFilter()
-      dd.stopPullDownRefresh()
+      // if (this.data.noMore || this.data.isLoading) {
+      //   return
+      // }
+      // this.setData({
+      //   'isLoading': true,
+      //   'params.params': JSON.stringify({ [this.props.listOptions.bindKey]: this.data.keyWord, ...this.props.listOptions.params })
+      // })
+      // let options = {
+      //   url: this.props.listOptions.url,
+      //   params: this.data.params
+      // }
+      // let resp = await http.get(options)
+      // if (resp.status === 0) {
+      //   let array = `${this.props.listOptions.id}.array`
+      //   this.$page.$spliceData({
+      //     [array]: [this.props.listOptions.array.length, 0, ...resp.data.items],
+      //   })
+      //   this.setData({
+      //     'params.page': this.data.params.page += 1
+      //   })
+      //   if (!resp.data.items.length || resp.data.items.length < this.data.params.limit) {
+      //     this.setData({
+      //       'noMore': true
+      //     })
+      //   }
+      // }
+      // this.setData({
+      //   'isLoading': false
+      // })
+      // this.closeFilter()
+      // dd.stopPullDownRefresh()
     },
 
     // 右下add按钮点击事件
@@ -274,7 +280,7 @@ Component({
       }
       // 如果是搜索模式 则返回到e-search组件
       else if (this.props.listOptions.type === 'search') {
-        app.emitter.emit(`${this.props.listOptions.eSearchId}`,  item)
+        app.emitter.emit(`${this.props.listOptions.eSearchId}`, item)
         dd.navigateBack({
           delta: 1
         })
