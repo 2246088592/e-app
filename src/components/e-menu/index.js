@@ -2,7 +2,9 @@ import { getMenuTree } from '/src/api/sys/menu.js'
 
 Component({
   data: {
-    opened: {}
+    opened: {},
+    loading: false,
+    loadingText: '菜单加载中'
   },
   props: {
     // 每行最大菜单数
@@ -18,6 +20,9 @@ Component({
   methods: {
     // 初始化菜单
     initMenu() {
+      this.setData({
+        loading: true
+      })
       getMenuTree({ mock: 'menuTree' }).then(res => {
         let menuGroup = []
         if (this.props.menus.children && this.props.menus.children.length) {
@@ -25,7 +30,12 @@ Component({
         }
         this.formatMenu(menuGroup, res.data[0])
         this.setData({
+          loading: false,
           menuGroup: menuGroup
+        })
+      }).catch(err => {
+        this.setData({
+          loading: false
         })
       })
     },

@@ -2,8 +2,9 @@ import util from '/src/libs/util.js'
 
 Component({
   props: {
-    bizObj: [],
     btnPos: '',
+    background: '',
+    bizObj: [],
     onRules: () => {
       return []
     }

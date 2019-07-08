@@ -35,14 +35,35 @@ Page({
               "action_name": "新增",
               "xtype": "primary",
               'icon_cls': 'plus',
-              "handler": 'handleSubmit'
+              "handler": 'handleAdd'
+            },
+            {
+              "position": 1,
+              "action_name": "新增",
+              "xtype": "primary",
+              'icon_cls': 'plus',
+              "handler": 'testAdd'
+            },
+            {
+              "position": 1,
+              "action_name": "编辑",
+              "xtype": "primary",
+              'icon_cls': 'edit',
+              "handler": 'testEdit'
+            },
+            {
+              "position": 1,
+              "action_name": "刷新",
+              "xtype": "primary",
+              'icon_cls': 'refresh',
+              "handler": 'testRefresh'
             },
             {
               "position": 2,
               "action_name": "删除",
               "xtype": "primary",
               'icon_cls': 'trash',
-              "handler": 'handleSubmit'
+              "handler": 'handleDelete'
             }
           ]
         },

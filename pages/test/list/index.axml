@@ -1,2 +1,6 @@
 <!-- bizObj="{{bizObj}}" btnPos="{{btnPos}}" editBtnPos="{{editBtnPos}}" 为固定写法 -->
-<e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}" editBtnPos="{{editBtnPos}}"></e-list>
+<e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}" background="{{background}}" searchBar="{{searchBar}}" editBtnPos="{{editBtnPos}}">
+  <view slot="filter">
+    <e-input model="{{filter[0]}}" onValidate="onTest"></e-input>
+  </view>
+</e-list>

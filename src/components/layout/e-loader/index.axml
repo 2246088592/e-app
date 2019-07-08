@@ -1,6 +1,0 @@
-<view class="loader-wrapper {{noData && noMore ? 'noData' : ''}}">
-  <image a:if="{{!noMore}}" style="height: 80rpx; margin: 16rpx 0;" src="/common/icon/loader/loader.gif" mode="aspectFit"/>
-  <image a:if="{{noData && noMore}}" style="height: 192rpx;" src="/common/icon/loader/no-data.png" mode="aspectFit"/>
-  <text a:if="{{noData && noMore}}" class="load-text">{{noDataText}}</text>
-  <text a:if="{{noMore && !noData}}" class="load-text">{{noMoreText}}</text>
-</view>

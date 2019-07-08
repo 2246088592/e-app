@@ -64,7 +64,9 @@ export default (f) => {
     // data对象
     data: {
       // 权限标记，对应按钮position
-      btnPos: f.btnPos !== undefined ? f.btnPos : ''
+      btnPos: f.btnPos !== undefined ? f.btnPos : '',
+      // 表单背景
+      background: f.background !== undefined ? f.background : 'rgba(25, 31, 37, .05)'
     },
 
     // 加载

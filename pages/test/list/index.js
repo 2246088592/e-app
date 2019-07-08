@@ -1,52 +1,55 @@
 import listPage from '/src/render/listPage'
 
-listPage({
-  id: 'testList',
-  name: 'good',
-  bindKey: 'name',
-  searchPlaceholder: '搜索',
-  url: 'url',
-  auth: { add: true, delete: true, filter: true, check: true },
-  
+let app = getApp()
 
+listPage({
   // 权限标记，对应按钮的position
   btnPos: 1,
   // 权限标记，对应按钮的position，由于列表有可多选状态
   editBtnPos: 2,
-  // 业务对象
-  bizObj:{
-    url: 'url', // 请求地址
-    template: 'good', // 模板名称
-    array: [
-      {
-        id: 1,
-        good_code: 'GOOG0001',
-        good_name: '测试耗材1',
-        good_type: '日常用品',
-        good_spec: 'SCP-001',
-        good_unit: '个'
-      },
-      {
-        id: 2,
-        good_code: 'GOOG0002',
-        good_name: '测试耗材2',
-        good_type: '日常用品',
-        good_spec: 'SCP-002',
-        good_unit: '盒'
-      },
-      {
-        id: 3,
-        good_code: 'GOOG0003',
-        good_name: '测试耗材4',
-        good_type: '日常用品',
-        good_spec: 'SCP-003',
-        good_unit: '箱'
-      },
-    ]
+
+  // 表单背景
+  background: '',
+
+  // 导航栏配置
+  navigationBar: {
+    // title会自动设置
+    title: '这是一个测试表单',
+    backgroundColor: '#108ee9',
+  },
+
+  // 搜索框
+  searchBar: {
+    bindkey: 'name',
+    placeholder: '哈哈哈'
+  },
+
+  // 请求参数
+  params: {
+    limit: 30
   },
 
 
-  filterParams: {},
+  // 过滤条件
+  filter: [
+    {
+      path: 'filter[0]',
+      label: '单行输入',
+      key: 'ask_dept',
+      component: 'e-input',
+      necessary: true
+    }
+  ],
+
+  // 业务对象
+  bizObj: {
+    url: 'url', // 请求地址
+    template: 'good', // 模板名称
+    mock: 'list', // 模拟数据
+    form: '/pages/test/form/index', // 新增，查看，编辑时跳转路由
+  },
+
+
   beforeEnterList() {
     this.setData({
       'testList.array': [
@@ -68,5 +71,40 @@ listPage({
         }
       ]
     })
+  },
+
+  methods: {
+    testAdd() {
+      app.emitter.emit(`${this.lid}`, {
+        type: 'add',
+        data: {
+          id: 1,
+          good_code: 'GOOG0006',
+          good_name: '测试耗材6',
+          good_type: '动态添加',
+          good_spec: 'SCP-006',
+          good_unit: '箱'
+        }
+      })
+    },
+    testEdit() {
+      app.emitter.emit(`${this.lid}`, {
+        type: 'edit',
+        index: 0,
+        data: {
+          id: 1,
+          good_code: 'GOOG0006',
+          good_name: '测试耗材6',
+          good_type: '动态修改',
+          good_spec: 'SCP-006',
+          good_unit: '箱'
+        }
+      })
+    },
+    testRefresh() {
+      app.emitter.emit(`${this.lid}`, {
+        type: 'refresh'
+      })
+    }
   }
 })

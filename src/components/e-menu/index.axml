@@ -17,4 +17,7 @@
       </block>
     </view>
   </view>
+  <view a:if="{{loading}}" class="absolute pin flex items-center justify-center">
+    <e-loader loading="{{loading}}" loadingText="{{loadingText}}" type="2" />
+  </view>
 </scroll-view>

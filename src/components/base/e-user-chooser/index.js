@@ -112,6 +112,9 @@ Component({
       this.$page.setData({
         [status]: result
       })
-    }
+    },
+
+    // 无效事件
+    void() { }
   }
 })

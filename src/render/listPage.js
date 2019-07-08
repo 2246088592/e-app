@@ -1,16 +1,23 @@
 import util from '/src/libs/util.js'
 
+// 初始化业务对象方法
+function initBizObj(bizObj) {
+  let obj = {
+    url: bizObj.url || '',
+    template: bizObj.template || '',
+    params: {
+      pageable: bizObj.pageable !== undefined ? bizObj.pageable : true,
+      page: bizObj.page !== undefined ? bizObj.page : 1,
+      limit: bizObj.limit !== undefined ? bizObj.limit : 20,
+      idField: bizObj.idField !== undefined ? bizObj.idField : 'id',
+      sort: bizObj.sort !== undefined ? bizObj.sort : 'desc',
+      orderBy: bizObj.orderBy !== undefined ? bizObj.orderBy : 'id'
+    }
+  }
+  return obj
+}
+
 export default (l) => {
-  // 配置过滤对象
-  // let filterParams = {}
-  // if (lo.filterParams) {
-  //   for (let key in lo.filterParams) {
-  //     let item = lo.filterParams[key]
-  //     if (item.id && item.label && item.id === key) {
-  //       filterParams[key] = item
-  //     }
-  //   }
-  // }
   // 配置Page方法
   return Page({
     data: {
@@ -18,7 +25,15 @@ export default (l) => {
       btnPos: l.btnPos !== undefined ? l.btnPos : '',
       editBtnPos: l.editBtnPos !== undefined ? l.editBtnPos : '',
       // 业务对象
-      bizObj: l.bizObj
+      bizObj: l.bizObj,
+      // 背景
+      background: l.background !== undefined ? l.background : '#FFF',
+      // 搜索框
+      searchBar: l.searchBar !== undefined ? Object.assign({ bindkey: '', placeholder: '搜索' }, l.searchBar) : { bindkey: '', placeholder: '搜索' },
+      // 请求参数
+      params: l.params || {},
+      // 过滤对象
+      filter: l.filter || {}
     },
 
     // onload
@@ -70,9 +85,7 @@ export default (l) => {
     // onUnload() {
     //   lo.onUnload ? lo.onUnload.apply(this) : undefined
     // },
-    // onPullDownRefresh() {
-    //   lo.onPullDownRefresh ? lo.onPullDownRefresh.apply(this) : undefined
-    // },
+   
     // onReachBottom() {
     //   lo.onReachBottom ? lo.onReachBottom.apply(this) : undefined
     // },

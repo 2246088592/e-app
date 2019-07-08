@@ -4,6 +4,16 @@ formPage({
   // 权限标记，对应按钮的position
   btnPos: 1,
 
+  // 表单背景
+  // background: '',
+
+  // 导航栏配置
+  // navigationBar: {
+  //   // title会自动设置
+  //   title: '这是一个测试表单',
+  //   backgroundColor: '#108ee9',
+  // },
+
   // 业务对象
   bizObj: [
     {

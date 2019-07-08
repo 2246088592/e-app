@@ -1876,5 +1876,51 @@ export default {
       "message": "",
       "status": 0
     }
+  },
+
+  list: {
+    data: {
+      "data": {
+        "items": [{
+          id: 1,
+          good_code: 'GOOG0001',
+          good_name: '测试耗材1',
+          good_type: '日常用品',
+          good_spec: 'SCP-001',
+          good_unit: '箱'
+        }, {
+          id: 2,
+          good_code: 'GOOG0002',
+          good_name: '测试耗材2',
+          good_type: '日常用品',
+          good_spec: 'SCP-002',
+          good_unit: '箱'
+        }, {
+          id: 3,
+          good_code: 'GOOG0003',
+          good_name: '测试耗材3',
+          good_type: '日常用品',
+          good_spec: 'SCP-003',
+          good_unit: '箱'
+        }, {
+          id: 4,
+          good_code: 'GOOG0004',
+          good_name: '测试耗材4',
+          good_type: '日常用品',
+          good_spec: 'SCP-004',
+          good_unit: '箱'
+        }, {
+          id: 5,
+          good_code: 'GOOG0005',
+          good_name: '测试耗材5',
+          good_type: '日常用品',
+          good_spec: 'SCP-005',
+          good_unit: '箱'
+        }
+        ]
+      },
+      "status": 0,
+      "message": "登录成功"
+    }
   }
 }

@@ -4,9 +4,10 @@ import TDO from '/src/mock/index.js'
 // http对象
 const http = {
   // 通用get方法
-  get(options, mock) {
-    return new Promise((resolve, reject) => {
+  get: function(options, mock) {
+    return new Promise(async (resolve, reject) => {
       if (mock && mock.mock && TDO[mock.mock]) {
+        await util.sleep(5000)
         resolve(TDO[mock.mock])
         return
       }
@@ -30,9 +31,10 @@ const http = {
   },
 
   // 通用post方法
-  post(options, mock) {
-    return new Promise((resolve, reject) => {
+  post: function(options, mock) {
+    return new Promise(async (resolve, reject) => {
       if (mock && mock.mock && TDO[mock.mock]) {
+        await util.sleep(5000)
         resolve(TDO[mock.mock])
         return
       }
@@ -57,9 +59,9 @@ const http = {
   },
 
   // 通用delete方法
-  delete(options, mock) {
+  delete: function(options, mock) {
     options.url += '/delete'
-    return post(options, mock)
+    return this.post(options, mock)
   }
 }
 
