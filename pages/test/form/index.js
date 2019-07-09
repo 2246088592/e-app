@@ -99,8 +99,8 @@ formPage({
       key: 'search',
       component: 'e-search',
       bindlist: '/pages/test/list/index',
-      bindkey: 'name',
-      params: {
+      bindkey: 'good_name',
+      filter: {
         minAge: 20
       },
       necessary: true
@@ -136,12 +136,12 @@ formPage({
         },
         {
           label: '子表单选',
-          key: 'good_name',
+          key: 'good_picker',
           component: 'e-picker'
         },
         {
           label: '子表日期',
-          key: 'good_name',
+          key: 'good_date',
           component: 'e-date-picker'
         }
       ]

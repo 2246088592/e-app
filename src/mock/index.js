@@ -1883,9 +1883,25 @@ export default {
       "data": {
         "items": [{
           id: 1,
-          good_code: 'GOOG0001',
-          good_name: '测试耗材1',
-          good_type: '日常用品',
+          address: '定位',
+          picker: '下拉',
+          goods: [
+            {
+              good_name: '测试品名1',
+              good_picker: 1,
+              good_date: '2019-07-09'
+            },
+            {
+              good_name: '测试品名2',
+              good_picker: 2,
+              good_date: '2019-07-09'
+            },
+            {
+              good_name: '测试品名3',
+              good_picker: 3,
+              good_date: '2019-07-09'
+            }
+          ],
           good_spec: 'SCP-001',
           good_unit: '箱'
         }, {

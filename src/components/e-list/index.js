@@ -173,20 +173,19 @@ Component({
       if (this.data.checkboxVisible) {
         this.toggleCheckeBox(i, item)
       }
-      // // 如果是搜索模式 则返回到e-search组件
-      // else if (this.props.listOptions.type === 'search') {
-      //   app.emitter.emit(`${this.props.listOptions.eSearchId}`, item)
-      //   dd.navigateBack({
-      //     delta: 1
-      //   })
-      // }
-      // // 否则跳转到详情页面
-      // else if (this.props.listOptions.type === 'search' ? this.props.listOptions.searchAuth.check : this.props.listOptions.auth.check) {
-      //   let detailPage = `/pages/${this.props.listOptions.name}/detail/index`
-      //   dd.navigateTo({
-      //     url: `${detailPage}?item=${JSON.stringify(item)}`
-      //   })
-      // }
+      // 如果是搜索模式 则返回到e-search组件
+      else if (this.$page.esearch && this.$page.esearch.cid) {
+        app.emitter.emit(this.$page.esearch.cid, item)
+        dd.navigateBack({
+          delta: 1
+        })
+      }
+      // 否则跳转到详情页面
+      else {
+        dd.navigateTo({
+          url: `${this.props.bizObj.form}?data=${JSON.stringify(item)}`
+        })
+      }
     },
     // 显示checkbox，打开编辑模式
     handleCheckboxVisible(event) {
@@ -231,6 +230,9 @@ Component({
       }
       if (this.props.searchBar.bindkey !== undefined) {
         filter[this.props.searchBar.bindkey] = this.data.keyword
+      }
+      if (this.$page.esearch && this.$page.esearch.filter) {
+        Object.assign(filter, this.$page.esearch.filter)
       }
       let params = Object.assign({}, this.data.params, this.$page.data.params, { page: this.data.page, params: filter })
       let options = {
@@ -334,7 +336,7 @@ Component({
         return
       }
       dd.navigateTo({
-        url: `${this.props.bizObj.form}?menu=${JSON.stringify(this.$page.menu)}`
+        url: `${this.props.bizObj.form}`
       })
     },
     // 默认的删除方法

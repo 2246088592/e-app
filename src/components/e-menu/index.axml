@@ -1,4 +1,4 @@
-<scroll-view scroll-y="{{true}}" class="absolute pin bg-sub-separator">
+<scroll-view scroll-y="{{true}}" class="absolute pin" style="background: {{background}}">
   <view a:for="{{menuGroup}}" class="bg-color-white {{index === menuGroup.length - 1 ? '' : 'mb-4'}}">
     <view onTap="handleSwitch" data-i="{{index}}" a:if="{{item.title}}" class="flex items-center justify-between px-2 py-3">
       <text class="color-bg-title">{{item.title}}</text>

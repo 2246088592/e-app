@@ -36,6 +36,39 @@ function initBizObj(bizObj, fid) {
   })
 }
 
+// 给表单赋值数据
+function initFormData(bizObj, fid, data) {
+  return bizObj.map((c, ci) => {
+    if (c.component === 'e-subform' && c.subform && c.subform.length) {
+      let newc = { ...cbo(c), ci: ci, fid: fid }
+      newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
+      newc.children = []
+      if (data[newc.key]) {
+        for (let sfi = 0; sfi < data[newc.key].length; sfi++) {
+          let sf = data[newc.key][sfi]
+          newc.children.push(c.subform.map((sc, sci) => {
+            let _sc = { ...cbo(sc), ci: ci, fid: fid, sfi: sfi, sci: sci }
+            if (sf[_sc.key]) {
+              _sc.value = sf[_sc.key]
+            }
+            return _sc
+          }))
+        }
+      } else {
+        newc.children = [c.subform.map((sc, sci) => {
+          return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci }
+        })]
+      }
+      return newc
+    }
+    let _c = { ...cbo(c), ci: ci, fid: fid }
+    if (data[_c.key]) {
+      _c.value = data[_c.key]
+    }
+    return _c
+  })
+}
+
 // 初始化校验函数合集
 function initRules(f, fid) {
   // 校验函数集合
@@ -70,22 +103,30 @@ export default (f) => {
     },
 
     // 加载
-    onLoad(query) {
-      // 初始化菜单信息
-      if (query.menu) {
-        this.menu = JSON.parse(query.menu)
-      }
+    async onLoad(query) {
+      // 定义页面菜单
+      this.menu = await util.getMenu(`/${this.route}`)
       // 定义表单id
       this.fid = `F${this.$viewId}`
-      //  判断是否存在业务对象
+      // 判断是否存在业务对象
       if (!f.bizObj || !f.bizObj.length) {
         console.error('表单渲染函数需要配置业务对象')
         return
       }
+      // 设置表单数据
+      if (query.data) {
+        this.formData = JSON.parse(query.data)
+      }
       // 设置业务对象
-      this.setData({
-        bizObj: initBizObj(f.bizObj, this.fid)
-      })
+      if (this.formData) {
+        this.setData({
+          bizObj: initFormData(f.bizObj, this.fid, this.formData)
+        })
+      } else {
+        this.setData({
+          bizObj: initBizObj(f.bizObj, this.fid)
+        })
+      }
       // 设置导航栏
       if (!f.navigationBar || !f.navigationBar.title) {
         f.navigationBar = Object.assign({}, f.navigationBar, { title: this.menu.menu_name })

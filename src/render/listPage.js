@@ -1,22 +1,5 @@
 import util from '/src/libs/util.js'
 
-// 初始化业务对象方法
-function initBizObj(bizObj) {
-  let obj = {
-    url: bizObj.url || '',
-    template: bizObj.template || '',
-    params: {
-      pageable: bizObj.pageable !== undefined ? bizObj.pageable : true,
-      page: bizObj.page !== undefined ? bizObj.page : 1,
-      limit: bizObj.limit !== undefined ? bizObj.limit : 20,
-      idField: bizObj.idField !== undefined ? bizObj.idField : 'id',
-      sort: bizObj.sort !== undefined ? bizObj.sort : 'desc',
-      orderBy: bizObj.orderBy !== undefined ? bizObj.orderBy : 'id'
-    }
-  }
-  return obj
-}
-
 export default (l) => {
   // 配置Page方法
   return Page({
@@ -37,26 +20,14 @@ export default (l) => {
     },
 
     // onload
-    onLoad(query) {
+    async onLoad(query) {
       // 初始化菜单信息
-      if (query.menu) {
-        this.menu = JSON.parse(query.menu)
-      }
+      this.menu = await util.getMenu(`/${this.route}`)
       // 定义列表id
       this.lid = `L${this.$viewId}`
-      // if (query.esearch) {
-      //   let esearch = JSON.parse(query.esearch)
-      //   let type = `${lo.id}.type`
-      //   let eSearchId = `${lo.id}.eSearchId`
-      //   let _params = `${lo.id}.params`
-      //   let searchAuth = `${lo.id}.searchAuth`
-      //   this.setData({
-      //     [type]: 'search',
-      //     [eSearchId]: esearch.cid,
-      //     [_params]: esearch.params,
-      //     [searchAuth]: Object.assign({}, this.data[lo.id].auth)
-      //   })
-      // }
+      if (query.esearch) {
+        this.esearch = JSON.parse(query.esearch)
+      }
       // 设置导航栏
       if (!l.navigationBar || !l.navigationBar.title) {
         l.navigationBar = Object.assign({}, l.navigationBar, { title: this.menu.menu_name })
@@ -85,7 +56,7 @@ export default (l) => {
     // onUnload() {
     //   lo.onUnload ? lo.onUnload.apply(this) : undefined
     // },
-   
+
     // onReachBottom() {
     //   lo.onReachBottom ? lo.onReachBottom.apply(this) : undefined
     // },

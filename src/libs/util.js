@@ -159,6 +159,22 @@ const util = {
         })
       })
     }
+  },
+
+  // 根据当前页面路由获取菜单数据
+  getMenu(route) {
+    return new Promise((resolve, reject) => {
+      this.db.get({ dbName: 'menu', user: true }).then(data => {
+        for (let i = 0; i < data.length; i++) {
+          let arr = data[i].mobile_url.split(';')
+          if (arr.includes(route)) {
+            resolve(this.cloneDeep(data[i]))
+            break
+          }
+        }
+        resolve(false)
+      })
+    })
   }
 }
 

@@ -1,4 +1,5 @@
 import { getMenuTree } from '/src/api/sys/menu.js'
+import util from '/src/libs/util.js'
 
 Component({
   data: {
@@ -10,9 +11,11 @@ Component({
     // 每行最大菜单数
     columnNum: 4,
     // 固定菜单
-    menus: {},
+    menus: [],
     // 禁止显示的菜单，此处考量是基于移动端和pc的不同，例如系统管理菜单不现实
-    invisible: ['组织结构', '菜单管理', '角色管理', '权限分配', '用户管理']
+    invisible: ['组织结构', '菜单管理', '角色管理', '权限分配', '用户管理'],
+    // 背景
+    background: 'rgba(25, 31, 37, .05)'
   },
   didMount() {
     this.initMenu()
@@ -25,19 +28,29 @@ Component({
       })
       getMenuTree({ mock: 'menuTree' }).then(res => {
         let menuGroup = []
-        if (this.props.menus.children && this.props.menus.children.length) {
-          menuGroup.push(this.props.menus)
+        if (this.props.menus.length) {
+          menuGroup = util.cloneDeep(this.props.menus)
         }
         this.formatMenu(menuGroup, res.data[0])
         this.setData({
           loading: false,
           menuGroup: menuGroup
         })
+        this.saveMenu(menuGroup)
       }).catch(err => {
         this.setData({
           loading: false
         })
       })
+    },
+
+    // 保存数组到本地缓存
+    saveMenu(menuGroup) {
+      let array = []
+      for (let i = 0; i < menuGroup.length; i++) {
+        array.push(...menuGroup[i].children)
+      }
+      util.db.set({ dbName: 'menu', user: true, value: array })
     },
 
     // 格式化菜单
@@ -65,7 +78,7 @@ Component({
     handleTap(event) {
       let menu = event.target.dataset.menu
       dd.navigateTo({
-        url: `${menu.mobile_url}?menu=${JSON.stringify(menu)}`
+        url: `${menu.mobile_url.split(';')[0]}`
       })
     },
 

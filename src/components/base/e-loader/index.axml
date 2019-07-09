@@ -1,5 +1,5 @@
 <view class="flex flex-col items-center justify-center p-2" style="color: {{color}};">
   <view a:if="{{more && loading}}" class="loader-{{type}}" style="height: {{size}}rpx; width: {{size}}rpx;" />
-  <text a:if="{{more && loading && loadingText}}" class="text-sm mt-2" style="color: {{textColor || '#8a8a8a'}};">{{loadingText}}</text>
-  <text a:elif="{{!loading && !more}}" class="text-sm" style="color: {{textColor || '#8a8a8a'}};">{{noMoreText}}</text>
+  <text a:if="{{more && loading && loadingText}}" class="text-xs mt-2" style="color: {{textColor}};">{{loadingText}}</text>
+  <text a:elif="{{!loading && !more}}" class="text-xs" style="color: {{textColor}};">{{noMoreText}}</text>
 </view>

@@ -49,7 +49,7 @@ Component({
       if (this.props.model.disabled) {
         return
       }
-      let esearch = JSON.stringify({ cid: `C${this.$page.$viewId + this.$id}`, params: this.props.model.params })
+      let esearch = JSON.stringify({ cid: `C${this.$page.$viewId + this.$id}`, filter: this.props.model.filter })
       dd.navigateTo({
         url: `${this.props.model.bindlist}?esearch=${esearch}`
       })
@@ -68,7 +68,7 @@ Component({
       let search = {
         value: '',
         label: '',
-        params: {}, // 过滤条件
+        filter: {}, // 过滤条件
         status: '',
         bindkey: '', // 要显示的key
         bindlist: '', // 目标列表，路径

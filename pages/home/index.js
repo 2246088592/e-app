@@ -5,290 +5,90 @@ Page({
   data: {
     // 当行最多菜单数
     columnNum: 4,
-    // 禁止显示的菜单，此处考量是基于移动端和pc的不同，例如系统管理菜单不现实
-    invisible: [],
     // 固定菜单
-    menus: {
-      children: [
-        {
-          icon_cls: 'tag',
-          menu_name: '表单测试',
-          mobile_url: '/pages/test/form/index',
-          id: 'formtest',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "提交",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'list',
-          menu_name: '列表测试',
-          mobile_url: '/pages/test/list/index',
-          id: 'listtest',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "新增",
-              "xtype": "primary",
-              'icon_cls': 'plus',
-              "handler": 'handleAdd'
-            },
-            {
-              "position": 1,
-              "action_name": "新增",
-              "xtype": "primary",
-              'icon_cls': 'plus',
-              "handler": 'testAdd'
-            },
-            {
-              "position": 1,
-              "action_name": "编辑",
-              "xtype": "primary",
-              'icon_cls': 'edit',
-              "handler": 'testEdit'
-            },
-            {
-              "position": 1,
-              "action_name": "刷新",
-              "xtype": "primary",
-              'icon_cls': 'refresh',
-              "handler": 'testRefresh'
-            },
-            {
-              "position": 2,
-              "action_name": "删除",
-              "xtype": "primary",
-              'icon_cls': 'trash',
-              "handler": 'handleDelete'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '商品资料',
-          mobile_url: '/pages/hy/good/form/index',
-          id: 'good_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '商品资料列表',
-          mobile_url: '/pages/hy/good/list/index',
-          id: 'good_l',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "新增",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "删除",
-              "xtype": "danger",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '仓库资料',
-          mobile_url: '/pages/hy/depository/form/index',
-          id: 'depository_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '仓库资料列表',
-          mobile_url: '/pages/hy/depository/list/index',
-          id: 'depository_l'
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '供应商资料',
-          mobile_url: '/pages/hy/supplier/form/index',
-          id: 'supplier_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '供应商资料列表',
-          mobile_url: '/pages/hy/supplier/list/index',
-          id: 'supplier_l'
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '请购申请单',
-          mobile_url: '/pages/hy/request/form/index',
-          id: 'request_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "提交",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "查看审批",
-              "xtype": "success",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "转领用单",
-              "xtype": "warning",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '请购申请列表',
-          mobile_url: '/pages/hy/request/list/index',
-          id: 'request_l',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "转领用单",
-              "xtype": "warning",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '请购需求生成订单',
-          mobile_url: '/pages/hy/request-to-purchase/list/index',
-          id: 'rtp_l'
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '采购单',
-          mobile_url: '/pages/hy/purchase/form/index',
-          id: 'purchase_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "审核",
-              "xtype": "success",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '采购单列表',
-          mobile_url: '/pages/hy/purchase/list/index',
-          id: 'purchase_l'
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '采购单入库',
-          mobile_url: '/pages/hy/purchase-to-stock-in/list/index',
-          id: 'ptsi_l'
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '采购入库单',
-          mobile_url: '/pages/hy/stock-in/form/index',
-          id: 'stock_in_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "审核",
-              "xtype": "success",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '采购入库单列表',
-          mobile_url: '/pages/hy/stock-in/list/index',
-          id: 'ptsi_l'
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '耗材领用单',
-          mobile_url: '/pages/hy/stock-out/form/index',
-          id: 'stock_in_f',
-          permission: [
-            {
-              "position": 1,
-              "action_name": "保存",
-              "xtype": "primary",
-              "handler": 'handleSubmit'
-            },
-            {
-              "position": 1,
-              "action_name": "提交",
-              "xtype": "success",
-              "handler": 'handleSubmit'
-            }
-          ]
-        },
-        {
-          icon_cls: 'cube',
-          menu_name: '耗材领用单列表',
-          mobile_url: '/pages/hy/stock/list/index',
-          id: 'stock_out_l'
-        },
-      ]
-    }
+    menus: [
+      {
+        title: '测试',
+        children: [
+          {
+            icon_cls: 'list',
+            menu_name: '测试列表',
+            mobile_url: '/pages/test/list/index;/pages/test/form/index',
+            id: 'testlist',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                'icon_cls': 'plus',
+                "handler": 'handleAdd'
+              },
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                'icon_cls': 'plus',
+                "handler": 'testAdd'
+              },
+              {
+                "position": 1,
+                "action_name": "编辑",
+                "xtype": "primary",
+                'icon_cls': 'edit',
+                "handler": 'testEdit'
+              },
+              {
+                "position": 1,
+                "action_name": "刷新",
+                "xtype": "primary",
+                'icon_cls': 'refresh',
+                "handler": 'testRefresh'
+              },
+              {
+                "position": 2,
+                "action_name": "删除",
+                "xtype": "primary",
+                'icon_cls': 'trash',
+                "handler": 'handleDelete'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        title: '基础资料',
+        children: [
+          {
+            icon_cls: 'cube',
+            menu_name: '耗材资料',
+            mobile_url: '/pages/hy/good/form/index',
+            id: 'good_f',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "保存",
+                "xtype": "primary",
+                "handler": 'handleSubmit'
+              }
+            ]
+          },
+        ]
+      }
+    ],
+
   },
 
   onLoad(query) {
     // 初始化固定菜单权限
     let obj = {}
-    if (this.data.menus && this.data.menus.children.length) {
-      for (let i = 0; i < this.data.menus.children.length; i++) {
-        let menu = this.data.menus.children[i]
-        if (menu.permission && menu.permission.length) {
-          obj[menu.id] = menu.permission
+    if (this.data.menus) {
+      for (let i = 0; i < this.data.menus.length; i++) {
+        let menu = this.data.menus[i]
+        for (let j = 0; j < menu.children.length; j++) {
+          let item = menu.children[j]
+          if (item.permission) {
+            obj[item.id] = item.permission
+          }
         }
       }
     }
