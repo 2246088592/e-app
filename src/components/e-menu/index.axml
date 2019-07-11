@@ -1,14 +1,14 @@
 <scroll-view scroll-y="{{true}}" class="absolute pin" style="background: {{background}}">
   <view a:for="{{menuGroup}}" class="bg-color-white {{index === menuGroup.length - 1 ? '' : 'mb-4'}}">
     <view onTap="handleSwitch" data-i="{{index}}" a:if="{{item.title}}" class="flex items-center justify-between px-2 py-3">
-      <text class="color-bg-title">{{item.title}}</text>
-      <text class="text-sm color-title">{{opened[index] !== false ? '收起' : '展开'}}</text>
+      <text class="color-title text-lg">{{item.title}}</text>
+      <text class="text-xs color-sub-title">{{opened[index] !== false ? '收起' : '展开'}}</text>
     </view>
     <view a:if="{{opened[index] !== false}}" class="flex flex-wrap relative pb-3">
       <block a:for="{{item.children}}" a:for-item="menu">
-        <view style="width: {{100/columnNum}}%; padding-top: {{100/columnNum}}%;" class="relative">
+        <view style="width: {{100/column}}%; padding-top: {{100/column}}%;" class="relative">
           <view class="pin absolute flex flex-col items-center justify-center">
-            <button onTap="handleTap" class="flex items-center border-none justify-center radius-2 h-12 w-12 text-2xl {{'bg-color-' + (menu.xtype || 'primary')}}" data-menu="{{menu}}">
+            <button onTap="handleTap" class="flex items-center border-none justify-center radius-2 h-12 w-12 text-2xl {{'bg-color-' + menu.xtype}}" data-menu="{{menu}}">
               <text class="color-white fa {{'fa-' + menu.icon_cls}}"></text>
             </button>
             <text class="absolute w-full text-center pin-b text-xs color-title">{{menu.menu_name}}</text>
@@ -18,6 +18,6 @@
     </view>
   </view>
   <view a:if="{{loading}}" class="absolute pin flex items-center justify-center">
-    <e-loader loading="{{loading}}" loadingText="{{loadingText}}" type="2" />
+    <e-loader type="{{type}}" loading="{{loading}}" loadingText="{{loadingText}}" />
   </view>
 </scroll-view>

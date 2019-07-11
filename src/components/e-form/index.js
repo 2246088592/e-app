@@ -26,7 +26,7 @@ Component({
       rules.forEach(c => this[`on_${c.fid}_${c.key}`] = c.validate)
     },
 
-    // 新增行
+    // 子表组件新增行
     handleAdd(event) {
       let ci = event.currentTarget.dataset.ci
       let children = `bizObj[${ci}].children`

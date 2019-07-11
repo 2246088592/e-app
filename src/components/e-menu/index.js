@@ -3,19 +3,21 @@ import util from '/src/libs/util.js'
 
 Component({
   data: {
+    type: 5,
+    // 展开的菜单分组
     opened: {},
     loading: false,
     loadingText: '菜单加载中'
   },
   props: {
     // 每行最大菜单数
-    columnNum: 4,
+    column: 4,
     // 固定菜单
-    menus: [],
-    // 禁止显示的菜单，此处考量是基于移动端和pc的不同，例如系统管理菜单不现实
-    invisible: ['组织结构', '菜单管理', '角色管理', '权限分配', '用户管理'],
+    staticMenuGroup: [],
+    // 禁止显示的菜单
+    disabled: [],
     // 背景
-    background: 'rgba(25, 31, 37, .05)'
+    background: 'rgba(0, 0, 0, 0)'
   },
   didMount() {
     this.initMenu()
@@ -28,8 +30,8 @@ Component({
       })
       getMenuTree({ mock: 'menuTree' }).then(res => {
         let menuGroup = []
-        if (this.props.menus.length) {
-          menuGroup = util.cloneDeep(this.props.menus)
+        if (this.props.staticMenuGroup.length) {
+          menuGroup = util.cloneDeep(this.props.staticMenuGroup)
         }
         this.formatMenu(menuGroup, res.data[0])
         this.setData({
@@ -44,7 +46,7 @@ Component({
       })
     },
 
-    // 保存数组到本地缓存
+    // 保存菜单数组到本地缓存
     saveMenu(menuGroup) {
       let array = []
       for (let i = 0; i < menuGroup.length; i++) {
@@ -56,20 +58,20 @@ Component({
     // 格式化菜单
     formatMenu(menuGroup, menuTree) {
       if (menuTree.children) {
-        let menus = []
+        let array = []
         for (let i = 0; i < menuTree.children.length; i++) {
-          let child = menuTree.children[i]
-          if (this.props.invisible.includes(child.menu_name)) {
+          let menu = menuTree.children[i]
+          if (this.props.disabled.includes(menu.menu_name)) {
             continue
           }
-          if (child.mobile_url) {
-            menus.push(child)
+          if (menu.mobile_url) {
+            array.push(menu)
           } else {
-            this.formatMenu(menuGroup, child)
+            this.formatMenu(menuGroup, menu)
           }
         }
-        if (menus.length) {
-          menuGroup.push({ title: menuTree.menu_name, children: menus })
+        if (array.length) {
+          menuGroup.push({ title: menuTree.menu_name, children: array })
         }
       }
     },
@@ -78,7 +80,7 @@ Component({
     handleTap(event) {
       let menu = event.target.dataset.menu
       dd.navigateTo({
-        url: `${menu.mobile_url.split(';')[0]}`
+        url: menu.mobile_url.split(';')[0]
       })
     },
 

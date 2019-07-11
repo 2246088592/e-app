@@ -1,54 +1,55 @@
 {
 	"pages": [
 		"pages/index/index",
-    "pages/home/index",
-    "pages/setting/index",
+		"pages/home/index",
+		"pages/setting/index",
 
-    "pages/hy/good/form/index",
-    "pages/hy/good/list/index",
-    "pages/hy/depository/form/index",
-    "pages/hy/depository/list/index",
-    "pages/hy/supplier/form/index",
-    "pages/hy/supplier/list/index",
-    "pages/hy/request/form/index",
-    "pages/hy/request/list/index",
-    "pages/hy/request-to-purchase/list/index",
-    "pages/hy/purchase/form/index",
-    "pages/hy/purchase/list/index",
-    "pages/hy/purchase-to-stock-in/list/index",
-    "pages/hy/stock-in/form/index",
-    "pages/hy/stock-in/list/index",
-    "pages/hy/stock-out/form/index",
-    "pages/hy/stock-out/list/index",
-    "pages/hy/stock/list/index",
-    
+		"pages/hy/base/goods/form/index",
+		"pages/hy/base/goods/list/index",
 
 
-    "pages/test/list/index",
-    "pages/test/form/index"
+		"pages/hy/depository/form/index",
+		"pages/hy/depository/list/index",
+		"pages/hy/supplier/form/index",
+		"pages/hy/supplier/list/index",
+		"pages/hy/request/form/index",
+		"pages/hy/request/list/index",
+		"pages/hy/request-to-purchase/list/index",
+		"pages/hy/purchase/form/index",
+		"pages/hy/purchase/list/index",
+		"pages/hy/purchase-to-stock-in/list/index",
+		"pages/hy/stock-in/form/index",
+		"pages/hy/stock-in/list/index",
+		"pages/hy/stock-out/form/index",
+		"pages/hy/stock-out/list/index",
+		"pages/hy/stock/list/index",
+
+
+
+		"pages/test/list/index",
+		"pages/test/form/index"
 	],
 	"window": {
-    "defaultTitle": "耗材管理系统",
-    "titleBarColor": "#FFF",
+		"defaultTitle": "耗材管理系统",
+		"titleBarColor": "",
 		"pullRefresh": false,
 		"allowsBounceVertical": "YES"
 	},
 	"tabBar": {
-		"textColor": "#404040",
+		"textColor": "#8A8A8A",
 		"selectedColor": "#3296FA",
-		"backgroundColor": "#FFF",
-		"items": [
-      {
+		"backgroundColor": "",
+		"items": [{
 				"pagePath": "pages/home/index",
 				"name": "审批",
-				"icon": "/src/assets/icon/sp.png",
-				"activeIcon": "/src/assets/icon/sp-active.png"
+				"icon": "/src/assets/icon/tabBar/sp.png",
+				"activeIcon": "/src/assets/icon/tabBar/sp-active.png"
 			},
-      {
+			{
 				"pagePath": "pages/setting/index",
-				"name": "设置",
-				"icon": "/src/assets/icon/sp.png",
-				"activeIcon": "/src/assets/icon/sp-active.png"
+				"name": "审批",
+				"icon": "/src/assets/icon/tabBar/sp.png",
+				"activeIcon": "/src/assets/icon/tabBar/sp-active.png"
 			}
 		]
 	}

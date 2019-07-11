@@ -14,7 +14,6 @@ Component({
   // 挂载方法
   didMount() {
     this.init(this.props.model)
-    this.validate(this.props.model.value)
   },
 
   // setData后进行value校验

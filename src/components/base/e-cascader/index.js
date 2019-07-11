@@ -28,7 +28,6 @@ Component({
   didMount() {
     this.init(this.props.model)
     this.initBreadcrumb()
-    this.validate(this.props.model.value)
   },
   // 更新
   didUpdate(prevProps, prevData) {
@@ -167,6 +166,7 @@ Component({
       this.$page.setData({
         [this.path]: Object.assign(cascader, model) // 补全属性
       })
+
       // 初始化完成后初始化树
       this.initTree(cascader.tree)
     }

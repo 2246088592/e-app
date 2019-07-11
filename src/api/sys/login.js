@@ -3,8 +3,10 @@ import util from '/src/libs/util.js'
 
 // 登录接口
 const LOGIN_URL = '/dingding/v1/login'
+
 // token刷新接口
 const REFRESH_URL = '/uaa/auth/refresh'
+
 // token刷新间隔
 const REFRESH_INTERVAL = 900000
 
@@ -16,20 +18,20 @@ function login(mock) {
         url: LOGIN_URL,
         params: { code: res.authCode }
       }
-      // 开始刷新token
+
+      // // 开始刷新token
       // refreshToken()
-      // 模拟通信延迟
-      // await util.sleep(3000)
+
       http.get(options, mock).then(res => {
-        if (res.data.status === 0) {
-          getApp().globalData.userInfo = res.data.data
-          getApp().globalData.token = res.data.data.token
-          welcome(res.data.data.dd_user_info.Name)
+        if (res.status === 0) {
+          getApp().globalData.userInfo = res.data
+          getApp().globalData.token = res.data.token
+          welcome(res.data.dd_user_info.Name)
           dd.switchTab({
             url: '/pages/home/index'
           })
         } else {
-          util.ddToast('fail', res.data.message || '登录失败')
+          util.ddToast('fail', res.message || '登录失败')
         }
       })
     },

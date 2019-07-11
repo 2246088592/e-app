@@ -11,10 +11,10 @@ function getMenuTree(mock) {
       url: MENU_TREE_URL
     }
     http.get(options, mock).then(res => {
-      if (res.data.status === 0) {
-        resolve(res.data)
+      if (res.status === 0) {
+        resolve(res)
       } else {
-        util.ddToast('fail', res.data.message || '获取菜单失败')
+        util.ddToast('fail', res.message || '获取菜单失败')
         reject(res)
       }
     })

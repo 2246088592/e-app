@@ -1,5 +1,7 @@
 // 工具类
 import util from '/src/libs/util.js'
+// http
+import http from '/src/http/index.js'
 
 // 全局app对象
 let app = getApp()
@@ -7,6 +9,7 @@ let app = getApp()
 // 克隆业务对象方法
 function cbo(obj) {
   let str = JSON.stringify(obj, (k, v) => {
+    // 由于传递参数时不支持函数，将校验函数改成布尔类型，通过onRules传递
     if (k === 'validate' && typeof v === 'function') {
       return true
     }
@@ -19,7 +22,7 @@ function cbo(obj) {
 function initBizObj(bizObj, fid) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let newc = { ...cbo(c), ci: ci, fid: fid }
+      let newc = { ...c, ci: ci, fid: fid }
       newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
       if (c.children && c.children.length) {
         newc.children = c.children.map((sf, sfi) => {
@@ -36,11 +39,11 @@ function initBizObj(bizObj, fid) {
   })
 }
 
-// 给表单赋值数据
+// 初始化业务对象并给表单赋值数据
 function initFormData(bizObj, fid, data) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let newc = { ...cbo(c), ci: ci, fid: fid }
+      let newc = { ...c, ci: ci, fid: fid }
       newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
       newc.children = []
       if (data[newc.key]) {
@@ -96,46 +99,47 @@ export default (f) => {
   return Page({
     // data对象
     data: {
-      // 权限标记，对应按钮position
-      btnPos: f.btnPos !== undefined ? f.btnPos : '',
-      // 表单背景
-      background: f.background !== undefined ? f.background : 'rgba(25, 31, 37, .05)'
+      // 提交地址
+      url: f.url !== undefined ? f.url : '',
+      // 权限标记，对应按钮position，默认2
+      btnPos: f.btnPos !== undefined ? f.btnPos : 2,
+      // 表单背景，默认透明
+      background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)'
     },
 
     // 加载
     async onLoad(query) {
-      // 定义页面菜单
-      this.menu = await util.getMenu(`/${this.route}`)
-      // 定义表单id
-      this.fid = `F${this.$viewId}`
       // 判断是否存在业务对象
-      if (!f.bizObj || !f.bizObj.length) {
+      if (!f.bizObj) {
         console.error('表单渲染函数需要配置业务对象')
         return
       }
-      // 设置表单数据
-      if (query.data) {
-        this.formData = JSON.parse(query.data)
+      // 定义表单id
+      this.fid = `F${this.$viewId}`
+      // 获取对应列表的相关信息，包含列表id，数据和索引
+      if (query.list) {
+        this.list = JSON.parse(query.list)
+      }
+      // 初始化前函数
+      if (f.beforeOnLoad) {
+        f.beforeOnLoad.apply(this, arguments)
       }
       // 设置业务对象
-      if (this.formData) {
-        this.setData({
-          bizObj: initFormData(f.bizObj, this.fid, this.formData)
-        })
-      } else {
-        this.setData({
-          bizObj: initBizObj(f.bizObj, this.fid)
-        })
-      }
+      this.setData({
+        bizObj: this.list.data ? initFormData(f.bizObj, this.fid, this.list.data) : initBizObj(f.bizObj, this.fid)
+      }, () => {
+        // 初始化后函数
+        if (f.afterOnLoad) {
+          f.afterOnLoad.apply(this, arguments)
+        }
+      })
+      // 获取页面菜单
+      this.menu = await util.getMenu(this.route)
       // 设置导航栏
       if (!f.navigationBar || !f.navigationBar.title) {
         f.navigationBar = Object.assign({}, f.navigationBar, { title: this.menu.menu_name })
       }
       util.setNavigationBar(f.navigationBar)
-      // 执行业务onLoad
-      if (f.onLoad) {
-        f.onLoad.apply(this, arguments)
-      }
     },
 
     // 加载完成
@@ -164,16 +168,33 @@ export default (f) => {
     },
 
     // 提交方法
-    async handleSubmit() {
-      console.log(JSON.stringify(this.data.bizObj))
-      if (this.beforeSubmit) {
-        await this.beforeSubmit()
-      }
+    async saveForm() {
       if (!this.handleValidate()) {
         return
       }
       let data = this.formatForm()
-      console.log(data)
+      if (f.beforeSubmit) {
+        await f.beforeSubmit.apply(this, [data])
+      }
+      let options = {
+        url: this.data.url,
+        params: this.list.data ? Object.assign(this.list.data, data) : data
+      }
+      http.post(options).then(res => {
+        if (res.status === 0) {
+          util.ddToast('success', '保存成功')
+          app.emitter.emit(this.list.lid, {
+            type: data.id ? 'edit' : 'add',
+            index: this.list.index || undefined,
+            data: res.data
+          })
+          dd.navigateBack({
+            delta: 1
+          })
+        } else {
+          util.ddToast('fail', res.message || '保存失败')
+        }
+      })
     },
 
     // 校验提交数据
@@ -188,14 +209,14 @@ export default (f) => {
             let sf = c.children[j]
             for (let k = 0; k < sf.length; k++) {
               if (sf[k].status === 'error') {
-                util.ddToast('fail', key + ' ' + sf[k].notice)
+                util.ddToast('fail', key + sf[k].notice)
                 return false
               }
             }
           }
         } else {
           if (c.status === 'error') {
-            util.ddToast('fail', key + ' ' + c.notice)
+            util.ddToast('fail', key + c.notice)
             return false
           }
         }

@@ -1,222 +1,25 @@
-<template name="good">
+<template name="goods">
   <view >
-    <view class="color-big-title text-xl my-1">{{good_name}}</view>
+    <view class="color-big-title text-xl my-1">{{goods_name}}</view>
     <view>
       <text class="color-label">耗材编码：</text>
-      <text class="color-bg-title">{{good_code}}</text>
+      <text class="color-bg-title">{{goods_code}}</text>
     </view>
     <view>
       <text class="color-label">耗材分类：</text>
-      <text class="color-bg-title">{{good_type}}</text>
+      <text class="color-bg-title">{{goods_class_id}}</text>
     </view>
     <view>
       <text class="color-label">耗材规格：</text>
-      <text class="color-bg-title">{{good_spec}}</text>
+      <text class="color-bg-title">{{goods_spec}}</text>
     </view>
     <view>
       <text class="color-label">计量单位：</text>
-      <text class="color-bg-title">{{good_unit}}</text>
-    </view>
-  </view>
-</template>
-<template name="depository">
-  <view >
-    <view class="color-big-title text-xl my-1">{{good_name}}</view>
-    <view>
-      <text class="color-label">仓库编码：</text>
-      <text class="color-bg-title">{{good_code}}</text>
-    </view>
-  </view>
-</template>
-<template name="supplier">
-  <view >
-    <view class="color-big-title text-xl my-1">{{name}}</view>
-    <view>
-      <text class="color-label">供应商编码：</text>
-      <text class="color-bg-title">{{code}}</text>
+      <text class="color-bg-title">{{goods_unit}}</text>
     </view>
     <view>
-      <text class="color-label">联系人：</text>
-      <text class="color-bg-title">{{contact}}</text>
-    </view>
-    <view>
-      <text class="color-label">电话：</text>
-      <text class="color-bg-title">{{phone}}</text>
-    </view>
-    <view>
-      <text class="color-label">地址：</text>
-      <text class="color-bg-title">{{address}}</text>
-    </view>
-  </view>
-</template>
-<template name="request">
-  <view class="flex">
-    <view class="w-10 flex flex-col justify-center items-center mr-2">
-      <image class="h-8 w-8 circle" mode="scaleToFill" src="{{person.avatar}}"/>
-      <text class="color-label text-xs">{{person.name}}</text>
-    </view>
-    <view>
-      <view>
-        <text class="color-label">请购单编码：</text>
-        <text class="color-bg-title">{{code}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请日期：</text>
-        <text class="color-bg-title">{{date}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请部门：</text>
-        <text class="color-bg-title">{{dept}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请用途：</text>
-        <text class="color-bg-title">{{remark}}</text>
-      </view>
-    </view>
-  </view>
-</template>
-<template name="rtp">
-  <view class="flex">
-    <view class="w-10 flex flex-col justify-center items-center mr-2">
-      <image class="h-8 w-8 circle" mode="scaleToFill" src="{{person.avatar}}"/>
-      <text class="color-label text-xs">{{person.name}}</text>
-    </view>
-    <view>
-      <view>
-        <text class="color-label">请购单编码：</text>
-        <text class="color-bg-title">{{code}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请日期：</text>
-        <text class="color-bg-title">{{date}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请部门：</text>
-        <text class="color-bg-title">{{dept}}</text>
-      </view>
-      <view>
-        <text class="color-label">审批状态：</text>
-        <text class="color-bg-title">{{sp_status}}</text>
-      </view>
-      <view>
-        <text class="color-label">审批日期：</text>
-        <text class="color-bg-title">{{sp_date}}</text>
-      </view>
-      <view>
-        <text class="color-label">审批人：</text>
-        <text class="color-bg-title">{{sp_person}}</text>
-      </view>
-    </view>
-  </view>
-</template>
-<template name="purchase">
-  <view >
-    <view class="color-big-title text-xl my-1">{{code}}</view>
-    <view>
-      <text class="color-label">订单日期：</text>
-      <text class="color-bg-title">{{date}}</text>
-    </view>
-    <view>
-      <text class="color-label">供应商：</text>
-      <text class="color-bg-title">{{supplier}}</text>
-    </view>
-    <view>
-      <text class="color-label">制单人：</text>
-      <text class="color-bg-title">{{creator}}</text>
-    </view>
-    <view>
-      <text class="color-label">制单日期：</text>
-      <text class="color-bg-title">{{create_date}}</text>
-    </view>
-    <view>
-      <text class="color-label">审核人：</text>
-      <text class="color-bg-title">{{sp_person}}</text>
-    </view>
-    <view>
-      <text class="color-label">审核日期：</text>
-      <text class="color-bg-title">{{sp_date}}</text>
-    </view>
-  </view>
-</template>
-<template name="ptsi">
-  <view >
-    <view class="color-big-title text-xl my-1">{{code}}</view>
-    <view>
-      <text class="color-label">入库日期：</text>
-      <text class="color-bg-title">{{date}}</text>
-    </view>
-    <view>
-      <text class="color-label">供应商：</text>
-      <text class="color-bg-title">{{supplier}}</text>
-    </view>
-    <view>
-      <text class="color-label">仓库：</text>
-      <text class="color-bg-title">{{depository}}</text>
-    </view>
-    <view>
-      <text class="color-label">制单人：</text>
-      <text class="color-bg-title">{{creator}}</text>
-    </view>
-    <view>
-      <text class="color-label">制单日期：</text>
-      <text class="color-bg-title">{{create_date}}</text>
-    </view>
-    <view>
-      <text class="color-label">审核人：</text>
-      <text class="color-bg-title">{{sp_person}}</text>
-    </view>
-    <view>
-      <text class="color-label">审核日期：</text>
-      <text class="color-bg-title">{{sp_date}}</text>
-    </view>
-  </view>
-</template>
-<template name="stock_out">
-  <view class="flex">
-    <view class="w-10 flex flex-col justify-center items-center mr-2">
-      <image class="h-8 w-8 circle" mode="scaleToFill" src="{{person.avatar}}"/>
-      <text class="color-label text-xs">{{person.name}}</text>
-    </view>
-    <view>
-      <view>
-        <text class="color-label">领用单编号：</text>
-        <text class="color-bg-title">{{code}}</text>
-      </view>
-      <view>
-        <text class="color-label">领用日期：</text>
-        <text class="color-bg-title">{{date}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请部门：</text>
-        <text class="color-bg-title">{{dept}}</text>
-      </view>
-      <view>
-        <text class="color-label">申请用途：</text>
-        <text class="color-bg-title">{{remark}}</text>
-      </view>
-    </view>
-  </view>
-</template>
-<template name="stock">
-  <view class="">
-    <view class="color-big-title text-xl my-1">{{name}}</view>
-    <view>
-      <view>
-        <text class="color-label">耗材编号：</text>
-        <text class="color-bg-title">{{code}}</text>
-      </view>
-      <view>
-        <text class="color-label">仓库编号：</text>
-        <text class="color-bg-title">{{depository}}</text>
-      </view>
-      <view>
-        <text class="color-label">规格型号：</text>
-        <text class="color-bg-title">{{spec}}</text>
-      </view>
-      <view>
-        <text class="color-label">库存数量：</text>
-        <text class="color-bg-title">{{number}}</text>
-      </view>
+      <text class="color-label">采购单价：</text>
+      <text class="color-bg-title">{{pprice}}</text>
     </view>
   </view>
 </template>

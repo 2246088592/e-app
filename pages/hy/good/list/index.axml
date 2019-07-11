@@ -1,2 +1,0 @@
-<!-- bizObj="{{bizObj}}" btnPos="{{btnPos}}" 为固定写法 -->
-<e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}"></e-list>

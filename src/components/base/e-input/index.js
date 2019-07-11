@@ -15,7 +15,6 @@ Component({
   // 挂载
   didMount() {
     this.init(this.props.model)
-    this.validate(this.props.model.value)
   },
   // 更新
   didUpdate(prevProps, prevData) {

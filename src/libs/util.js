@@ -167,7 +167,7 @@ const util = {
       this.db.get({ dbName: 'menu', user: true }).then(data => {
         for (let i = 0; i < data.length; i++) {
           let arr = data[i].mobile_url.split(';')
-          if (arr.includes(route)) {
+          if (arr.includes(`/${route}`)) {
             resolve(this.cloneDeep(data[i]))
             break
           }

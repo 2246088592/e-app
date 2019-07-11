@@ -1,6 +1,12 @@
 let app = getApp()
 
 export default {
+  didMount() {
+    // 初始化时是否校验
+    if (this.props.model.value !== undefined) {
+      this.validate(this.props.model.value)
+    }
+  },
   methods: {
     // 校验方法
     validate(value) {

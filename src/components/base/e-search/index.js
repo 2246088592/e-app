@@ -18,7 +18,6 @@ Component({
   // 挂载
   didMount() {
     this.init(this.props.model)
-    this.validate(this.props.model.value)
     app.emitter.on(`C${this.$page.$viewId + this.$id}`, this.handleSelect, this)
   },
 

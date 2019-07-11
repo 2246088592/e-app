@@ -424,7 +424,8 @@ export default {
         "account": "xd",
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiLmkq3pmLMiLCJpYXQiOjE1NjAyMzY5NjguMCwiYXVkIjoiaHR0cDovL3d3dy5ib3lvLXRlY2guY29tLmNuIiwic3ViIjoiQk9ZTy5WSVAiLCJqdGkiOiI2M2FmODk2My1jZDU0LTRmZGItYWUwNi04NDcxNTU0MjhlODciLCJhY2NvdW50IjoieGQifQ.03i0jy0i2CaZ_ORXzLZf3sn71QIRL_IliSg7cnb3UrE",
         "dd_user_info": {
-          "Name": "陈加隆"
+          "Name": "陈加隆",
+          "Mobile": "18750105179"
         }
       },
       "status": 0,
@@ -1878,65 +1879,70 @@ export default {
     }
   },
 
-  list: {
+  goods: {
     data: {
       "data": {
         "items": [{
           id: 1,
-          address: '定位',
-          picker: '下拉',
-          goods: [
-            {
-              good_name: '测试品名1',
-              good_picker: 1,
-              good_date: '2019-07-09'
-            },
-            {
-              good_name: '测试品名2',
-              good_picker: 2,
-              good_date: '2019-07-09'
-            },
-            {
-              good_name: '测试品名3',
-              good_picker: 3,
-              good_date: '2019-07-09'
-            }
-          ],
-          good_spec: 'SCP-001',
-          good_unit: '箱'
+          goods_class_id: 1,
+          goods_code: 'GOOG0001',
+          goods_name: '测试耗材1',
+          goods_spec: 'SCP-001',
+          goods_unit: '箱',
+          pprice: 1
         }, {
           id: 2,
-          good_code: 'GOOG0002',
-          good_name: '测试耗材2',
-          good_type: '日常用品',
-          good_spec: 'SCP-002',
-          good_unit: '箱'
+          goods_class_id: 2,
+          goods_code: 'GOOG0002',
+          goods_name: '测试耗材2',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-002',
+          goods_unit: '箱',
+          pprice: 2
         }, {
           id: 3,
-          good_code: 'GOOG0003',
-          good_name: '测试耗材3',
-          good_type: '日常用品',
-          good_spec: 'SCP-003',
-          good_unit: '箱'
-        }, {
-          id: 4,
-          good_code: 'GOOG0004',
-          good_name: '测试耗材4',
-          good_type: '日常用品',
-          good_spec: 'SCP-004',
-          good_unit: '箱'
-        }, {
-          id: 5,
-          good_code: 'GOOG0005',
-          good_name: '测试耗材5',
-          good_type: '日常用品',
-          good_spec: 'SCP-005',
-          good_unit: '箱'
+          goods_class_id: 3,
+          goods_code: 'GOOG0003',
+          goods_name: '测试耗材3',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-003',
+          goods_unit: '箱',
+          pprice: 3
         }
         ]
       },
       "status": 0,
       "message": "登录成功"
     }
-  }
+  },
+
+  class: {
+    data: {
+      data: [
+        {
+          name: '医用耗材',
+          children: [
+            { id: 1, name: '针头' },
+            { id: 2, name: '针筒' },
+            { id: 3, name: '导尿管' },
+            { id: 4, name: '留置针' },
+            { id: 5, name: '手套/指套' },
+            { id: 6, name: '绷带' }
+          ]
+        },
+        {
+          name: '办公用品',
+          children: [
+            { id: 7, name: '纸' },
+            { id: 8, name: '资料册' },
+            { id: 9, name: '笔' },
+            { id: 10, name: '卷笔刀' },
+            { id: 11, name: '胶水' }
+          ]
+        }
+      ],
+      status: 0,
+      message: ''
+    }
+  },
 }

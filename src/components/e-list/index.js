@@ -32,21 +32,12 @@ Component({
       orderBy: 'id'
     }
   },
+
   // 参数
   props: {
-    bizObj: {
-      url: '',
-      template: '',
-      mock: ''
-    },
-    searchBar: {
-      bindkey: '',
-      placeholder: ''
-    },
-    btnPos: '',
-    editBtnPos: '',
-    background: ''
+
   },
+
   // 加载
   didMount() {
     // 初始化列表权限
@@ -182,8 +173,9 @@ Component({
       }
       // 否则跳转到详情页面
       else {
+        let list = { lid: this.$page.lid, index: i, data: item }
         dd.navigateTo({
-          url: `${this.props.bizObj.form}?data=${JSON.stringify(item)}`
+          url: `${this.props.bizObj.form}?list=${JSON.stringify(list)}`
         })
       }
     },
@@ -240,12 +232,12 @@ Component({
         params: params
       }
       http.get(options, this.props.bizObj).then(res => {
-        if (res.data.status === 0) {
+        if (res.status === 0) {
           this.$spliceData({
-            array: [this.data.array.length, 0, ...res.data.data.items]
+            array: [this.data.array.length, 0, ...res.data.items]
           })
           this.setData({
-            more: res.data.data.items.length === params.limit,
+            more: res.data.items.length === params.limit,
             page: this.data.page + 1
           })
         }
@@ -335,8 +327,9 @@ Component({
       if (!this.props.bizObj.form) {
         return
       }
+      let list = { lid: this.$page.lid }
       dd.navigateTo({
-        url: `${this.props.bizObj.form}`
+        url: `${this.props.bizObj.form}?list=${JSON.stringify(list)}`
       })
     },
     // 默认的删除方法

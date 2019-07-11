@@ -6,9 +6,12 @@ const http = {
   // 通用get方法
   get: function(options, mock) {
     return new Promise(async (resolve, reject) => {
+      // 模拟通信延迟
+      await util.sleep(3000)
+
+      // 获取mock数据
       if (mock && mock.mock && TDO[mock.mock]) {
-        await util.sleep(5000)
-        resolve(TDO[mock.mock])
+        resolve(TDO[mock.mock].data)
         return
       }
       dd.httpRequest({
@@ -18,9 +21,8 @@ const http = {
         headers: {
           'Authorization': getApp().globalData.token || undefined
         },
-        dataType: options.dataType ? options.dataType : 'json',
         success: (res) => {
-          resolve(res)
+          resolve(res.data)
         },
         fail: (err) => {
           handleError(err)
@@ -33,9 +35,12 @@ const http = {
   // 通用post方法
   post: function(options, mock) {
     return new Promise(async (resolve, reject) => {
+      // 模拟通信延迟
+      await util.sleep(3000)
+
+      // 获取mock数据
       if (mock && mock.mock && TDO[mock.mock]) {
-        await util.sleep(5000)
-        resolve(TDO[mock.mock])
+        resolve(TDO[mock.mock].data)
         return
       }
       dd.httpRequest({
@@ -46,9 +51,8 @@ const http = {
           'Authorization': getApp().globalData.token || undefined,
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        dataType: options.dataType ? options.dataType : 'json',
         success: (res) => {
-          resolve(res)
+          resolve(res.data)
         },
         fail: (err) => {
           handleError(err)

@@ -5,8 +5,7 @@ export default (l) => {
   return Page({
     data: {
       // 权限标记，对应按钮position
-      btnPos: l.btnPos !== undefined ? l.btnPos : '',
-      editBtnPos: l.editBtnPos !== undefined ? l.editBtnPos : '',
+      btnPos: l.btnPos !== undefined ? l.btnPos : { normal: '', edit: '' },
       // 业务对象
       bizObj: l.bizObj,
       // 背景
@@ -22,9 +21,14 @@ export default (l) => {
     // onload
     async onLoad(query) {
       // 初始化菜单信息
-      this.menu = await util.getMenu(`/${this.route}`)
+      this.menu = await util.getMenu(this.route)
       // 定义列表id
       this.lid = `L${this.$viewId}`
+      // 判断是否存在业务对象
+      if (!l.bizObj) {
+        console.error('列表渲染函数需要配置业务对象')
+        return
+      }
       if (query.esearch) {
         this.esearch = JSON.parse(query.esearch)
       }

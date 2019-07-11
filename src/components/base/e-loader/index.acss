@@ -1,5 +1,7 @@
 [class*="loader-"] {
   display: inline-block;
+  width: 1em;
+  height: 1em;
   color: inherit;
   vertical-align: middle;
   pointer-events: none;
