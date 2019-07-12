@@ -24,6 +24,7 @@ formPage({
       key: 'pid',
       component: 'e-cascader',
       necessary: true,
+      last: false,
       bindkey: 'class_name'
     },
     {

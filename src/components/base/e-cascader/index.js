@@ -62,7 +62,7 @@ Component({
     radioChange(event) {
       let i = event.currentTarget.dataset.itemIndex
       let item = this.data.array[i]
-      if (item.children) {
+      if (item.children && this.props.model.last) {
         this.$spliceData({
           'array': [0, this.data.array.length, ...item.children],
           'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.bindkey]],
@@ -75,6 +75,18 @@ Component({
           'currentIndex': i
         })
       }
+    },
+
+    // 打开下一级
+    handleNext(event) {
+      let i = event.currentTarget.dataset.itemIndex
+      let item = this.data.array[i]
+      this.$spliceData({
+        'array': [0, this.data.array.length, ...item.children],
+        'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.bindkey]],
+        'childrenIndexArr': [this.data.childrenIndexArr.length, 0, i]
+      })
+      this.clearCurrent()
     },
 
     // 点击确认
@@ -156,6 +168,7 @@ Component({
         tree: [],
         value: '',
         label: '',
+        last: true, // 是否选到最后一级
         status: '',
         bindkey: '',
         disabled: false,

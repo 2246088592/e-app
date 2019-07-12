@@ -64,7 +64,7 @@ formPage({
 
   // 初始化后请求耗材分类树
   afterOnLoad(query) {
-    http.get(null, { mock: 'class' }).then(res => {
+    http.get(null, { mock: 'classTree' }).then(res => {
       this.setData({
         'bizObj[0].tree': res.data
       })
