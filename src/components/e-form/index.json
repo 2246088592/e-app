@@ -12,6 +12,7 @@
     "e-search": "/src/components/base/e-search/index",
     "e-switch": "/src/components/base/e-switch/index",
     "e-text-area": "/src/components/base/e-text-area/index",
-    "e-user-chooser": "/src/components/base/e-user-chooser/index"
+    "e-user-chooser": "/src/components/base/e-user-chooser/index",
+    "e-loader": "/src/components/base/e-loader/index"
 	}
 }

@@ -2021,4 +2021,64 @@ export default {
       message: ''
     }
   },
+
+  request: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            doc_number: 1,
+            doc_date: '2019-07-12',
+            apply_user_id: '113405601937665838',
+            apply_user_name: '陈加隆',
+            apply_user_avatar: 'https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg',
+            apply_org_id: '-1',
+            apply_org_name: '播阳E应用',
+            doc_state: 1,
+            remark: '备注'
+          },
+          {
+            id: 2,
+            doc_number: 2,
+            doc_date: '2019-07-12',
+            apply_user_id: '113405601937665838',
+            apply_user_name: '陈加隆',
+            apply_user_avatar: 'https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg',
+            apply_org_id: '-1',
+            apply_org_name: '播阳E应用',
+            doc_state: 2,
+            remark: '备注2'
+          }
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  requestDetail: {
+    data: {
+      data: {
+        "goods": [
+          {
+            id: 1,
+            pid: 1,
+            goods_id: 'GOOG0001',
+            goods_name: '测试耗材01',
+            apply_qty: 1
+          },
+          {
+            id: 2,
+            pid: 1,
+            goods_id: 'GOOG0002',
+            goods_name: '测试耗材02',
+            apply_qty: 2
+          }
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
 }

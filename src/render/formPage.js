@@ -120,9 +120,11 @@ export default (f) => {
       if (query.list) {
         this.list = JSON.parse(query.list)
       }
+      // 获取页面菜单
+      this.menu = await util.getMenu(this.route)
       // 初始化前函数
       if (f.beforeOnLoad) {
-        f.beforeOnLoad.apply(this, arguments)
+        await f.beforeOnLoad.apply(this, [arguments, f])
       }
       // 设置业务对象
       this.setData({
@@ -133,8 +135,6 @@ export default (f) => {
           f.afterOnLoad.apply(this, arguments)
         }
       })
-      // 获取页面菜单
-      this.menu = await util.getMenu(this.route)
       // 设置导航栏
       if (!f.navigationBar || !f.navigationBar.title) {
         f.navigationBar = Object.assign({}, f.navigationBar, { title: this.menu.menu_name })
@@ -206,11 +206,11 @@ export default (f) => {
         key = c.label
         if (c.component === 'e-subform') {
           for (let j = 0; j < c.children.length; j++) {
-            key += `-${j}`
+            key += `-${j + 1}`
             let sf = c.children[j]
             for (let k = 0; k < sf.length; k++) {
               if (sf[k].status === 'error') {
-                util.ddToast('fail', key + sf[k].notice)
+                util.ddToast('fail', `${sf[k].label}（${key}）${sf[k].notice}`)
                 return false
               }
             }

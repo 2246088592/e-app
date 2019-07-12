@@ -202,7 +202,7 @@ Component({
     handleBtn(event) {
       let btn = event.currentTarget.dataset.btn
       if (this.$page[btn.handler]) {
-        this.$page[btn.handler](btn)
+        this.$page[btn.handler](btn, this.data.checkedArray)
       } else if (this[btn.handler]) {
         this[btn.handler](btn)
       }

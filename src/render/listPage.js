@@ -1,4 +1,8 @@
+// 工具类
 import util from '/src/libs/util.js'
+
+// 全局app对象
+let app = getApp()
 
 export default (l) => {
   // 配置Page方法
@@ -39,6 +43,12 @@ export default (l) => {
       }
       util.setNavigationBar(l.navigationBar)
     },
+
+    // 刷新列表
+    refresh() {
+      app.emitter.emit(this.lid, { type: 'refresh' }, this)
+    },
+
     // 展开其他方法
     ...l.methods
   })

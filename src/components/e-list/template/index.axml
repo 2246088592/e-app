@@ -70,3 +70,34 @@
     </view>
   </view>
 </template>
+<!-- 请购单 -->
+<template name="request">
+  <view class="flex items-center">
+    <view class="text-xs color-label flex flex-col items-center mr-2">
+      <image class="circle w-9 h-9 shadow-md" src="{{apply_user_avatar}}" mode="aspectFill" />
+      <text class="mt-2">{{apply_user_name}}</text>
+    </view>
+    <view class="flex flex-col">
+      <view>
+        <text class="color-label">单据编号：</text>
+        <text class="color-bg-title">{{doc_number}}</text>
+      </view>
+      <view>
+        <text class="color-label">申请日期：</text>
+        <text class="color-bg-title">{{doc_date}}</text>
+      </view>
+      <view>
+        <text class="color-label">申请部门：</text>
+        <text class="color-bg-title">{{apply_org_name}}</text>
+      </view>
+      <view>
+        <text class="color-label">单据状态：</text>
+        <text class="color-bg-title">{{doc_state}}</text>
+      </view>
+      <view>
+        <text class="color-label">备注：</text>
+        <text class="color-bg-title">{{remark}}</text>
+      </view>
+    </view>
+  </view>
+</template>

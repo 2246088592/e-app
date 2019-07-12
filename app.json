@@ -16,8 +16,9 @@
     "pages/hy/base/class/form/index",
 		"pages/hy/base/class/list/index",
 
-		"pages/hy/request/form/index",
-		"pages/hy/request/list/index",
+		"pages/hy/p/request/form/index",
+		"pages/hy/p/request/list/index",
+    
 		"pages/hy/request-to-purchase/list/index",
 		"pages/hy/purchase/form/index",
 		"pages/hy/purchase/list/index",

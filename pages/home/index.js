@@ -138,6 +138,62 @@ Page({
             ]
           }
         ]
+      },
+      {
+        title: '请购',
+        children: [
+          {
+            icon_cls: 'cube',
+            menu_name: '请购需求',
+            mobile_url: '/pages/hy/p/request/list/index;/pages/hy/p/request/form/index',
+            xtype: 'success',
+            id: 'request',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                "icon_cls": "plus",
+                "handler": 'handleAdd'
+              },
+              {
+                "position": 12,
+                "action_name": "删除",
+                "xtype": "primary",
+                "icon_cls": "trash",
+                "handler": 'handleDelete'
+              },
+              {
+                "position": 12,
+                "action_name": "转领用",
+                "xtype": "primary",
+                "icon_cls": "refresh",
+                "handler": 'handleConvert'
+              },
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              },
+              {
+                "position": 2,
+                "action_name": "提交",
+                "xtype": "primary",
+                "icon_cls": "paper-plane",
+                "handler": 'saveForm'
+              },
+              {
+                "position": 2,
+                "action_name": "查看审批",
+                "xtype": "primary",
+                "icon_cls": "gavel",
+                "handler": 'saveForm'
+              }
+            ]
+          }
+        ]
       }
     ]
   },
