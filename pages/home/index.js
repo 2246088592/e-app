@@ -46,6 +46,96 @@ Page({
                 "handler": 'saveForm'
               }
             ]
+          },
+          {
+            icon_cls: 'cube',
+            menu_name: '仓库资料',
+            mobile_url: '/pages/hy/base/wh/list/index;/pages/hy/base/wh/form/index',
+            xtype: 'warning',
+            id: 'wh',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                "icon_cls": "plus",
+                "handler": 'handleAdd'
+              },
+              {
+                "position": 12,
+                "action_name": "删除",
+                "xtype": "primary",
+                "icon_cls": "trash",
+                "handler": 'handleDelete'
+              },
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              }
+            ]
+          },
+          {
+            icon_cls: 'cube',
+            menu_name: '供应商资料',
+            mobile_url: '/pages/hy/base/ven/list/index;/pages/hy/base/ven/form/index',
+            xtype: 'warning',
+            id: 'ven',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                "icon_cls": "plus",
+                "handler": 'handleAdd'
+              },
+              {
+                "position": 12,
+                "action_name": "删除",
+                "xtype": "primary",
+                "icon_cls": "trash",
+                "handler": 'handleDelete'
+              },
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              }
+            ]
+          },
+          {
+            icon_cls: 'cube',
+            menu_name: '耗材分类资料',
+            mobile_url: '/pages/hy/base/class/list/index;/pages/hy/base/class/form/index',
+            xtype: 'warning',
+            id: 'class',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                "icon_cls": "plus",
+                "handler": 'handleAdd'
+              },
+              {
+                "position": 12,
+                "action_name": "删除",
+                "xtype": "primary",
+                "icon_cls": "trash",
+                "handler": 'handleDelete'
+              },
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              }
+            ]
           }
         ]
       }

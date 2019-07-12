@@ -14,7 +14,7 @@ App({
     corp: '华阳街道社区卫生服务中心',
 
     // 组织logo，支持本地与http地址
-    logo: '/src/assets/icon/list/null.png'
+    logo: ''
   },
 
   // 小程序初始化

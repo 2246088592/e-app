@@ -180,6 +180,7 @@ export default (f) => {
         url: this.data.url,
         params: this.list.data ? Object.assign(this.list.data, data) : data
       }
+      console.log(options.params)
       http.post(options).then(res => {
         if (res.status === 0) {
           util.ddToast('success', '保存成功')

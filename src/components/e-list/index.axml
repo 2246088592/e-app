@@ -43,7 +43,7 @@
   </scroll-view>
   <!-- 没有数据时显示 -->
   <view a:if="{{!loading && array.length === 0}}" style="top: 104rpx;" class="absolute pin-x pin-b flex items-center justify-center">
-    <image style="height: 300rpx; width: 225rpx;" mode="aspectFit" src="/src/assets/icon/list/null.png"/>
+    <image class="w-24" mode="widthFix" src="/src/assets/icon/list/null.png"/>
   </view>
   <!-- 右下角按钮组 -->
   <view class="absolute flex flex-col w-12 transition-300" style="right: 32rpx; bottom: 32rpx; transform: {{!checkboxVisible ? 'translate3d(0, 0, 0)' : 'translate3d(128rpx, 0, 0)'}};">

@@ -1889,6 +1889,7 @@ export default {
           goods_name: '测试耗材1',
           goods_spec: 'SCP-001',
           goods_unit: '箱',
+          class_name: '针头',
           pprice: 1
         }, {
           id: 2,
@@ -1898,6 +1899,7 @@ export default {
           goods_type: '日常用品',
           goods_spec: 'SCP-002',
           goods_unit: '箱',
+          class_name: '针筒',
           pprice: 2
         }, {
           id: 3,
@@ -1907,6 +1909,7 @@ export default {
           goods_type: '日常用品',
           goods_spec: 'SCP-003',
           goods_unit: '箱',
+          class_name: '导尿管',
           pprice: 3
         }
         ]
@@ -1916,31 +1919,104 @@ export default {
     }
   },
 
-  class: {
+  classTree: {
     data: {
       data: [
         {
-          name: '医用耗材',
+          class_name: '医用耗材',
           children: [
-            { id: 1, name: '针头' },
-            { id: 2, name: '针筒' },
-            { id: 3, name: '导尿管' },
-            { id: 4, name: '留置针' },
-            { id: 5, name: '手套/指套' },
-            { id: 6, name: '绷带' }
+            { id: 1, class_name: '针头' },
+            { id: 2, class_name: '针筒' },
+            { id: 3, class_name: '导尿管' },
+            { id: 4, class_name: '留置针' },
+            { id: 5, class_name: '手套/指套' },
+            { id: 6, class_name: '绷带' }
           ]
         },
         {
-          name: '办公用品',
+          class_name: '办公用品',
           children: [
-            { id: 7, name: '纸' },
-            { id: 8, name: '资料册' },
-            { id: 9, name: '笔' },
-            { id: 10, name: '卷笔刀' },
-            { id: 11, name: '胶水' }
+            { id: 7, class_name: '纸' },
+            { id: 8, class_name: '资料册' },
+            { id: 9, class_name: '笔' },
+            { id: 10, class_name: '卷笔刀' },
+            { id: 11, class_name: '胶水' }
           ]
         }
       ],
+      status: 0,
+      message: ''
+    }
+  },
+
+  wh: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            wh_number: 'WH0001',
+            wh_name: '仓库01'
+          },
+          {
+            id: 2,
+            wh_number: 'WH0002',
+            wh_name: '仓库02'
+          }
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  ven: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            ven_code: 'VEN0001',
+            ven_name: '供应商01',
+            ven_contactor: '联系人01',
+            ven_tel: '电话01',
+            ven_add: '地址01'
+          },
+          {
+            id: 2,
+            ven_code: 'VEN0002',
+            ven_name: '供应商02',
+            ven_contactor: '联系人02',
+            ven_tel: '电话02',
+            ven_add: '地址02'
+          },
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  class: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 11,
+            pid: 1,
+            p_class_name: '针头',
+            class_number: 'CLASS00011',
+            class_name: '细针头'
+          },
+          {
+            id: 21,
+            pid: 2,
+            p_class_name: '针筒',
+            class_number: 'CLASS00021',
+            class_name: '透明针筒'
+          },
+        ]
+      },
       status: 0,
       message: ''
     }

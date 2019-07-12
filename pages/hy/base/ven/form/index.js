@@ -1,48 +1,50 @@
 import formPage from '/src/render/formPage'
+import http from '/src/http/index.js'
 
 formPage({
+  // 提交地址
+  url: '',
+
   // 权限标记，对应按钮的position
-  btnPos: 1,
+  // btnPos: 2,
+
+  // // 表单背景
+  // background: '',
+
+  // // 导航栏配置，title默认为菜单名称
+  // navigationBar: {
+  //   title: '',
+  //   backgroundColor: ''
+  // },
 
   // 业务对象
   bizObj: [
     {
       label: '供应商编号',
-      key: 'supplier_code',
+      key: 'ven_code',
       component: 'e-input',
       necessary: true
     },
     {
       label: '供应商名称',
-      key: 'supplier_name',
+      key: 'ven_name',
       component: 'e-input',
       necessary: true
     },
     {
       label: '联系人',
-      key: 'supplier_contact',
+      key: 'ven_contactor',
       component: 'e-input'
     },
     {
       label: '电话',
-      key: 'supplier_phone',
+      key: 'ven_tel',
       component: 'e-input'
     },
     {
       label: '地址',
-      key: 'supplier_address',
-      component: 'e-text-area',
-      maxlength: 500
+      key: 'ven_add',
+      component: 'e-input'
     }
-  ],
-
-  // 表单change事件
-  formChange(event) {
-    console.log(event)
-  },
-
-  // 业务方法
-  methods: {
-
-  }
+  ]
 })

@@ -7,11 +7,15 @@
 		"pages/hy/base/goods/form/index",
 		"pages/hy/base/goods/list/index",
 
+		"pages/hy/base/wh/form/index",
+		"pages/hy/base/wh/list/index",
 
-		"pages/hy/depository/form/index",
-		"pages/hy/depository/list/index",
-		"pages/hy/supplier/form/index",
-		"pages/hy/supplier/list/index",
+		"pages/hy/base/ven/form/index",
+		"pages/hy/base/ven/list/index",
+
+    "pages/hy/base/class/form/index",
+		"pages/hy/base/class/list/index",
+
 		"pages/hy/request/form/index",
 		"pages/hy/request/list/index",
 		"pages/hy/request-to-purchase/list/index",

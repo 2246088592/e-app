@@ -20,51 +20,36 @@ formPage({
   // 业务对象
   bizObj: [
     {
-      label: '耗材分类',
-      key: 'goods_class_id',
+      label: '上级分类',
+      key: 'pid',
       component: 'e-cascader',
       necessary: true,
       bindkey: 'class_name'
     },
     {
-      label: '耗材编号',
-      key: 'goods_code',
+      label: '分类编号',
+      key: 'class_number',
       component: 'e-input',
       necessary: true
     },
     {
-      label: '耗材名称',
-      key: 'goods_name',
+      label: '分类名称',
+      key: 'class_name',
       component: 'e-input',
       necessary: true
-    },
-    {
-      label: '规格型号',
-      key: 'goods_spec',
-      component: 'e-input'
-    },
-    {
-      label: '计量单位',
-      key: 'goods_unit',
-      component: 'e-input'
-    },
-    {
-      label: '采购单价',
-      key: 'pprice',
-      component: 'e-input'
     }
   ],
 
   // 初始化前
   beforeOnLoad() {
     if (this.list.data) {
-      this.list.data.goods_class_id = { id: this.list.data.goods_class_id, class_name: this.list.data.class_name }
+      this.list.data.pid = { id: this.list.data.pid, class_name: this.list.data.p_class_name }
     }
   },
 
   // 初始化后请求耗材分类树
   afterOnLoad(query) {
-    http.get(null, { mock: 'class' }).then(res => {
+    http.get(null, { mock: 'classTree' }).then(res => {
       this.setData({
         'bizObj[0].tree': res.data
       })
@@ -73,7 +58,7 @@ formPage({
 
   // 提交前处理
   beforeSubmit(data) {
-    data.goods_class_id = data.goods_class_id.id
+    data.pid = data.pid.id
     return Promise.resolve()
   }
 })

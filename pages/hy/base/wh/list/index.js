@@ -22,8 +22,8 @@ listPage({
 
   // 搜索框
   searchBar: {
-    bindkey: 'goods_name',
-    placeholder: '搜索耗材名称'
+    bindkey: 'wh_name',
+    placeholder: '搜索仓库名称'
   },
 
   // // 请求参数
@@ -37,10 +37,10 @@ listPage({
     // 请求地址
     url: 'url',
     // 模板名称
-    template: 'goods',
+    template: 'wh',
     // 模拟数据
-    mock: 'goods',
+    mock: 'wh',
     // 新增，查看，编辑时跳转路由
-    form: '/pages/hy/base/goods/form/index'
+    form: '/pages/hy/base/wh/form/index'
   }
 })

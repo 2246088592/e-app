@@ -1,3 +1,4 @@
+<!-- 耗材 -->
 <template name="goods">
   <view >
     <view class="color-big-title text-xl my-1">{{goods_name}}</view>
@@ -7,7 +8,7 @@
     </view>
     <view>
       <text class="color-label">耗材分类：</text>
-      <text class="color-bg-title">{{goods_class_id}}</text>
+      <text class="color-bg-title">{{class_name}}</text>
     </view>
     <view>
       <text class="color-label">耗材规格：</text>
@@ -20,6 +21,52 @@
     <view>
       <text class="color-label">采购单价：</text>
       <text class="color-bg-title">{{pprice}}</text>
+    </view>
+  </view>
+</template>
+<!-- 仓库 -->
+<template name="wh">
+  <view >
+    <view class="color-big-title text-xl my-1">{{wh_name}}</view>
+    <view>
+      <text class="color-label">仓库编码：</text>
+      <text class="color-bg-title">{{wh_number}}</text>
+    </view>
+  </view>
+</template>
+<!-- 供应商 -->
+<template name="ven">
+  <view >
+    <view class="color-big-title text-xl my-1">{{ven_name}}</view>
+    <view>
+      <text class="color-label">供应商编码：</text>
+      <text class="color-bg-title">{{ven_code}}</text>
+    </view>
+    <view>
+      <text class="color-label">联系人：</text>
+      <text class="color-bg-title">{{ven_contactor}}</text>
+    </view>
+    <view>
+      <text class="color-label">电话：</text>
+      <text class="color-bg-title">{{ven_tel}}</text>
+    </view>
+    <view>
+      <text class="color-label">地址：</text>
+      <text class="color-bg-title">{{ven_add}}</text>
+    </view>
+  </view>
+</template>
+<!-- 耗材分类 -->
+<template name="class">
+  <view >
+    <view class="color-big-title text-xl my-1">{{class_name}}</view>
+    <view>
+      <text class="color-label">分类编码：</text>
+      <text class="color-bg-title">{{class_number}}</text>
+    </view>
+    <view>
+      <text class="color-label">上级分类：</text>
+      <text class="color-bg-title">{{p_class_name}}</text>
     </view>
   </view>
 </template>
