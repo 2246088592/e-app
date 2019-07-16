@@ -35,7 +35,7 @@ listPage({
   // 业务对象
   bizObj: {
     // 请求地址
-    url: 'url',
+    url: '/business/item-class',
     // 模板名称
     template: 'class',
     // 模拟数据

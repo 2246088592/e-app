@@ -8,7 +8,7 @@ App({
   // 全局变量
   globalData: {
     // 域名，用于发送请求
-    host: 'http://dingding.boyo-tech.vaiwan.com',
+    host: 'http://121.199.31.107:8081',
 
     // 组织名称
     corp: '华阳街道社区卫生服务中心',
@@ -20,6 +20,6 @@ App({
   // 小程序初始化
   onLaunch(options) {
     // 登录
-    login({ mock: 'login' })
+    login()
   }
 })

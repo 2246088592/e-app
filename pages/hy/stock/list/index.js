@@ -1,70 +1,42 @@
 import listPage from '/src/render/listPage'
 
 listPage({
-  id: 'testList',
-  name: 'good',
-  bindKey: 'name',
-  searchPlaceholder: '搜索',
-  url: 'url',
-  auth: { add: true, delete: true, filter: true, check: true },
-
-
   // 权限标记，对应按钮的position
-  btnPos: 1,
-  // 业务对象
-  bizObj: {
-    url: 'url', // 请求地址
-    template: 'stock', // 模板名称
-    array: [
-      {
-        id: 1,
-        depository: 'CK001',
-        name: '耗材0001',
-        code: 'HC0001',
-        spec: 'SCP001',
-        number: '30'
-      },
-      {
-        id: 2,
-        depository: 'CK001',
-        name: '耗材0002',
-        code: 'HC0002',
-        spec: 'SCP002',
-        number: '10'
-      },
-      {
-        id: 3,
-        depository: 'CK001',
-        name: '耗材0003',
-        code: 'HC0002',
-        spec: 'SCP002',
-        number: '2'
-      }
-    ]
+  btnPos: {
+    // 普通模式
+    normal: 1,
+    // 多选模式
+    edit: 12
   },
 
+  // // 表单背景
+  // background: '',
 
-  filterParams: {},
-  beforeEnterList() {
-    this.setData({
-      'testList.array': [
-        {
-          name: '0.55针头',
-          spec: '盒'
-        },
-        {
-          name: '0.6针头',
-          spec: '盒'
-        },
-        {
-          name: '0.7针头',
-          spec: '盒'
-        },
-        {
-          name: '12号针头',
-          spec: '个'
-        }
-      ]
-    })
+  // // 导航栏配置，title默认为菜单名称
+  // navigationBar: {
+  //   title: '',
+  //   backgroundColor: ''
+  // },
+
+  // 搜索框
+  searchBar: {
+    bindkey: 'cons_name',
+    placeholder: '搜索耗材名称'
+  },
+
+  // // 请求参数
+  // params: {},
+
+  // // 过滤条件
+  // filter: [],
+
+  // 业务对象
+  bizObj: {
+    // 请求地址
+    url: 'url',
+    // 模板名称
+    template: 'stock',
+    // 模拟数据
+    mock: 'stock'
   }
 })

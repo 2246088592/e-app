@@ -1,8 +1,10 @@
 {
 	"pages": [
 		"pages/index/index",
+
 		"pages/home/index",
-		"pages/setting/index",
+    
+		"pages/process/index",
 
 		"pages/hy/base/goods/form/index",
 		"pages/hy/base/goods/list/index",
@@ -18,21 +20,17 @@
 
 		"pages/hy/p/request/form/index",
 		"pages/hy/p/request/list/index",
+
+    "pages/hy/p/stock-out/form/index",
+		"pages/hy/p/stock-out/list/index",
     
-		"pages/hy/request-to-purchase/list/index",
-		"pages/hy/purchase/form/index",
-		"pages/hy/purchase/list/index",
-		"pages/hy/purchase-to-stock-in/list/index",
-		"pages/hy/stock-in/form/index",
-		"pages/hy/stock-in/list/index",
-		"pages/hy/stock-out/form/index",
-		"pages/hy/stock-out/list/index",
-		"pages/hy/stock/list/index",
+		"pages/hy/o/purchase/form/index",
+		"pages/hy/o/purchase/list/index",
 
+		"pages/hy/o/stock-in/form/index",
+		"pages/hy/o/stock-in/list/index",
 
-
-		"pages/test/list/index",
-		"pages/test/form/index"
+    "pages/hy/stock/list/index"
 	],
 	"window": {
 		"defaultTitle": "耗材管理系统",
@@ -46,15 +44,15 @@
 		"backgroundColor": "",
 		"items": [{
 				"pagePath": "pages/home/index",
-				"name": "审批",
-				"icon": "/src/assets/icon/tabBar/sp.png",
-				"activeIcon": "/src/assets/icon/tabBar/sp-active.png"
+				"name": "首页",
+				"icon": "/src/assets/icon/tabBar/home.png",
+				"activeIcon": "/src/assets/icon/tabBar/home_active.png"
 			},
-			{
-				"pagePath": "pages/setting/index",
-				"name": "审批",
-				"icon": "/src/assets/icon/tabBar/sp.png",
-				"activeIcon": "/src/assets/icon/tabBar/sp-active.png"
+      {
+				"pagePath": "pages/process/index",
+				"name": "设置",
+				"icon": "/src/assets/icon/tabBar/settings.png",
+				"activeIcon": "/src/assets/icon/tabBar/settings_active.png"
 			}
 		]
 	}

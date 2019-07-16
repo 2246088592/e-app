@@ -28,7 +28,7 @@ Component({
     handleInput: util.debounce(function(event) {
       let value = `${this.path}.value`
       this.$page.setData({
-        [value]: event.detail.value
+        [value]: this.props.model.number ? Number(event.detail.value) || 0 : event.detail.value
       })
     }, 500),
 
@@ -78,8 +78,10 @@ Component({
         value: '',
         label: '',
         status: '',
+        number: false,
         focus: false,
         maxlength: 200,
+        password: false,
         disabled: false,
         necessary: false,
         placeholder: model.necessary ? '必填' : '',

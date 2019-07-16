@@ -53,7 +53,7 @@ Component({
       }
       // datePicker对象
       let datePicker = {
-        value: model.default ? util.formatDate(model.format || 'yyyy-MM-dd', new Date()) : '',
+        value: model.default && !model.value ? util.formatDate(model.format || 'yyyy-MM-dd', new Date()) : '',
         label: '',
         status: '',
         disabled: false,

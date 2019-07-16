@@ -1,0 +1,4 @@
+<view class="flex items-center flex-col" style="width: min-content;">
+  <image class="circle w-9 h-9 shadow-md" src="{{user.avatar}}" mode="{{mode}}" />
+  <text a:if="{{user.name}}" class="mt-2 color-label text-xs no-wrap">{{user.name}}</text>
+</view>

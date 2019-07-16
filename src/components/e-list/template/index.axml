@@ -101,3 +101,103 @@
     </view>
   </view>
 </template>
+<!-- 领用单 -->
+<template name="stock_out">
+  <view class="flex items-center">
+    <view class="text-xs color-label flex flex-col items-center mr-2">
+      <image class="circle w-9 h-9 shadow-md" src="{{stockout_person_avatar}}" mode="aspectFill" />
+      <text class="mt-2">{{stockout_person}}</text>
+    </view>
+    <view class="flex flex-col">
+      <view>
+        <text class="color-label">单据编号：</text>
+        <text class="color-bg-title">{{doc_number}}</text>
+      </view>
+      <view>
+        <text class="color-label">领用日期：</text>
+        <text class="color-bg-title">{{stockout_date}}</text>
+      </view>
+      <view>
+        <text class="color-label">领用部门：</text>
+        <text class="color-bg-title">{{stockout_dept}}</text>
+      </view>
+      <view>
+        <text class="color-label">单据状态：</text>
+        <text class="color-bg-title">{{doc_status}}</text>
+      </view>
+      <view>
+        <text class="color-label">备注：</text>
+        <text class="color-bg-title">{{remark}}</text>
+      </view>
+    </view>
+  </view>
+</template>
+<!-- 采购单 -->
+<template name="purchase">
+  <view >
+    <view class="color-big-title text-xl my-1">{{doc_number}}</view>
+    <view>
+      <text class="color-label">订单日期：</text>
+      <text class="color-bg-title">{{doc_date}}</text>
+    </view>
+    <view>
+      <text class="color-label">供应商：</text>
+      <text class="color-bg-title">{{supplier_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">状态：</text>
+      <text class="color-bg-title">{{doc_status}}</text>
+    </view>
+    <view>
+      <text class="color-label">备注：</text>
+      <text class="color-bg-title">{{remark}}</text>
+    </view>
+  </view>
+</template>
+<!-- 入库单 -->
+<template name="stock_in">
+  <view >
+    <view class="color-big-title text-xl my-1">{{doc_number}}</view>
+    <view>
+      <text class="color-label">入库日期：</text>
+      <text class="color-bg-title">{{stockin_date}}</text>
+    </view>
+    <view>
+      <text class="color-label">供应商：</text>
+      <text class="color-bg-title">{{supplier_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">状态：</text>
+      <text class="color-bg-title">{{doc_status}}</text>
+    </view>
+    <view>
+      <text class="color-label">仓库：</text>
+      <text class="color-bg-title">{{warehouse_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">备注：</text>
+      <text class="color-bg-title">{{remark}}</text>
+    </view>
+  </view>
+</template>
+<!-- 库存 -->
+<template name="stock">
+  <view >
+    <view>
+      <text class="color-label">耗材名称：</text>
+      <text class="color-bg-title">{{cons_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">库存量：</text>
+      <text class="color-bg-title">{{qty}}</text>
+    </view>
+    <view>
+      <text class="color-label">仓库：</text>
+      <text class="color-bg-title">{{warehouse_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">备注：</text>
+      <text class="color-bg-title">{{remark}}</text>
+    </view>
+  </view>
+</template>

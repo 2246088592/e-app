@@ -180,7 +180,6 @@ export default (f) => {
         url: this.data.url,
         params: this.list.data ? Object.assign(this.list.data, data) : data
       }
-      console.log(options.params)
       http.post(options).then(res => {
         if (res.status === 0) {
           util.ddToast('success', '保存成功')
@@ -206,10 +205,10 @@ export default (f) => {
         key = c.label
         if (c.component === 'e-subform') {
           for (let j = 0; j < c.children.length; j++) {
-            key += `-${j + 1}`
             let sf = c.children[j]
             for (let k = 0; k < sf.length; k++) {
               if (sf[k].status === 'error') {
+                key += `-${j + 1}`
                 util.ddToast('fail', `${sf[k].label}（${key}）${sf[k].notice}`)
                 return false
               }

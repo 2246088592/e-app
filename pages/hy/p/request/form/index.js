@@ -38,7 +38,8 @@ formPage({
       label: '申请人',
       key: 'apply_user_id',
       component: 'e-user-chooser',
-      necessary: true
+      disabled: true,
+      default: true
     },
     {
       label: '申请部门',
@@ -69,6 +70,7 @@ formPage({
           label: '申请数量',
           key: 'apply_qty',
           component: 'e-input',
+          number: true,
           necessary: true
         }
       ]
@@ -79,8 +81,20 @@ formPage({
   beforeOnLoad(query, f) {
     return new Promise((resolve, reject) => {
       if (this.list && this.list.data) {
-        // 配置表单是否还能更改
-        f.disabled = this.list.data.doc_state === 1
+        // // 配置表单是否还能更改        
+        // if (this.list.data.doc_state === 2) {
+        //   f.bizObj = f.bizObj.map(c => {
+        //     if (c.component === 'e-subform') {
+        //       c.disabled = true
+        //       c.subform = c.subform.map(sc => {
+        //         sc.disabled = true
+        //         return sc
+        //       })
+        //     }
+        //     c.disabled = true
+        //     return c
+        //   })
+        // }
         // 配置已选人员
         this.list.data.apply_user_id = [{
           userId: this.list.data.apply_user_id,
@@ -104,8 +118,6 @@ formPage({
             }
           })
           resolve()
-        }).catch(err => {
-          reject(err)
         })
       } else {
         resolve()
@@ -113,7 +125,7 @@ formPage({
     })
   },
 
-  // 提交前处理
+  // 保存前处理
   beforeSubmit(data) {
     data.apply_org_id = data.apply_org_id[0].id
     data.apply_user_id = data.apply_user_id[0].userId
@@ -121,5 +133,50 @@ formPage({
       return { apply_qty: item.apply_qty, goods_id: item.goods_id.id }
     })
     return Promise.resolve()
+  },
+
+  methods: {
+    // 提交
+    async handleSubmit() {
+      if (!this.handleValidate()) {
+        return
+      }
+      let data = this.formatForm()
+      data.apply_org_id = data.apply_org_id[0].id
+      data.apply_user_id = data.apply_user_id[0].userId
+      data.goods = data.goods.map(item => {
+        return { apply_qty: item.apply_qty, goods_id: item.goods_id.id }
+      })
+      let options = {
+        url: '',
+        params: this.list.data ? Object.assign(this.list.data, data) : data
+      }
+      http.post(options).then(res => {
+        if (res.status === 0) {
+          util.ddToast('success', '提交成功')
+          app.emitter.emit(this.list.lid, {
+            type: data.id ? 'edit' : 'add',
+            index: this.list.index || undefined,
+            data: res.data
+          })
+          dd.navigateBack({
+            delta: 1
+          })
+        } else {
+          util.ddToast('fail', res.message || '提交失败')
+        }
+      })
+    },
+
+    // 查看审批流
+    handleCheck() {
+      if (this.list.data) {
+        dd.navigateTo({
+          url: `/pages/process/index?form=${JSON.stringify(this.list.data)}`
+        })
+      } else {
+        util.ddToast('fail', '提交成功后可查看审批状态')
+      }
+    }
   }
 })

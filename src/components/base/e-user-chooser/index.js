@@ -29,6 +29,9 @@ Component({
   methods: {
     // 删除已选人
     handleDelete(event) {
+      if (this.props.model.disabled) {
+        return
+      }
       let i = event.currentTarget.dataset.itemIndex
       let pickedUsers = `${this.path}.value`
       this.$page.$spliceData({
@@ -76,12 +79,22 @@ Component({
       } else if (model.ci !== undefined) {
         this.path = `bizObj[${model.ci}]`
       }
+      let value = []
+      if (model.default && !model.value && getApp().globalData.userInfo) {
+        let userInfo = getApp().globalData.userInfo
+        value.push({
+          userId: userInfo.dd_user_info.Id,
+          name: userInfo.dd_user_info.Name,
+          avatar: userInfo.dd_user_info.Avatar
+        })
+      }
       // userChooser对象
       let userChooser = {
         max: 100,
-        value: [],
+        value: value,
         label: '',
         status: '',
+        default: false,
         multiple: true,
         disabled: false,
         necessary: false,

@@ -1,7 +1,5 @@
 import listPage from '/src/render/listPage'
 
-let app = getApp()
-
 listPage({
   // 权限标记，对应按钮的position
   btnPos: {
@@ -22,8 +20,8 @@ listPage({
 
   // 搜索框
   searchBar: {
-    bindkey: 'goods_name',
-    placeholder: '搜索耗材名称'
+    bindkey: 'doc_number',
+    placeholder: '搜索单据编号'
   },
 
   // // 请求参数
@@ -35,12 +33,12 @@ listPage({
   // 业务对象
   bizObj: {
     // 请求地址
-    url: '/business/consumables',
+    url: 'url',
     // 模板名称
-    template: 'goods',
+    template: 'stock_in',
     // 模拟数据
-    mock: 'goods',
+    mock: 'stock_in',
     // 新增，查看，编辑时跳转路由
-    form: '/pages/hy/base/goods/form/index'
+    form: '/pages/hy/o/stock-in/form/index'
   }
 })

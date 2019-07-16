@@ -1,2 +1,0 @@
-<dingui-input value="{{value}}" onDmInput="handleInput"> </dingui-input>
-<text>{{value}}</text>

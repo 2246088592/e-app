@@ -1,0 +1,5 @@
+{
+  "usingComponents":{
+    "e-avatar": "/src/components/base/e-avatar/index"
+  }
+}

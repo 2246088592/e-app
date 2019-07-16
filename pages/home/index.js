@@ -18,7 +18,7 @@ Page({
         title: '基础资料',
         children: [
           {
-            icon_cls: 'cube',
+            icon_cls: 'flask',
             menu_name: '耗材资料',
             mobile_url: '/pages/hy/base/goods/list/index;/pages/hy/base/goods/form/index',
             xtype: 'warning',
@@ -34,7 +34,7 @@ Page({
               {
                 "position": 12,
                 "action_name": "删除",
-                "xtype": "primary",
+                "xtype": "danger",
                 "icon_cls": "trash",
                 "handler": 'handleDelete'
               },
@@ -48,37 +48,7 @@ Page({
             ]
           },
           {
-            icon_cls: 'cube',
-            menu_name: '仓库资料',
-            mobile_url: '/pages/hy/base/wh/list/index;/pages/hy/base/wh/form/index',
-            xtype: 'warning',
-            id: 'wh',
-            permission: [
-              {
-                "position": 1,
-                "action_name": "新增",
-                "xtype": "primary",
-                "icon_cls": "plus",
-                "handler": 'handleAdd'
-              },
-              {
-                "position": 12,
-                "action_name": "删除",
-                "xtype": "primary",
-                "icon_cls": "trash",
-                "handler": 'handleDelete'
-              },
-              {
-                "position": 2,
-                "action_name": "保存",
-                "xtype": "primary",
-                "icon_cls": "save",
-                "handler": 'saveForm'
-              }
-            ]
-          },
-          {
-            icon_cls: 'cube',
+            icon_cls: 'truck',
             menu_name: '供应商资料',
             mobile_url: '/pages/hy/base/ven/list/index;/pages/hy/base/ven/form/index',
             xtype: 'warning',
@@ -94,7 +64,7 @@ Page({
               {
                 "position": 12,
                 "action_name": "删除",
-                "xtype": "primary",
+                "xtype": "danger",
                 "icon_cls": "trash",
                 "handler": 'handleDelete'
               },
@@ -108,7 +78,7 @@ Page({
             ]
           },
           {
-            icon_cls: 'cube',
+            icon_cls: 'sitemap',
             menu_name: '耗材分类资料',
             mobile_url: '/pages/hy/base/class/list/index;/pages/hy/base/class/form/index',
             xtype: 'warning',
@@ -124,7 +94,7 @@ Page({
               {
                 "position": 12,
                 "action_name": "删除",
-                "xtype": "primary",
+                "xtype": "danger",
                 "icon_cls": "trash",
                 "handler": 'handleDelete'
               },
@@ -140,10 +110,10 @@ Page({
         ]
       },
       {
-        title: '请购',
+        title: '请购、领用',
         children: [
           {
-            icon_cls: 'cube',
+            icon_cls: 'send',
             menu_name: '请购需求',
             mobile_url: '/pages/hy/p/request/list/index;/pages/hy/p/request/form/index',
             xtype: 'success',
@@ -159,16 +129,21 @@ Page({
               {
                 "position": 12,
                 "action_name": "删除",
-                "xtype": "primary",
+                "xtype": "danger",
                 "icon_cls": "trash",
                 "handler": 'handleDelete'
               },
               {
                 "position": 12,
-                "action_name": "转领用",
+                "action_name": "领",
                 "xtype": "primary",
-                "icon_cls": "refresh",
                 "handler": 'handleConvert'
+              },
+              {
+                "position": 12,
+                "action_name": "购",
+                "xtype": "success",
+                "handler": 'handlePurchase'
               },
               {
                 "position": 2,
@@ -182,13 +157,129 @@ Page({
                 "action_name": "提交",
                 "xtype": "primary",
                 "icon_cls": "paper-plane",
-                "handler": 'saveForm'
+                "handler": 'handleSubmit'
               },
               {
                 "position": 2,
                 "action_name": "查看审批",
                 "xtype": "primary",
                 "icon_cls": "gavel",
+                "handler": 'handleCheck'
+              }
+            ]
+          },
+          {
+            icon_cls: 'cube',
+            menu_name: '耗材领用',
+            mobile_url: '/pages/hy/p/stock-out/list/index;/pages/hy/p/stock-out/form/index',
+            xtype: 'success',
+            id: 'stock_out',
+            permission: [
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              },
+              {
+                "position": 2,
+                "action_name": "提交",
+                "xtype": "primary",
+                "icon_cls": "paper-plane",
+                "handler": 'handleSubmit'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        title: '采购、入库',
+        children: [
+          {
+            icon_cls: 'cube',
+            menu_name: '采购订单',
+            mobile_url: '/pages/hy/o/purchase/list/index;/pages/hy/o/purchase/form/index',
+            xtype: 'danger',
+            id: 'purchase',
+            permission: [
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              },
+              {
+                "position": 2,
+                "action_name": "审核",
+                "xtype": "primary",
+                "icon_cls": "paper-plane",
+                "handler": 'handleApprove'
+              }
+            ]
+          },
+          {
+            icon_cls: 'cube',
+            menu_name: '入库单',
+            mobile_url: '/pages/hy/o/stock-in/list/index;/pages/hy/o/stock-in/form/index',
+            xtype: 'danger',
+            id: 'stock_in',
+            permission: [
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
+                "handler": 'saveForm'
+              },
+              {
+                "position": 2,
+                "action_name": "审核",
+                "xtype": "primary",
+                "icon_cls": "paper-plane",
+                "handler": 'handleApprove'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        title: '仓库',
+        children: [
+          {
+            icon_cls: 'search',
+            menu_name: '库存查询',
+            mobile_url: '/pages/hy/stock/list/index',
+            xtype: 'primary',
+            id: 'stock'
+          },
+          {
+            icon_cls: 'cubes',
+            menu_name: '仓库资料',
+            mobile_url: '/pages/hy/base/wh/list/index;/pages/hy/base/wh/form/index',
+            xtype: 'primary',
+            id: 'wh',
+            permission: [
+              {
+                "position": 1,
+                "action_name": "新增",
+                "xtype": "primary",
+                "icon_cls": "plus",
+                "handler": 'handleAdd'
+              },
+              {
+                "position": 12,
+                "action_name": "删除",
+                "xtype": "danger",
+                "icon_cls": "trash",
+                "handler": 'handleDelete'
+              },
+              {
+                "position": 2,
+                "action_name": "保存",
+                "xtype": "primary",
+                "icon_cls": "save",
                 "handler": 'saveForm'
               }
             ]

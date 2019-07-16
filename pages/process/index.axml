@@ -1,0 +1,8 @@
+<view class="absolute pin bg-color-white flex">
+  <scroll-view class="flex-1" scroll-y="{{true}}">
+    <view class="flex items-center justify-between mx-2 py-2 relative border-bottom">
+      <e-avatar id="{{process.originator_userid}}" />
+      <text>审批通过</text>
+    </view>
+  </scroll-view>
+</view>

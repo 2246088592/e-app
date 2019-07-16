@@ -424,8 +424,10 @@ export default {
         "account": "xd",
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiLmkq3pmLMiLCJpYXQiOjE1NjAyMzY5NjguMCwiYXVkIjoiaHR0cDovL3d3dy5ib3lvLXRlY2guY29tLmNuIiwic3ViIjoiQk9ZTy5WSVAiLCJqdGkiOiI2M2FmODk2My1jZDU0LTRmZGItYWUwNi04NDcxNTU0MjhlODciLCJhY2NvdW50IjoieGQifQ.03i0jy0i2CaZ_ORXzLZf3sn71QIRL_IliSg7cnb3UrE",
         "dd_user_info": {
-          "Name": "陈加隆",
-          "Mobile": "18750105179"
+          "Name": "陈加隆1",
+          "Mobile": "18750105179",
+          Avatar: 'https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg',
+          Id: '113405601937665838'
         }
       },
       "status": 0,
@@ -2081,4 +2083,255 @@ export default {
       message: ''
     }
   },
+
+  stock_out: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            doc_number: 1,
+            doc_status: 1,
+            stockout_person_id: '113405601937665838',
+            stockout_person: '陈加隆',
+            stockout_person_avatar: 'https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg',
+            stockout_dept_id: '-1',
+            stockout_dept: '播阳E应用',
+            stockout_date: '2019-07-12',
+            remark: '备注'
+          },
+          {
+            id: 2,
+            doc_number: 2,
+            doc_status: 2,
+            stockout_person_id: '113405601937665838',
+            stockout_person: '陈加隆',
+            stockout_person_avatar: 'https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg',
+            stockout_dept_id: '-1',
+            stockout_dept: '播阳E应用',
+            stockout_date: '2019-07-12',
+            remark: '备注'
+          },
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  consDetail: {
+    data: {
+      data: {
+        "cons": [
+          {
+            id: 1,
+            pid: 1,
+            cons_id: 1,
+            cons_code: 'GOOG0001',
+            cons_name: '测试耗材01',
+            cons_standard: '规格型号',
+            cons_unit: '个',
+            apply_qty: 200,
+            order_qty: 200,
+            stockin_qty: 200,
+            item_class_name: '分类',
+            por_detail_id: 1
+          },
+          {
+            id: 2,
+            pid: 2,
+            cons_id: 2,
+            cons_code: 'GOOG0002',
+            cons_name: '测试耗材02',
+            cons_standard: '规格型号',
+            cons_unit: '个',
+            apply_qty: 200,
+            order_qty: 200,
+            stockin_qty: 200,
+            item_class_name: '分类',
+            por_detail_id: 2
+          },
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  purchase: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            doc_number: 1,
+            doc_date: '2019-07-12',
+            supplier_id: '113405601937665838',
+            supplier_name: '供应商1',
+            doc_status: '采购中',
+            remark: '备注'
+          },
+          {
+            id: 2,
+            doc_number: 2,
+            doc_date: '2019-07-12',
+            supplier_id: '113405601937665838',
+            supplier_name: '供应商2',
+            doc_status: '已入库',
+            remark: '备注'
+          }
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  stock_in: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            doc_number: 1,
+            stockin_date: '2019-07-12',
+            supplier_id: '113405601937665838',
+            supplier_name: '供应商1',
+            doc_status: '状态1',
+            remark: '备注',
+            warehouse_id: 1,
+            warehouse_name: '仓库1'
+          },
+          {
+            id: 2,
+            doc_number: 2,
+            stockin_date: '2019-07-12',
+            supplier_id: '113405601937665838',
+            supplier_name: '供应商2',
+            doc_status: '状态2',
+            remark: '备注',
+            warehouse_id: 2,
+            warehouse_name: '仓库2'
+          }
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  stock: {
+    data: {
+      data: {
+        "items": [
+          {
+            id: 1,
+            remark: '备注',
+            qty: 300,
+            warehouse_id: 1,
+            warehouse_name: '仓库1',
+            cons_id: 'HC0001',
+            cons_name: '耗材1'
+          },
+          {
+            id: 2,
+            remark: '备注',
+            qty: 30,
+            warehouse_id: 2,
+            warehouse_name: '仓库2',
+            cons_id: 'HC0002',
+            cons_name: '耗材2'
+          }
+        ]
+      },
+      status: 0,
+      message: ''
+    }
+  },
+
+  process: {
+    data: {
+      "status": 0,
+      "message": "成功",
+      "data": {
+        "title": "实例标题",
+        "create_time": "2018-11-21 12:00:00",
+        "finish_time": "2018-11-21 12:00:00",
+        "originator_userid": "manager1",
+        "originator_dept_id": "1",
+        "status": "NEW",
+        "cc_userids": "manager1,manager2",
+        "form_component_values": [
+          {
+            "name": "名称",
+            "value": "示例值",
+            "ext_value": "示例值"
+          }
+        ],
+        "result": "agree",
+        "business_id": "2017111111",
+        "operation_records": [
+          {
+            "userid": "manager1",
+            "date": "2018-11-21 12:00:00",
+            "operation_type": "EXECUTE_TASK_NORMAL",
+            "operation_result": "AGREE",
+            "remark": "评论"
+          }
+        ],
+        "tasks": [
+          {
+            "userid": "manager1",
+            "task_status": "NEW",
+            "task_result": "REDIRECTED",
+            "create_time": "2018-11-21 12:00:00",
+            "finish_time": "2018-11-21 12:00:00",
+            "taskid": "1497249"
+          }
+        ],
+        "originator_dept_name": "测试",
+        "biz_action": "MODIFY",
+        "attached_process_instance_ids": []
+      }
+    }
+  },
+
+  userInfo: {
+    data: {
+      status: 0,
+      message: '',
+      data: {
+        "unionid": "PiiiPyQqBNBii0HnCJ3zljcuAiEiE",
+        "remark": "remark",
+        "userid": "113405601937665838",
+        "isLeaderInDepts": { 1: false },
+        "isBoss": false,
+        "hiredDate": 1520265600000,
+        "isSenior": false,
+        "tel": "xxx-xxxxxxxx",
+        "department": [1, 2],
+        "workPlace": "place",
+        "email": "test@xxx.com",
+        "orderInDepts": "{1:71738366882504}",
+        "mobile": "1xxxxxxxxxx",
+        "errmsg": "ok",
+        "active": false,
+        "avatar": "https://static.dingtalk.com/media/lADPDgQ9qTOfb1jNAlfNAlg_600_599.jpg",
+        "isAdmin": false,
+        "isHide": false,
+        "jobnumber": "001",
+        "name": "陈加隆",
+        "extattr": {},
+        "stateCode": "86",
+        "position": "manager",
+        "roles": [
+          {
+            "id": 149507744,
+            "name": "总监",
+            "groupName": "职务"
+          }
+        ]
+      }
+    }
+  }
 }

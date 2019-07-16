@@ -3,7 +3,7 @@ import http from '/src/http/index.js'
 
 formPage({
   // 提交地址
-  url: '',
+  url: '/business/item-class',
 
   // 权限标记，对应按钮的position
   // btnPos: 2,
@@ -25,7 +25,7 @@ formPage({
       component: 'e-cascader',
       necessary: true,
       last: false,
-      bindkey: 'class_name'
+      bindkey: 'item_name'
     },
     {
       label: '分类编号',
