@@ -15,7 +15,7 @@ Page({
             process: res.data
           })
         } else {
-          util.ddToast('fail', res.message || '获取审批实例失败')
+          util.ddToast({ type: 'fail', text: res.message || '获取审批实例失败' })
         }
       })
     }

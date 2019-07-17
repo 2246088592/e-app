@@ -1,2 +1,0 @@
-<!-- auth="{{auth}}" onRules="onRules" 为固定写法 -->
-<e-form btnPos="{{btnPos}}" background="{{background}}" bizObj="{{bizObj}}" onRules="onRules"></e-form>

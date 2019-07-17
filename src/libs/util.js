@@ -14,7 +14,6 @@ const util = {
 
   // 格式化日期
   formatDate(fmt, date) {
-    console.log('日期格式化匹配规则\ny:年\nM:月\nd:日\nH:时\nm:分\ns:秒\nq:季节\nS:毫秒')
     var o = {
       "M+": date.getMonth() + 1,
       "d+": date.getDate(),
@@ -35,26 +34,11 @@ const util = {
   },
 
   // 全局toast
-  ddToast(type, text, interval) {
+  ddToast({ type, text, interval }) {
     dd.showToast({
-      type: type || 'none',
-      content: text || '空内容',
-      duration: interval || 2000,
-      fail: (err) => {
-        console.error(err)
-      }
-    })
-  },
-
-  // 全局alert
-  ddAlert(title, content, buttonText) {
-    dd.alert({
-      title: title || '警告',
-      content: content || '空内容',
-      buttonText: buttonText || '确定',
-      fail: (err) => {
-        console.error(err)
-      }
+      type: type,
+      content: text,
+      duration: interval
     })
   },
 
@@ -65,30 +49,12 @@ const util = {
     })
   },
 
-  // 全局loading
-  ddLoader: {
-    show: (text) => {
-      dd.showLoading({
-        content: text || '加载中...',
-        fail: (err) => {
-          console.error(err)
-        }
-      })
-    },
-    hide: () => {
-      dd.hideLoading()
-    }
-  },
-
   // 设置导航栏
-  setNavigationBar(options) {
+  setNavigationBar({ title, reset, backgroundColor }) {
     dd.setNavigationBar({
-      title: options.title || '空标题',
-      reset: options.reset || false,
-      backgroundColor: options.backgroundColor || '#FFF',
-      fail: (err) => {
-        console.error(err)
-      }
+      title: title,
+      reset: reset,
+      backgroundColor: backgroundColor
     })
   },
 
@@ -131,6 +97,7 @@ const util = {
         })
       })
     },
+
     // 读
     get({ dbName = 'db', path = '', defaultValue = '', user = true }) {
       return new Promise((resolve, reject) => {
@@ -145,6 +112,7 @@ const util = {
         })
       })
     },
+
     // 删除
     remove({ dbName = 'db', path = '', user = true }) {
       return new Promise((resolve, reject) => {

@@ -92,7 +92,7 @@ Component({
     // 点击确认
     handleSelect() {
       if (!this.data.current) {
-        util.ddToast('fail', '请选择一个有效值')
+        util.ddToast({ type: 'fail', text: '请选择一个有效值' })
         return
       }
       let value = `${this.path}.value`
@@ -125,7 +125,7 @@ Component({
         return
       }
       if (!this.props.model.tree.length) {
-        util.ddToast('none', '没有数据')
+        util.ddToast({ type: 'none', text: '没有数据' })
         return
       }
       this.setData({

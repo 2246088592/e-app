@@ -3,46 +3,42 @@ import util from '/src/libs/util.js'
 
 Component({
   data: {
-    type: 5,
+    // 分组菜单数组
+    menuGroup: [],
     // 展开的菜单分组
-    opened: {},
-    loading: false,
-    loadingText: '菜单加载中'
+    opened: {}
   },
+
   props: {
     // 每行最大菜单数
     column: 4,
-    // 固定菜单
-    staticMenuGroup: [],
     // 禁止显示的菜单
     disabled: [],
+    // 固定菜单
+    staticMenuGroup: [],
     // 背景
     background: 'rgba(0, 0, 0, 0)'
   },
+
   didMount() {
     this.initMenu()
   },
+
   methods: {
     // 初始化菜单
     initMenu() {
-      this.setData({
-        loading: true
-      })
-      getMenuTree({ mock: 'menuTree' }).then(res => {
+      getMenuTree().then(data => {
         let menuGroup = []
         if (this.props.staticMenuGroup.length) {
           menuGroup = util.cloneDeep(this.props.staticMenuGroup)
         }
-        this.formatMenu(menuGroup, res.data[0])
+        // 整合菜单
+        this.formatMenu(menuGroup, data[0])
         this.setData({
-          loading: false,
           menuGroup: menuGroup
         })
+        // 持久化菜单数据到本地
         this.saveMenu(menuGroup)
-      }).catch(err => {
-        this.setData({
-          loading: false
-        })
       })
     },
 
@@ -86,7 +82,7 @@ Component({
 
     // 切换是否可见
     handleSwitch(event) {
-      let i = event.currentTarget.dataset.i
+      let i = event.target.dataset.i
       let path = `opened[${i}]`
       this.setData({
         [path]: this.data.opened[i] !== undefined ? !this.data.opened[i] : false

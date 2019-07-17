@@ -33,11 +33,6 @@ Component({
     }
   },
 
-  // 参数
-  props: {
-
-  },
-
   // 加载
   didMount() {
     // 初始化列表权限
@@ -49,6 +44,7 @@ Component({
     // 初始化事件监听器
     this.initEventListener()
   },
+
   // 更新
   didUpdate(prevProps, prevData) {
     // 多选状态更新已选项目
@@ -69,24 +65,28 @@ Component({
         searchVisible: true
       })
     },
+
     // 关闭搜索框
     handleSearchInvisible() {
       this.setData({
         searchVisible: false
       })
     },
+
     // 打开过滤部件
     handleFilterVisible() {
       this.setData({
         filterVisible: true
       })
     },
+
     // 关闭过滤部件
     handleFilterInvisible() {
       this.setData({
         filterVisible: false
       })
     },
+
     // 手指滑动时
     handleTouchMove(event) {
       if (this.touchMoving) {
@@ -94,16 +94,19 @@ Component({
       }
       this.touchMoving = true
     },
+
     // 滑动结束
     handleTouchEnd(event) {
       this.touchMoving = false
     },
+
     // 搜索，延迟300ms
     handleInput: util.debounce(function(event) {
       if (this.data.keyword !== event.detail.value) {
         this.reset(event.detail.value)
       }
     }, 300),
+
     // 重置搜索框/刷新事件
     reset(value) {
       this.setData({
@@ -115,6 +118,7 @@ Component({
         this.loadMore()
       })
     },
+
     // 初始化动态按钮
     initBtns() {
       util.db.get({ dbName: 'permission', user: true }).then(data => {
@@ -124,10 +128,12 @@ Component({
         })
       })
     },
+
     // 清空搜索框
     handleClear() {
       this.handleInput({ detail: { value: '' } })
     },
+
     // 关闭编辑模式，清空选中值
     handleCheckboxInvisible() {
       this.setData({
@@ -138,6 +144,7 @@ Component({
       })
       this.handleSelectAll(false)
     },
+
     // 多选框全选函数
     handleSelectAll(checked) {
       let arr = util.cloneDeep(this.data.array)
@@ -148,6 +155,7 @@ Component({
         array: [0, this.data.array.length, ...arr]
       })
     },
+
     // 全选/全不选切换
     toggleSelectAll() {
       if (this.data.checkedArray.length === this.data.array.length) {
@@ -156,6 +164,7 @@ Component({
       }
       this.handleSelectAll(true)
     },
+
     // 单个项目点击事件
     handleSelect(event) {
       let i = event.currentTarget.dataset.itemIndex
@@ -179,6 +188,7 @@ Component({
         })
       }
     },
+
     // 显示checkbox，打开编辑模式
     handleCheckboxVisible(event) {
       if (this.data.checkboxVisible || this.touchMoving) {
@@ -191,6 +201,7 @@ Component({
         [checked]: true
       })
     },
+
     // 切换单个checkbox状态
     toggleCheckeBox(index, item) {
       let key = `array[${index}].checked`
@@ -198,6 +209,7 @@ Component({
         [key]: !item.checked
       })
     },
+
     // 动态按钮事件
     handleBtn(event) {
       let btn = event.currentTarget.dataset.btn
@@ -207,6 +219,7 @@ Component({
         this[btn.handler](btn)
       }
     },
+
     // 加载方法
     loadMore() {
       if (!this.data.more || this.data.loading) {
@@ -247,6 +260,7 @@ Component({
       })
       this.handleFilterInvisible()
     },
+
     // 加载结束的处理
     finishLoading() {
       this.setData({
@@ -254,6 +268,7 @@ Component({
       })
       dd.stopPullDownRefresh()
     },
+
     // 获取已选择的单项的id
     getCheckedItems() {
       let arr = []
@@ -266,10 +281,12 @@ Component({
         'checkedArray': [0, this.data.checkedArray.length, ...arr]
       })
     },
+
     // 根据过滤器中的内容进行搜索
     handleSearchByFilter() {
       this.reset(this.data.keyword)
     },
+
     // 重置过滤条件
     handleClearFilter() {
       let filter = {}
@@ -282,30 +299,36 @@ Component({
         this.reset('')
       })
     },
+
     // 无效事件
     void() { },
+
     // 给当前page添加下拉刷新方法，会覆盖page的刷新方法！
     initPullRefresh() {
       this.$page.onPullDownRefresh = () => {
         this.reset(this.data.keyword)
       }
     },
+
     // 列表新增方法
     listAdd(data) {
       this.$spliceData({
         array: [0, 0, data]
       })
     },
+
     // 列表编辑方法
     listEdit(index, data) {
       this.$spliceData({
         array: [index, 1, data]
       })
     },
+
     // 初始化事件监听器
     initEventListener() {
       app.emitter.on(`${this.$page.lid}`, this.handleEvent, this)
     },
+
     // 事件处理
     handleEvent(event) {
       switch (event.type) {
@@ -322,6 +345,7 @@ Component({
           break
       }
     },
+
     // 默认的添加事件，跳转到表单页面
     handleAdd() {
       if (!this.props.bizObj.form) {
@@ -332,10 +356,11 @@ Component({
         url: `${this.props.bizObj.form}?list=${JSON.stringify(list)}`
       })
     },
+
     // 默认的删除方法
     handleDelete() {
       if (!this.data.checkedArray.length) {
-        util.ddToast('fail', '请先选择需要删除的项')
+        util.ddToast({ type: 'fail', text: '请先选择需要删除的项' })
         return
       }
       dd.confirm({
@@ -350,7 +375,7 @@ Component({
               params: this.data.checkedArray
             }
             http.delete(options).then(res => {
-              util.ddToast('success', '删除成功')
+              util.ddToast({ type: 'success', text: '删除成功' })
               this.reset('')
             })
           }

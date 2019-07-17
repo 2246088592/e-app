@@ -1,5 +1,0 @@
-<e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}" background="{{background}}" searchBar="{{searchBar}}">
-  <view slot="filter">
-    <e-input model="{{filter[0]}}" onValidate="onTest"></e-input>
-  </view>
-</e-list>

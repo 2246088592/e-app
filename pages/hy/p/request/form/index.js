@@ -38,7 +38,6 @@ formPage({
       label: '申请人',
       key: 'apply_user_id',
       component: 'e-user-chooser',
-      disabled: true,
       default: true
     },
     {
@@ -153,7 +152,7 @@ formPage({
       }
       http.post(options).then(res => {
         if (res.status === 0) {
-          util.ddToast('success', '提交成功')
+          util.ddToast({ type: 'success', text: '提交成功' })
           app.emitter.emit(this.list.lid, {
             type: data.id ? 'edit' : 'add',
             index: this.list.index || undefined,
@@ -163,7 +162,7 @@ formPage({
             delta: 1
           })
         } else {
-          util.ddToast('fail', res.message || '提交失败')
+          util.ddToast({ type: 'fail', text: '提交失败' })
         }
       })
     },
@@ -175,7 +174,7 @@ formPage({
           url: `/pages/process/index?form=${JSON.stringify(this.list.data)}`
         })
       } else {
-        util.ddToast('fail', '提交成功后可查看审批状态')
+        util.ddToast({ type: 'fail', text: '提交成功后可查看审批状态' })
       }
     }
   }

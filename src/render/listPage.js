@@ -1,11 +1,7 @@
-// 工具类
 import util from '/src/libs/util.js'
-
-// 全局app对象
 let app = getApp()
 
 export default (l) => {
-  // 配置Page方法
   return Page({
     data: {
       // 权限标记，对应按钮position

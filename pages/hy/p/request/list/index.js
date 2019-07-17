@@ -47,7 +47,7 @@ listPage({
     // 将请购单转为领用单
     handleConvert(btn, checked) {
       if (!checked.length) {
-        util.ddToast('fail', '请先选择需要转领用的请购单')
+        util.ddToast({ type: 'fail', text:  '请先选择需要转领用的请购单' })
         return
       }
       dd.confirm({
@@ -62,7 +62,7 @@ listPage({
               params: checked
             }
             http.delete(options).then(res => {
-              util.ddToast('success', '转领用单成功')
+              util.ddToast({ type: 'success', text: res.message || '转领用单成功' })
               this.refresh()
             })
           }
@@ -73,7 +73,7 @@ listPage({
     // 使用请购单生成采购单
     handlePurchase(btn, checked) {
       if (!checked.length) {
-        util.ddToast('fail', '请先选择需要生成采购单的请购单')
+        util.ddToast({ type: 'fail', text:'请先选择需要生成采购单的请购单' })
         return
       }
       dd.confirm({
@@ -88,7 +88,7 @@ listPage({
               params: checked
             }
             http.delete(options).then(res => {
-              util.ddToast('success', '生成采购单成功')
+              util.ddToast({ type: 'success', text: '生成采购单成功' })
               this.refresh()
             })
           }

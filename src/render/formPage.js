@@ -182,7 +182,7 @@ export default (f) => {
       }
       http.post(options).then(res => {
         if (res.status === 0) {
-          util.ddToast('success', '保存成功')
+          util.ddToast({ type: 'success', text: res.message || '保存成功' })
           app.emitter.emit(this.list.lid, {
             type: data.id ? 'edit' : 'add',
             index: this.list.index || undefined,
@@ -192,7 +192,7 @@ export default (f) => {
             delta: 1
           })
         } else {
-          util.ddToast('fail', res.message || '保存失败')
+          util.ddToast({ type: 'fail', text: res.message || '保存失败' })
         }
       })
     },
@@ -209,14 +209,14 @@ export default (f) => {
             for (let k = 0; k < sf.length; k++) {
               if (sf[k].status === 'error') {
                 key += `-${j + 1}`
-                util.ddToast('fail', `${sf[k].label}（${key}）${sf[k].notice}`)
+                util.ddToast({ type: 'fail', text: `${sf[k].label}（${key}）${sf[k].notice}` })
                 return false
               }
             }
           }
         } else {
           if (c.status === 'error') {
-            util.ddToast('fail', key + c.notice)
+            util.ddToast({ type: 'fail', text: key + c.notice })
             return false
           }
         }

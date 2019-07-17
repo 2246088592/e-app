@@ -51,7 +51,7 @@ Component({
           })
         },
         fail: (err) => {
-          util.ddToast('fail', '自动定位失败，请手动定位或输入地址')
+          util.ddToast({ type: 'fail', text: '自动定位失败，请手动定位或输入地址' })
           console.error(err)
         }
       })

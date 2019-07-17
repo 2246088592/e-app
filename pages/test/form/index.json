@@ -1,6 +1,0 @@
-{
-  "allowsBounceVertical": "NO",
-  "usingComponents":{
-    "e-form": "/src/components/e-form/index"
-  }
-}

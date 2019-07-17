@@ -1,1 +1,1 @@
-<e-menu staticMenuGroup="{{staticMenuGroup}}" column="{{column}}" disabled="{{disabled}}" background="{{background}}" />
+<e-menu column="{{column}}" disabled="{{disabled}}" background="{{background}}" staticMenuGroup="{{staticMenuGroup}}" />

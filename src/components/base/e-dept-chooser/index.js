@@ -26,9 +26,6 @@ Component({
   methods: {
     // 删除已选部门
     handleDelete(event) {
-      if (this.props.model.disabled) {
-        return
-      }
       let i = event.currentTarget.dataset.itemIndex
       let pickedDepts = `${this.path}.value`
       this.$page.$spliceData({

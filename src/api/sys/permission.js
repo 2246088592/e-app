@@ -2,20 +2,18 @@ import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 
 // 权限接口
-const PERMISSION_URL = '/dingding/jsapi/login'
+const PERMISSIONS_URL = '/system/v1/role-action/users/actions/groups'
 
 // 获取权限
-function getPermissions(mock) {
+function getPermissions() {
   return new Promise((resolve, reject) => {
-    let options = {
-      url: PERMISSION_URL
-    }
-    http.get(options, mock).then(res => {
+    // 发送请求
+    http.get({ url: PERMISSIONS_URL }).then(res => {
       if (res.status === 0) {
-        resolve(res)
+        resolve(res.data)
       } else {
-        util.ddToast('fail', res.message || '获取权限失败')
         reject(res)
+        util.ddToast({ type: 'fail', text: res.message || '获取菜单权限失败' })
       }
     })
   })

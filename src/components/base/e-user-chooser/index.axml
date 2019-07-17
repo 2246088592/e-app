@@ -7,14 +7,14 @@
       <text class="text-xs color-label">{{value.length || 0}}/{{max}}</text>
     </view>
     <view class="flex flex-1 flex-wrap pl-2 -mb-2">
-      <view class="relative flex flex-col items-center pr-3 pb-2" onTap="handleDelete" a:for="{{value}}" data-item-index="{{index}}">
-        <image a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md" src="{{item.avatar}}" mode="aspectFill" />
-        <text a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md">{{item.name[0]}}</text>
-        <icon class="absolute circle bg-color-white" style="top: -4rpx; right: 18rpx;" type="clear" size="16" color="#191F25 88%" />
+      <view class="relative flex flex-col items-center pr-3 pb-2" a:for="{{value}}">
+        <view a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md bg-no-repeat bg-cover bg-center" onTap="handleAdd" style="background-image: url({{item.avatar}});" />
+        <view a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md" onTap="handleAdd">{{item.name[0]}}</view>
+        <view a:if="{{!disabled}}" class="w-4 h-4 absolute circle bg-color-white bg-no-repeat" catchTap="handleDelete" data-i="{{index}}" style="top: -4rpx; right: 18rpx; background-image: url('/src/assets/icon/base/round_close_fill.png'); background-size: 32rpx 32rpx;" />
         <text class="mt-1 color-title text-xs">{{item.name}}</text>
       </view>
-      <button style="border: 1rpx dashed {{disabled ? 'rgba(25, 31, 37, .28)' : '#3296FA'}};" class="flex items-center justify-center circle w-9 h-9 mb-2 bg-opacity" disabled="{{disabled}}" onTap="handleAdd">
-        <text class="text-2xl {{disabled ? 'color-label' : 'color-primary'}}">+</text>
+      <button a:if="{{!disabled}}" style="border: 1rpx dashed {{disabled ? 'rgba(25, 31, 37, .28)' : '#3296FA'}};" class="flex items-center justify-center circle w-9 h-9 mb-2 bg-opacity" disabled="{{disabled}}" onTap="handleAdd">
+        <text class="text-2xl color-primary">+</text>
       </button>
     </view>
   </view>
@@ -29,7 +29,7 @@
     <view class="relative min-h-9 pl-1 pr-2 -mb-2 flex flex-1 flex-wrap">
       <view style="margin-top: 4rpx; margin-bottom: 20rpx; background-color: #f4f4f5; color: #909399; border: 1px solid #e9e9eb;" class="h-6 pl-2 pr-1 mr-2 flex items-center justify-center radius-2" catchTap="void" a:if="{{value.length}}" a:for="{{value}}">
         <text style="height: 12px;" class="mr-1 text-xs">{{item.name}}</text>
-        <view class="h-5 w-5 flex items-center justify-center" data-item-index="{{index}}" catchTap="handleDelete">
+        <view a:if="{{!disabled}}" class="h-5 w-5 flex items-center justify-center" data-i="{{index}}" catchTap="handleDelete">
           <image style="height: 12px; width: 12px;" mode="scaleToFill" src="/src/assets/icon/base/round_close_fill.png"/>
         </view>
       </view>

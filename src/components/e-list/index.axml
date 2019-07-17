@@ -13,8 +13,8 @@
         <text style="color: #8a8a8a;">过滤</text>
       </view>
     </block>
-    <view a:else class="w-full flex items-center">
-      <dingui-search-bar className="flex-1" value="{{keyword}}" placeholder="{{searchBar.placeholder || '搜索'}}" onDmInput="handleInput" onDmClear="handleClear"></dingui-search-bar>
+    <view a:else class="flex-1 flex items-center">
+      <dingui-search-bar className="flex-1" value="{{keyword}}" placeholder="{{searchBar.placeholder || '搜索'}}" onDmInput="handleInput" onDmClear="handleClear" />
       <view class="ml-2 h-9 color-primary flex items-center" onTap="handleSearchInvisible">取消</view>
     </view>
   </view>
@@ -25,8 +25,7 @@
     </button>
     <text class="color-sub-title text-sm">已选择{{checkedArray.length}}项</text>
     <button class="bg-opacity w-6 h-6 flex items-center justify-center border-none" onTap="toggleSelectAll">
-      <image a:if="{{checkedArray.length === array.length}}" class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/square_check_fill.png"/>
-      <image a:else class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/square.png"/>
+      <image class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/square{{checkedArray.length === 0 ? '' : checkedArray.length === array.length ? '_check_fill' : '_check'}}.png"/>
     </button>
   </view>
   <!-- 滚动部分 -->

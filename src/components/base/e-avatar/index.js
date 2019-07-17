@@ -4,10 +4,17 @@ import util from '/src/libs/util.js'
 Component({
   props: {
     id: '',
-    mode: 'aspectFill'
+    className: '',
+    mode: 'aspectFill',
+    onUserTap: () => { }
   },
 
   didMount() {
+    if (this.props.user) {
+      this.setData({
+
+      })
+    }
     this.getUserInfo()
   },
 
@@ -32,9 +39,16 @@ Component({
             user: res.data
           })
         } else {
-          util.ddToast('fail', res.message || '获取用户信息失败')
+          util.ddToast({ type: 'fail', text: res.message || '获取用户信息失败' })
         }
       })
+    },
+
+    // 点击头像
+    handleTap(event) {
+      if (this.props.onUserTap) {
+        this.props.onUserTap(event, this)
+      }
     }
   }
 })

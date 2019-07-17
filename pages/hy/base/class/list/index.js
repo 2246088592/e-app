@@ -39,7 +39,7 @@ listPage({
     // 模板名称
     template: 'class',
     // 模拟数据
-    mock: 'class',
+    // mock: 'class',
     // 新增，查看，编辑时跳转路由
     form: '/pages/hy/base/class/form/index'
   }

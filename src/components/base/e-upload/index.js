@@ -128,7 +128,7 @@ Component({
                 default:
                   break
               }
-              util.ddToast('fail', text)
+              util.ddToast({ type: 'fail', text: text })
             }
           })
         }

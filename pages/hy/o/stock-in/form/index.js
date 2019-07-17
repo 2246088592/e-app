@@ -152,7 +152,7 @@ formPage({
       console.log(options)
       http.post(options).then(res => {
         if (res.status === 0) {
-          util.ddToast('success', '审核成功')
+          util.ddToast({ type: 'success', text:  '审核成功' })
           app.emitter.emit(this.list.lid, {
             type: data.id ? 'edit' : 'add',
             index: this.list.index || undefined,
@@ -162,7 +162,7 @@ formPage({
             delta: 1
           })
         } else {
-          util.ddToast('fail', res.message || '审核失败')
+          util.ddToast({ type: 'fail', text:  '审核失败' })
         }
       })
     }

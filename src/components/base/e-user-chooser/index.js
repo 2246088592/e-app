@@ -32,7 +32,7 @@ Component({
       if (this.props.model.disabled) {
         return
       }
-      let i = event.currentTarget.dataset.itemIndex
+      let i = event.target.dataset.i
       let pickedUsers = `${this.path}.value`
       this.$page.$spliceData({
         [pickedUsers]: [i, 1]
