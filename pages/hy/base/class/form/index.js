@@ -23,7 +23,6 @@ formPage({
       label: '上级分类',
       key: 'pid',
       component: 'e-cascader',
-      necessary: true,
       last: false,
       bindkey: 'item_name'
     },
@@ -38,7 +37,7 @@ formPage({
   // 初始化前
   beforeOnLoad() {
     if (this.list.data) {
-      this.list.data.pid = { id: this.list.data.pid, class_name: this.list.data.p_class_name }
+      this.list.data.pid = { id: this.list.data.pid, item_name: this.list.data.p_item_name }
     }
   },
 
