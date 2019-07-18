@@ -77,23 +77,9 @@ formPage({
   ],
 
   // 初始化前
-  beforeOnLoad(query, f) {
+  beforeOnLoad(query) {
     return new Promise((resolve, reject) => {
       if (this.list && this.list.data) {
-        // // 配置表单是否还能更改        
-        // if (this.list.data.doc_state === 2) {
-        //   f.bizObj = f.bizObj.map(c => {
-        //     if (c.component === 'e-subform') {
-        //       c.disabled = true
-        //       c.subform = c.subform.map(sc => {
-        //         sc.disabled = true
-        //         return sc
-        //       })
-        //     }
-        //     c.disabled = true
-        //     return c
-        //   })
-        // }
         // 配置已选人员
         this.list.data.apply_user_id = [{
           userId: this.list.data.apply_user_id,
@@ -137,6 +123,7 @@ formPage({
   methods: {
     // 提交
     async handleSubmit() {
+      this.test = 111
       if (!this.handleValidate()) {
         return
       }

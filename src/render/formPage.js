@@ -1,6 +1,4 @@
-// 工具类
 import util from '/src/libs/util.js'
-// http
 import http from '/src/http/index.js'
 
 // 全局app对象
@@ -10,9 +8,7 @@ let app = getApp()
 function cbo(obj) {
   let str = JSON.stringify(obj, (k, v) => {
     // 由于传递参数时不支持函数，将校验函数改成布尔类型，通过onRules传递
-    if (k === 'validate' && typeof v === 'function') {
-      return true
-    }
+    if (k === 'validate' && typeof v === 'function') { return true }
     return v
   })
   return JSON.parse(str)
@@ -29,9 +25,7 @@ function initBizObj(bizObj, fid) {
           return sf.map((sc, sci) => { return { ...cbo(sc), ci: ci, sfi: sfi, sci: sci, fid: fid } })
         })
       } else {
-        newc.children = [c.subform.map((sc, sci) => {
-          return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci }
-        })]
+        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci } })]
       }
       return newc
     }
@@ -51,23 +45,17 @@ function initFormData(bizObj, fid, data) {
           let sf = data[newc.key][sfi]
           newc.children.push(c.subform.map((sc, sci) => {
             let _sc = { ...cbo(sc), ci: ci, fid: fid, sfi: sfi, sci: sci }
-            if (sf[_sc.key]) {
-              _sc.value = sf[_sc.key]
-            }
+            if (sf[_sc.key]) { _sc.value = sf[_sc.key] }
             return _sc
           }))
         }
       } else {
-        newc.children = [c.subform.map((sc, sci) => {
-          return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci }
-        })]
+        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci } })]
       }
       return newc
     }
     let _c = { ...cbo(c), ci: ci, fid: fid }
-    if (data[_c.key]) {
-      _c.value = data[_c.key]
-    }
+    if (data[_c.key]) { _c.value = data[_c.key] }
     return _c
   })
 }
@@ -124,7 +112,7 @@ export default (f) => {
       this.menu = await util.getMenu(this.route)
       // 初始化前函数
       if (f.beforeOnLoad) {
-        await f.beforeOnLoad.apply(this, [arguments, f])
+        await f.beforeOnLoad.apply(this, arguments)
       }
       // 设置业务对象
       this.setData({
@@ -237,9 +225,7 @@ export default (f) => {
       for (let k = 0; k < this.data.bizObj.length; k++) {
         let c = this.data.bizObj[k]
         if (c.component === 'e-subform') {
-          data[c.key] = c.children.map(sf => {
-            return formatKV(sf)
-          })
+          data[c.key] = c.children.map(sf => { return formatKV(sf) })
         } else {
           data[c.key] = util.cloneDeep(c.value)
         }

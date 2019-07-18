@@ -40,7 +40,8 @@ Component({
     },
 
     // 打开选人界面
-    handleAdd() {
+    handleAdd(event) {
+      console.log(event)
       if (this.props.model.disabled) {
         return
       }

@@ -74,7 +74,6 @@
 <template name="request">
   <view class="flex items-center">
     <view class="text-xs color-label flex flex-col items-center mr-2">
-      <image class="circle w-9 h-9 shadow-md" src="{{apply_user_avatar}}" mode="aspectFill" />
       <text class="mt-2">{{apply_user_name}}</text>
     </view>
     <view class="flex flex-col">

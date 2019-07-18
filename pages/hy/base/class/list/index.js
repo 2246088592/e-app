@@ -22,7 +22,7 @@ listPage({
 
   // 搜索框
   searchBar: {
-    bindkey: 'class_name',
+    bindkey: 'item_name',
     placeholder: '搜索分类名称'
   },
 
@@ -39,7 +39,7 @@ listPage({
     // 模板名称
     template: 'class',
     // 模拟数据
-    // mock: 'class',
+    mock: 'class',
     // 新增，查看，编辑时跳转路由
     form: '/pages/hy/base/class/form/index'
   }

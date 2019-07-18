@@ -30,7 +30,7 @@
   </view>
   <!-- 滚动部分 -->
   <scroll-view class="flex-1" onScrollToLower="loadMore" scroll-with-animation="{{true}}" scroll-y="{{true}}" lower-threshold="{{40}}">
-    <view class="relative flex p-2 items-center border-bottom" catchTap="handleSelect" onLongTap="handleCheckboxVisible" data-item-index="{{index}}" a:for="{{array}}">
+    <view class="relative flex p-2 items-center border-bottom" catchTap="handleSelect" onLongTap="handleCheckboxVisible" data-i="{{index}}" a:for="{{array}}">
       <view class="w-6 h-6 mr-2 flex items-center justify-center transition-300 {{checkboxVisible ? 'ml-0' : '-ml-8'}}">
         <image class="w-5 h-5" mode="scaleToFill" src="/src/assets/icon/list/{{item.checked ? 'round_check_fill' : 'round'}}.png"/>
       </view>

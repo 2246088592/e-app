@@ -9,6 +9,12 @@
   display: none;
 }
 
+/* 块状元素 */
+
+.block {
+  display: block;
+}
+
 /* 行内元素设置 */
 
 .inline-block {
@@ -2280,22 +2286,4 @@
 
 .max-h-5-6 {
   max-height: 83.33333%;
-}
-
-/* background */
-
-.bg-no-repeat {
-  background-repeat: no-repeat;
-}
-
-.bg-fixed {
-  background-attachment: fixed;
-}
-
-.bg-cover {
-  background-size: cover;
-}
-
-.bg-center {
-  background-position: center center;
 }

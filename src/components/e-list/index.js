@@ -167,7 +167,7 @@ Component({
 
     // 单个项目点击事件
     handleSelect(event) {
-      let i = event.currentTarget.dataset.itemIndex
+      let i = event.target.dataset.i
       let item = this.data.array[i]
       // 编辑模式下 点击事件为切换选中状态
       if (this.data.checkboxVisible) {
@@ -194,7 +194,7 @@ Component({
       if (this.data.checkboxVisible || this.touchMoving) {
         return
       }
-      let i = event.currentTarget.dataset.itemIndex
+      let i = event.target.dataset.i
       let checked = `array[${i}].checked`
       this.setData({
         checkboxVisible: true,
@@ -212,7 +212,7 @@ Component({
 
     // 动态按钮事件
     handleBtn(event) {
-      let btn = event.currentTarget.dataset.btn
+      let btn = event.target.dataset.btn
       if (this.$page[btn.handler]) {
         this.$page[btn.handler](btn, this.data.checkedArray)
       } else if (this[btn.handler]) {

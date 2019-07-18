@@ -65,14 +65,6 @@ Component({
       util.db.get({ dbName: 'permission', user: true }).then(data => {
         let id = this.$page.menu.id
         this.setData({
-          // // 过滤需要隐藏的按钮
-          // btns: data[id].map(item => {
-          //   if (this.props.hiddenBtn.includes(item.handler)) {
-          //     return undefined
-          //   } else {
-          //     return item
-          //   }
-          // })
           btns: data[id]
         })
       })

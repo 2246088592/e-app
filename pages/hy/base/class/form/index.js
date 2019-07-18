@@ -28,14 +28,8 @@ formPage({
       bindkey: 'item_name'
     },
     {
-      label: '分类编号',
-      key: 'class_number',
-      component: 'e-input',
-      necessary: true
-    },
-    {
       label: '分类名称',
-      key: 'class_name',
+      key: 'item_name',
       component: 'e-input',
       necessary: true
     }

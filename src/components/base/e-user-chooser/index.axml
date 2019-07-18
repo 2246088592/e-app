@@ -8,10 +8,9 @@
     </view>
     <view class="flex flex-1 flex-wrap pl-2 -mb-2">
       <view class="relative flex flex-col items-center pr-3 pb-2" a:for="{{value}}">
-        <view a:if="{{item.avatar}}" class="circle w-9 h-9 shadow-md bg-no-repeat bg-cover bg-center" onTap="handleAdd" style="background-image: url({{item.avatar}});" />
-        <view a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md" onTap="handleAdd">{{item.name[0]}}</view>
-        <view a:if="{{!disabled}}" class="w-4 h-4 absolute circle bg-color-white bg-no-repeat" catchTap="handleDelete" data-i="{{index}}" style="top: -4rpx; right: 18rpx; background-image: url('/src/assets/icon/base/round_close_fill.png'); background-size: 32rpx 32rpx;" />
-        <text class="mt-1 color-title text-xs">{{item.name}}</text>
+        <e-avatar className="shadow-md" size="72" user="{{item}}" onUserTap="handleAdd" />
+        <view a:if="{{!disabled}}" class="w-4 h-4 absolute circle bg-color-white" catchTap="handleDelete" data-i="{{index}}" style="top: -4rpx; right: 18rpx; background-image: url('/src/assets/icon/base/round_close_fill.png'); background-size: 32rpx 32rpx;" />
+        <text class="mt-2 color-title text-xs">{{item.name}}</text>
       </view>
       <button a:if="{{!disabled}}" style="border: 1rpx dashed {{disabled ? 'rgba(25, 31, 37, .28)' : '#3296FA'}};" class="flex items-center justify-center circle w-9 h-9 mb-2 bg-opacity" disabled="{{disabled}}" onTap="handleAdd">
         <text class="text-2xl color-primary">+</text>

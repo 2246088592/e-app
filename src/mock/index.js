@@ -1925,24 +1925,24 @@ export default {
     data: {
       data: [
         {
-          class_name: '医用耗材',
+          item_name: '医用耗材',
           children: [
-            { id: 1, class_name: '针头' },
-            { id: 2, class_name: '针筒' },
-            { id: 3, class_name: '导尿管' },
-            { id: 4, class_name: '留置针' },
-            { id: 5, class_name: '手套/指套' },
-            { id: 6, class_name: '绷带' }
+            { id: 1, item_name: '针头' },
+            { id: 2, item_name: '针筒' },
+            { id: 3, item_name: '导尿管' },
+            { id: 4, item_name: '留置针' },
+            { id: 5, item_name: '手套/指套' },
+            { id: 6, item_name: '绷带' }
           ]
         },
         {
-          class_name: '办公用品',
+          item_name: '办公用品',
           children: [
-            { id: 7, class_name: '纸' },
-            { id: 8, class_name: '资料册' },
-            { id: 9, class_name: '笔' },
-            { id: 10, class_name: '卷笔刀' },
-            { id: 11, class_name: '胶水' }
+            { id: 7, item_name: '纸' },
+            { id: 8, item_name: '资料册' },
+            { id: 9, item_name: '笔' },
+            { id: 10, item_name: '卷笔刀' },
+            { id: 11, item_name: '胶水' }
           ]
         }
       ],
@@ -2006,16 +2006,14 @@ export default {
           {
             id: 11,
             pid: 1,
-            p_class_name: '针头',
-            class_number: 'CLASS00011',
-            class_name: '细针头'
+            p_item_name: '针头',
+            item_name: '细针头'
           },
           {
             id: 21,
             pid: 2,
-            p_class_name: '针筒',
-            class_number: 'CLASS00021',
-            class_name: '透明针筒'
+            p_item_name: '针筒',
+            item_name: '透明针筒'
           },
         ]
       },

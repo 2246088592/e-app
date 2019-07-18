@@ -1,7 +1,4 @@
-<view class="flex items-center flex-col {{className}}" style="width: min-content;" data-user="{{user}}"   >
-  <view a:if="{{user.avatar}}" class="circle w-9 h-9 shadow-md bg-no-repeat bg-cover bg-center" catchTap="handleAvatarTap" style="background-image: url({{user.avatar}});" />
-  <text a:else class="flex items-center justify-center circle bg-color-primary color-white text-2xl w-9 h-9 shadow-md">{{user.name[0]}}</text>
-  <view a:if="{{!disabled}}" class="w-4 h-4 absolute circle bg-color-white bg-no-repeat" catchTap="handleDelete" data-i="{{index}}" style="top: -4rpx; right: 18rpx; background-image: url('/src/assets/icon/base/round_close_fill.png'); background-size: 32rpx 32rpx;" />
-  <text class="mt-1 color-title text-xs">{{item.name}}</text>
+<view class="circle overflow-hidden {{className}}" catchTap="handleTap">
+  <image a:if="{{user.avatar}}" class="block" style="height: {{size}}rpx; width: {{size}}rpx;" mode="aspectFill" src="{{user.avatar}}"/>
+  <view a:else class="bg-color-primary color-white text-2xl flex items-center justify-center" style="height: {{size}}rpx; width: {{size}}rpx;">{{user.name[0]}}</view>
 </view>
-  
