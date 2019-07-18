@@ -1,7 +1,5 @@
 import listPage from '/src/render/listPage'
 
-let app = getApp()
-
 listPage({
   // 权限标记，对应按钮的position
   btnPos: {
@@ -14,32 +12,18 @@ listPage({
   // // 表单背景
   // background: '',
 
-  // // 导航栏配置，title默认为菜单名称
-  // navigationBar: {
-  //   title: '',
-  //   backgroundColor: ''
-  // },
-
   // 搜索框
   searchBar: {
-    bindkey: 'ven_name',
+    bindkey: 'name',
     placeholder: '搜索供应商名称'
   },
-
-  // // 请求参数
-  // params: {},
-
-  // // 过滤条件
-  // filter: [],
 
   // 业务对象
   bizObj: {
     // 请求地址
-    url: 'url',
+    url: '/business/supplier',
     // 模板名称
     template: 'ven',
-    // 模拟数据
-    mock: 'ven',
     // 新增，查看，编辑时跳转路由
     form: '/pages/hy/base/ven/form/index'
   }

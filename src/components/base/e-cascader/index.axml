@@ -8,7 +8,7 @@
     <image class="w-4 h-4" mode="scaleToFill" src="/src/assets/icon/base/right.png"/>
   </view>
 </view>
-<view class="fixed pin z-1 flex items-center justify-center transition-300 {{cascaderVisible ? 'bg-color-sub-title pointer-events-auto' : 'pointer-events-none'}}">
+<view class="fixed pin z-2 flex items-center justify-center transition-300 {{cascaderVisible ? 'bg-color-sub-title pointer-events-auto' : 'pointer-events-none'}}">
   <view class="flex flex-col w-4-5 h-3-5 radius-2 overflow-hidden bg-color-white transition-300 shadow-md" style="transform: {{cascaderVisible ? 'translate3d(0,0,0)' : 'translate3d(113%,0,0)'}};">
     <e-breadcrumb values="{{breadcrumb}}" className="relative border-bottom" onItemTap="handleBreadcrumbTap"/>
     <scroll-view class="flex flex-1 flex-col" scroll-y="{{true}}">

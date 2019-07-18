@@ -1596,10 +1596,6 @@
 
 /* 阴影 */
 
-.-shadow {
-  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, .1);
-}
-
 .shadow {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
 }
@@ -2039,11 +2035,11 @@
 }
 
 .color-border {
-  color: rgba(25, 31, 37, .05);
+  color: rgba(25, 31, 37, .12);
 }
 
 .bg-color-border {
-  background-color: rgba(25, 31, 37, .05);
+  background-color: rgba(25, 31, 37, .12);
 }
 
 .color-sub-separator {

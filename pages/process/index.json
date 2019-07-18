@@ -1,5 +1,5 @@
 {
   "usingComponents":{
-    "e-avatar": "/src/components/base/e-avatar/index"
+    "e-watermark": "/src/components/base/e-watermark/index"
   }
 }

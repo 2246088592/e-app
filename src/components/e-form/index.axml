@@ -64,7 +64,7 @@
   <view a:else class="flex-1 flex items-center justify-center">
     <e-loader type="16" loading="{{true}}" loadingText="数据加载中"></e-loader>
   </view>
-  <view a:if="{{btns.length}}" class="flex flex-row bg-color-white relative border-top">
+  <view a:if="{{btns.length}}" class="flex flex-row bg-color-white z-1" style="box-shadow: 0 0 8rpx rgba(25, 31, 37, .12);">
     <button a:if="{{btn.position === btnPos}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="border-none radius-none bg-opacity flex-1 text-lg flex items-center justify-center {{'color-' + (btn.xtype)}}">
       <text class="fa mr-1 {{'fa-' + btn.icon_cls}}"/>{{btn.action_name}}
     </button>
