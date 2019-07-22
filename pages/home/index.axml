@@ -1,1 +1,2 @@
+<!-- 菜单页 -->
 <e-menu column="{{column}}" disabled="{{disabled}}" background="{{background}}" staticMenuGroup="{{staticMenuGroup}}" />

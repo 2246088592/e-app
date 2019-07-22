@@ -1,4 +1,6 @@
 @import "/src/assets/style/index.acss";
+/* page样式 */
+
 page {
   position: absolute;
   top: 0;

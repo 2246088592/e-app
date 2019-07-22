@@ -75,7 +75,7 @@ function handleError(err) {
   if (err.error) {
     // 判断错误码
     switch (err.error) {
-      case 11: message = '无权跨域，域名未添加到安全域名列表'; break
+      case 11: message = '无权跨域'; break
       case 12: message = '网络出错'; break
       case 13: message = '超时'; break
       case 14: message = '解码失败'; break

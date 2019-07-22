@@ -78,7 +78,7 @@ formPage({
 
   // 初始化前
   beforeOnLoad(query) {
-    return new Promise((resolve, reject) => {
+    return new Promise( (resolve, reject) => {
       if (this.list && this.list.data) {
         // 配置已选人员
         this.list.data.apply_user_id = [{

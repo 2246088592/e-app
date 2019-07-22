@@ -1,6 +1,8 @@
 import util from '/src/libs/util.js'
+
 let app = getApp()
 
+// 导出listPage渲染函数
 export default (l) => {
   return Page({
     data: {

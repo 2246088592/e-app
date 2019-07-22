@@ -1,5 +1,5 @@
 {
-  "allowsBounceVertical": "NO",
+	"allowsBounceVertical": "NO",
 	"usingComponents": {
 		"e-menu": "/src/components/e-menu/index"
 	}

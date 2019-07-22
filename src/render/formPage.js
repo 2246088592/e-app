@@ -1,7 +1,6 @@
 import util from '/src/libs/util.js'
 import http from '/src/http/index.js'
 
-// 全局app对象
 let app = getApp()
 
 // 克隆业务对象方法
@@ -170,7 +169,7 @@ export default (f) => {
       }
       http.post(options).then(res => {
         if (res.status === 0) {
-          util.ddToast({ type: 'success', text: res.message || '保存成功' })
+          util.ddToast({ type: 'success', text: '保存成功' })
           app.emitter.emit(this.list.lid, {
             type: data.id ? 'edit' : 'add',
             index: this.list.index || undefined,

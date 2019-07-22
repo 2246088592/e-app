@@ -6,7 +6,6 @@ Component({
   mixins: [validate],
   // 接收参数
   props: {
-    model: {},
     onValidate: (value) => {
       return true
     }
@@ -47,7 +46,7 @@ Component({
 
     // 点击事件
     handleTap() {
-      if (this.props.model.disabled  && !this.props.model.value) {
+      if (this.props.model.disabled && !this.props.model.value) {
         this.handleScan()
       }
       let focus = `${this.path}.focus`

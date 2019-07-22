@@ -3,7 +3,7 @@
 		"pages/index/index",
 
 		"pages/home/index",
-    
+
 		"pages/process/index",
 
 		"pages/hy/base/goods/form/index",
@@ -15,22 +15,22 @@
 		"pages/hy/base/ven/form/index",
 		"pages/hy/base/ven/list/index",
 
-    "pages/hy/base/class/form/index",
+		"pages/hy/base/class/form/index",
 		"pages/hy/base/class/list/index",
 
 		"pages/hy/p/request/form/index",
 		"pages/hy/p/request/list/index",
 
-    "pages/hy/p/stock-out/form/index",
+		"pages/hy/p/stock-out/form/index",
 		"pages/hy/p/stock-out/list/index",
-    
+
 		"pages/hy/o/purchase/form/index",
 		"pages/hy/o/purchase/list/index",
 
 		"pages/hy/o/stock-in/form/index",
 		"pages/hy/o/stock-in/list/index",
 
-    "pages/hy/stock/list/index"
+		"pages/hy/stock/list/index"
 	],
 	"window": {
 		"defaultTitle": "耗材管理系统",
@@ -48,7 +48,7 @@
 				"icon": "/src/assets/icon/tabBar/home.png",
 				"activeIcon": "/src/assets/icon/tabBar/home_active.png"
 			},
-      {
+			{
 				"pagePath": "pages/process/index",
 				"name": "设置",
 				"icon": "/src/assets/icon/tabBar/settings.png",

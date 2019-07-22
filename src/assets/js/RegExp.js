@@ -1,4 +1,4 @@
-/* 正则 */
+/* 正则校验函数 */
 function on_handphone(val) {
   return /(?:^1[3456789]|^9[28])\d{9}$/.test(val)
 }

@@ -1,6 +1,6 @@
 {
-  "component": true,
-  "usingComponents":{
-    "e-breadcrumb":"/src/components/base/e-breadcrumb/index"
-  }
+	"component": true,
+	"usingComponents": {
+		"e-breadcrumb": "/src/components/base/e-breadcrumb/index"
+	}
 }
