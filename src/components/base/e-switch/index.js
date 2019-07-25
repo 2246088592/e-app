@@ -1,27 +1,12 @@
 import validate from '../mixins/validate.js'
+import mount from '../mixins/mount.js'
 
 Component({
-  // 混合校验
-  mixins: [validate],
-  // 接收参数
+  mixins: [mount, validate],
+
   props: {
     model: {},
-    onValidate: (value) => {
-      return true
-    }
-  },
-
-  // 挂载方法
-  didMount() {
-    this.init(this.props.model)
-  },
-
-  // 更新
-  didUpdate(prevProps, prevData) {
-    // setData后校验
-    if (prevProps.model.value !== this.props.model.value) {
-      this.validate(this.props.model.value)
-    }
+    onValidate: (value) => { return true }
   },
 
   methods: {
@@ -39,13 +24,6 @@ Component({
     init(model) {
       // 删除默认value，依据checked重新设置value
       delete model.value
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // switch对象
       let objSwitch = {
         label: '',
@@ -57,13 +35,11 @@ Component({
         disabled: false,
         checked: model.checked !== undefined ? model.checked : false,
         color: '#3296FA',
-        showValue: false,
-        notice: '',
-        status: ''
+        showValue: false
       }
       // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(objSwitch, model)
+        [this.path]: Object.assign(objSwitch, model, this.initValidate(model))
       })
     }
   }

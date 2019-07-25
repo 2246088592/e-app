@@ -32,7 +32,7 @@ function on_amount(val) {
   return true
 }
 
-export const RegExp = {
+export default {
   on_handphone,
   on_QQ,
   on_email,

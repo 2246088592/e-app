@@ -1,28 +1,16 @@
 import util from '/src/libs/util.js'
+import mount from '../mixins/mount.js'
 import validate from '../mixins/validate.js'
 
 Component({
-  // 混合校验
-  mixins: [validate],
-  // 接收参数
+  mixins: [mount, validate],
+
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value) => {
-      return true
-    }
+    onValidate: (value) => { return true }
   },
-  // 挂载
-  didMount() {
-    this.init(this.props.model)
-  },
-  // 更新
-  didUpdate(prevProps, prevData) {
-    // value变化时校验
-    if (prevProps.model.value !== this.props.model.value) {
-      this.validate(this.props.model.value)
-    }
-  },
+
   methods: {
     // 输入事件同步value
     handleInput: util.debounce(function(event) {
@@ -66,30 +54,21 @@ Component({
 
     // 初始化model的属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // input对象
       let input = {
         value: '',
         label: '',
-        status: '',
         number: false,
         focus: false,
         maxlength: 200,
         password: false,
         disabled: false,
         necessary: false,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : ''
       }
       // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(input, model)
+        [this.path]: Object.assign(input, model, this.initValidate(model))
       })
     }
   }

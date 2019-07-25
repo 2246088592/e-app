@@ -1,32 +1,20 @@
 import validate from '../mixins/validate.js'
-import equal from '../mixins/equal.js'
+import mount from '../mixins/mount.js'
 import clear from '../mixins/clear.js'
 
 let app = getApp()
 
 Component({
-  // 混合校验
-  mixins: [validate, equal, clear],
-  // 接收参数
+  mixins: [mount, validate, clear],
+
   props: {
     model: {},
-    onValidate: (value) => {
-      return true
-    }
+    onValidate: (value) => { return true }
   },
 
   // 挂载
   didMount() {
-    this.init(this.props.model)
     app.emitter.on(`C${this.$page.$viewId + this.$id}`, this.handleSelect, this)
-  },
-
-  // 更新
-  didUpdate(prevProps, prevData) {
-    // setData后校验
-    if (!this.equal(prevProps.model.value, this.props.model.value)) {
-      this.validate(this.props.model.value)
-    }
   },
 
   // 事件销毁
@@ -56,28 +44,20 @@ Component({
 
     // 初始化属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // search对象
       let search = {
         value: '',
         label: '',
         filter: {}, // 过滤条件
-        status: '',
         bindkey: '', // 要显示的key
         bindlist: '', // 目标列表，路径
         disabled: false,
         necessary: false,
-        notice: model.necessary ? '不能为空' : '',
         placeholder: model.necessary ? '必填' : ''
       }
+      // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(search, model) // 补全属性
+        [this.path]: Object.assign(search, model, this.initValidate(model))
       })
     }
   }

@@ -156,6 +156,7 @@ export default (f) => {
 
     // 提交方法
     async saveForm() {
+      console.log(this.data.bizObj)
       if (!this.handleValidate()) {
         return
       }
@@ -165,15 +166,15 @@ export default (f) => {
       }
       let options = {
         url: this.data.url,
-        params: this.list.data ? Object.assign(this.list.data, data) : data
+        params: [this.list.data ? Object.assign(this.list.data, data) : data]
       }
       http.post(options).then(res => {
         if (res.status === 0) {
           util.ddToast({ type: 'success', text: '保存成功' })
           app.emitter.emit(this.list.lid, {
-            type: data.id ? 'edit' : 'add',
+            type: options.params[0].id ? 'edit' : 'add',
             index: this.list.index || undefined,
-            data: res.data
+            data: res.data[0]
           })
           dd.navigateBack({
             delta: 1

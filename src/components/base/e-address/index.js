@@ -1,27 +1,14 @@
 import util from '/src/libs/util.js'
+import mount from '../mixins/mount.js'
 import validate from '../mixins/validate.js'
 
 Component({
-  // 混合校验
-  mixins: [validate],
-  // 接收参数
+  mixins: [mount, validate],
+
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value) => {
-      return true
-    }
-  },
-  // 挂载
-  didMount() {
-    this.init(this.props.model)
-  },
-  // 更新
-  didUpdate(prevProps, prevData) {
-    // value变化时校验
-    if (prevProps.model.value !== this.props.model.value) {
-      this.validate(this.props.model.value)
-    }
+    onValidate: (value) => { return true }
   },
 
   methods: {
@@ -35,6 +22,7 @@ Component({
         [value]: ''
       })
     },
+
     // 定位方法
     position() {
       if (this.props.model.gps === false) {
@@ -92,37 +80,26 @@ Component({
 
     // 初始化model的属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // address对象
       let address = {
         gps: true, // 能否定位
         value: '',
         label: '',
-        status: '',
         focus: false,
         location: {},
         maxlength: 200,
         disabled: true,
         necessary: false,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : ''
       }
       // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(address, model)
+        [this.path]: Object.assign(address, model, this.initValidate(model))
       })
-      // 有默认值时不主动定位
-      if (model.value) {
-        return
+      // 没有值时主动定位
+      if (!model.value) {
+        this.position()
       }
-      // 定位
-      this.position()
     }
   }
 })

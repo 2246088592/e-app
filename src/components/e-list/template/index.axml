@@ -1,3 +1,18 @@
+<!-- 耗材分类 -->
+<template name="class">
+  <view class="flex items-center justify-between my-1">
+    <text class="flex-1 color-bg-title text-lg">{{item_name}}</text>
+    <text class="color-label text-xs">{{create_on.split('T')[0]}}</text>
+  </view>
+  <view>
+    <text class="color-label">上级分类：</text>
+    <text class="color-bg-title">{{pid || '无'}}</text>
+  </view>
+  <text>
+    <text class="color-label">备注：</text>
+    <text class="color-bg-title">{{remark || '无'}}</text>
+  </text>
+</template>
 <!-- 耗材 -->
 <template name="goods">
   <view >
@@ -53,20 +68,6 @@
     <view>
       <text class="color-label">地址：</text>
       <text class="color-bg-title">{{ven_add}}</text>
-    </view>
-  </view>
-</template>
-<!-- 耗材分类 -->
-<template name="class">
-  <view >
-    <view class="color-big-title text-xl my-1">{{class_name}}</view>
-    <view>
-      <text class="color-label">分类编码：</text>
-      <text class="color-bg-title">{{class_number}}</text>
-    </view>
-    <view>
-      <text class="color-label">上级分类：</text>
-      <text class="color-bg-title">{{p_class_name}}</text>
     </view>
   </view>
 </template>

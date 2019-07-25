@@ -1,12 +1,11 @@
 import util from '/src/libs/util.js'
-import validate from '../mixins/validate.js'
-import equal from '../mixins/equal.js'
 import clear from '../mixins/clear.js'
+import mount from '../mixins/mount.js'
+import validate from '../mixins/validate.js'
 
 Component({
-  // 混合校验
-  mixins: [validate, equal, clear],
-  // data
+  mixins: [mount, validate, clear],
+
   data: {
     tree: [], // 树结构
     cascaderVisible: false, // 是否展开选择器
@@ -16,30 +15,26 @@ Component({
     current: '', // 当前所选项
     currentIndex: '' // 当前选中对象索引
   },
-  // 接收参数
+
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value) => {
-      return true
-    }
+    onValidate: (value) => { return true }
   },
+
   // 挂载
   didMount() {
-    this.init(this.props.model)
     this.initBreadcrumb()
   },
+
   // 更新
   didUpdate(prevProps, prevData) {
-    // setData后校验
-    if (!this.equal(prevProps.model.value, this.props.model.value)) {
-      this.validate(this.props.model.value)
-    }
-    if (!this.equal(prevProps.model.tree, this.props.model.tree)) {
+    if (!util.equal(prevProps.model.tree, this.props.model.tree)) {
       this.initBreadcrumb()
       this.initTree(this.props.model.tree)
     }
   },
+
   methods: {
     // 初始化面包屑
     initBreadcrumb() {
@@ -155,31 +150,21 @@ Component({
 
     // 初始化model的属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // cascader对象
       let cascader = {
-        mock: '',
         tree: [],
         value: '',
         label: '',
         last: true, // 是否选到最后一级
-        status: '',
         bindkey: '',
         disabled: false,
         necessary: false,
-        placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        placeholder: model.necessary ? '必填' : ''
       }
+      // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(cascader, model) // 补全属性
+        [this.path]: Object.assign(cascader, model, this.initValidate(model))
       })
-
       // 初始化完成后初始化树
       this.initTree(cascader.tree)
     }

@@ -1,26 +1,12 @@
 import validate from '../mixins/validate.js'
+import mount from '../mixins/mount.js'
 
 Component({
-  // 混合校验
-  mixins: [validate],
-  // 接收参数
+  mixins: [mount, validate],
+
   props: {
     model: {},
-    onValidate: (value) => {
-      return true
-    }
-  },
-
-  // 挂载方法
-  didMount() {
-    this.init(this.props.model)
-  },
-
-  // setData后进行value校验
-  didUpdate(prevProps, prevData) {
-    if (prevProps.model.value !== this.props.model.value) {
-      this.validate(this.props.model.value)
-    }
+    onValidate: (value) => { return true }
   },
 
   methods: {
@@ -34,13 +20,6 @@ Component({
 
     // 补充params的属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // progress对象
       let progressBar = {
         step: 1, // 间隔
@@ -49,7 +28,6 @@ Component({
         value: 0,
         unit: '%', // 单位
         label: '',
-        status: '',
         notice: '',
         disabled: false,
         showValue: false, // 是否显示value
@@ -57,8 +35,9 @@ Component({
         activeColor: '#108ee9', // 激活拖动条颜色
         backgroundColor: '#ddd', // 拖动条颜色
       }
+      // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(progressBar, model) // 补全属性
+        [this.path]: Object.assign(progressBar, model, this.initValidate(model))
       })
     }
   }

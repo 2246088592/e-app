@@ -239,7 +239,7 @@ Component({
       if (this.$page.esearch && this.$page.esearch.filter) {
         Object.assign(filter, this.$page.esearch.filter)
       }
-      let params = Object.assign({}, this.data.params, this.$page.data.params /*, { page: this.data.page, params: JSON.stringify(filter) }*/)
+      let params = Object.assign({}, this.data.params, this.$page.data.params, { page: this.data.page, /* params: JSON.stringify(filter) */ })
       let options = {
         url: this.props.bizObj.url,
         params: params

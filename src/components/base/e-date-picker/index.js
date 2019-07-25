@@ -1,28 +1,15 @@
 import util from '/src/libs/util.js'
+import mount from '../mixins/mount.js'
 import validate from '../mixins/validate.js'
 import clear from '../mixins/clear.js'
 
 Component({
-  // 混合校验
-  mixins: [validate, clear],
-  // 接收参数
+  mixins: [mount, validate, clear],
+
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value) => {
-      return true
-    }
-  },
-  // 挂载
-  didMount() {
-    this.init(this.props.model)
-  },
-  // 更新
-  didUpdate(prevProps, prevData) {
-    // setData后校验
-    if (prevProps.model.value !== this.props.model.value) {
-      this.validate(this.props.model.value)
-    }
+    onValidate: (value) => { return true }
   },
 
   methods: {
@@ -44,29 +31,20 @@ Component({
 
     // 初始化model的属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // datePicker对象
       let datePicker = {
         value: model.default && !model.value ? util.formatDate(model.format || 'yyyy-MM-dd', new Date()) : '',
         label: '',
-        status: '',
         disabled: false,
         necessary: false,
         icon: 'calendar',
         format: 'yyyy-MM-dd',
-        default: model.default ? model.default : false,
         placeholder: model.necessary ? '必填' : '',
-        notice: model.necessary ? '不能为空' : ''
+        default: model.default ? model.default : false
       }
       // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(datePicker, model)
+        [this.path]: Object.assign(datePicker, model, this.initValidate(model))
       })
     }
   }

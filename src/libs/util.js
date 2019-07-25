@@ -80,6 +80,20 @@ const util = {
     }
   },
 
+  // 判断a和b是否相等
+  equal(a, b) {
+    if (typeof a === 'function' || typeof b === 'function') {
+      return false
+    }
+    if (typeof a !== typeof b) {
+      return false
+    }
+    if (typeof a === 'object') {
+      return JSON.stringify(a) === JSON.stringify(b)
+    }
+    return a === b
+  },
+
   // 本地缓存，默认区分用户
   db: {
     // 写

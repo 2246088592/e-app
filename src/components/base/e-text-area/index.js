@@ -1,28 +1,13 @@
 import util from '/src/libs/util.js'
+import mount from '../mixins/mount.js'
 import validate from '../mixins/validate.js'
 
 Component({
-  // 混合校验
-  mixins: [validate],
-  // 接收参数
+  mixins: [mount, validate],
+
   props: {
     model: {},
-    onValidate: (value) => {
-      return true
-    }
-  },
-
-  // 挂载方法
-  didMount() {
-    this.init(this.props.model)
-  },
-
-  // 更新
-  didUpdate(prevProps, prevData) {
-    // setData后校验
-    if (prevProps.model.value !== this.props.model.value) {
-      this.validate(this.props.model.value)
-    }
+    onValidate: (value) => { return true }
   },
 
   methods: {
@@ -61,28 +46,20 @@ Component({
 
     // 补充params的属性
     init(model) {
-      // 配置path
-      this.path = model.path !== undefined ? model.path : ''
-      if (model.sfi !== undefined) {
-        this.path = `bizObj[${model.ci}].children[${model.sfi}][${model.sci}]`
-      } else if (model.ci !== undefined) {
-        this.path = `bizObj[${model.ci}]`
-      }
       // textArea对象
       let textArea = {
         value: '',
         label: '',
-        status: '',
         focus: false,
         maxlength: -1,
         disabled: false,
         necessary: false,
         autoHeight: true,
-        notice: model.necessary ? '不能为空' : '',
         placeholder: model.necessary ? '必填' : ''
       }
+      // 补全属性
       this.$page.setData({
-        [this.path]: Object.assign(textArea, model) // 补全属性
+        [this.path]: Object.assign(textArea, model, this.initValidate(model))
       })
     }
   }
