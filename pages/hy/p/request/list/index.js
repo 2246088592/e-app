@@ -34,11 +34,9 @@ listPage({
   // 业务对象
   bizObj: {
     // 请求地址
-    url: 'url',
+    url: '/business/por',
     // 模板名称
     template: 'request',
-    // 模拟数据
-    mock: 'request',
     // 新增，查看，编辑时跳转路由
     form: '/pages/hy/p/request/form/index'
   },

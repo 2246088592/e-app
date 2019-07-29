@@ -29,7 +29,7 @@ Component({
       limit: 30,
       idField: 'id',
       sort: 'desc',
-      orderBy: 'id'
+      orderBy: 'create_on'
     }
   },
 
@@ -239,7 +239,7 @@ Component({
       if (this.$page.esearch && this.$page.esearch.filter) {
         Object.assign(filter, this.$page.esearch.filter)
       }
-      let params = Object.assign({}, this.data.params, this.$page.data.params, { page: this.data.page, /* params: JSON.stringify(filter) */ })
+      let params = Object.assign({ ...this.data.params }, this.$page.data.params, { page: this.data.page, params: JSON.stringify(filter) })
       let options = {
         url: this.props.bizObj.url,
         params: params
@@ -375,8 +375,13 @@ Component({
               params: this.data.checkedArray
             }
             http.delete(options).then(res => {
-              util.ddToast({ type: 'success', text: '删除成功' })
-              this.reset('')
+              if (res.status === 0) {
+                util.ddToast({ type: 'success', text: '删除成功' })
+                this.reset('')
+                this.handleCheckboxInvisible()
+              } else {
+                util.ddToast({ type: 'fail', text: res.message || '删除失败' })
+              }
             })
           }
         }

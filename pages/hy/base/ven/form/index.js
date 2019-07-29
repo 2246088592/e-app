@@ -1,9 +1,8 @@
 import formPage from '/src/render/formPage'
-import http from '/src/http/index.js'
 
 formPage({
   // 提交地址
-  url: '',
+  url: '/business/supplier',
 
   // 权限标记，对应按钮的position
   // btnPos: 2,
@@ -21,30 +20,41 @@ formPage({
   bizObj: [
     {
       label: '供应商编号',
-      key: 'ven_code',
+      key: 'code',
       component: 'e-input',
-      necessary: true
+      necessary: true,
+      maxlength: 20
     },
     {
       label: '供应商名称',
-      key: 'ven_name',
+      key: 'name',
       component: 'e-input',
-      necessary: true
+      necessary: true,
+      maxlength: 50
     },
     {
       label: '联系人',
-      key: 'ven_contactor',
-      component: 'e-input'
+      key: 'contact',
+      component: 'e-input',
+      maxlength: 20
     },
     {
       label: '电话',
-      key: 'ven_tel',
-      component: 'e-input'
+      key: 'tel',
+      component: 'e-input',
+      maxlength: 20
     },
     {
       label: '地址',
-      key: 'ven_add',
-      component: 'e-input'
+      key: 'address',
+      component: 'e-text-area',
+      maxlength: 100
+    },
+    {
+      label: '备注',
+      key: 'remark',
+      component: 'e-text-area',
+      maxlength: 200
     }
   ]
 })

@@ -156,7 +156,6 @@ export default (f) => {
 
     // 提交方法
     async saveForm() {
-      console.log(this.data.bizObj)
       if (!this.handleValidate()) {
         return
       }
@@ -171,14 +170,8 @@ export default (f) => {
       http.post(options).then(res => {
         if (res.status === 0) {
           util.ddToast({ type: 'success', text: '保存成功' })
-          app.emitter.emit(this.list.lid, {
-            type: options.params[0].id ? 'edit' : 'add',
-            index: this.list.index || undefined,
-            data: res.data[0]
-          })
-          dd.navigateBack({
-            delta: 1
-          })
+          app.emitter.emit(this.list.lid, { type: 'refresh' })
+          dd.navigateBack({ delta: 1 })
         } else {
           util.ddToast({ type: 'fail', text: res.message || '保存失败' })
         }

@@ -16,26 +16,26 @@
 <!-- 耗材 -->
 <template name="goods">
   <view >
-    <view class="color-big-title text-xl my-1">{{goods_name}}</view>
+    <view class="color-big-title text-xl my-1">{{cons_name}}</view>
     <view>
       <text class="color-label">耗材编码：</text>
-      <text class="color-bg-title">{{goods_code}}</text>
+      <text class="color-bg-title">{{cons_code}}</text>
     </view>
     <view>
       <text class="color-label">耗材分类：</text>
-      <text class="color-bg-title">{{class_name}}</text>
+      <text class="color-bg-title">{{item_name}}</text>
     </view>
     <view>
       <text class="color-label">耗材规格：</text>
-      <text class="color-bg-title">{{goods_spec}}</text>
+      <text class="color-bg-title">{{cons_standard}}</text>
     </view>
     <view>
       <text class="color-label">计量单位：</text>
-      <text class="color-bg-title">{{goods_unit}}</text>
+      <text class="color-bg-title">{{cons_unit}}</text>
     </view>
     <view>
-      <text class="color-label">采购单价：</text>
-      <text class="color-bg-title">{{pprice}}</text>
+      <text class="color-label">最新单价：</text>
+      <text class="color-bg-title">{{unit_price}}</text>
     </view>
   </view>
 </template>
@@ -45,29 +45,29 @@
     <view class="color-big-title text-xl my-1">{{wh_name}}</view>
     <view>
       <text class="color-label">仓库编码：</text>
-      <text class="color-bg-title">{{wh_number}}</text>
+      <text class="color-bg-title">{{wh_code}}</text>
     </view>
   </view>
 </template>
 <!-- 供应商 -->
 <template name="ven">
   <view >
-    <view class="color-big-title text-xl my-1">{{ven_name}}</view>
+    <view class="color-big-title text-xl my-1">{{name}}</view>
     <view>
       <text class="color-label">供应商编码：</text>
-      <text class="color-bg-title">{{ven_code}}</text>
+      <text class="color-bg-title">{{code}}</text>
     </view>
     <view>
       <text class="color-label">联系人：</text>
-      <text class="color-bg-title">{{ven_contactor}}</text>
+      <text class="color-bg-title">{{contact}}</text>
     </view>
     <view>
       <text class="color-label">电话：</text>
-      <text class="color-bg-title">{{ven_tel}}</text>
+      <text class="color-bg-title">{{tel}}</text>
     </view>
     <view>
       <text class="color-label">地址：</text>
-      <text class="color-bg-title">{{ven_add}}</text>
+      <text class="color-bg-title">{{address}}</text>
     </view>
   </view>
 </template>

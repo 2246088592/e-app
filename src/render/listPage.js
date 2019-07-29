@@ -44,7 +44,7 @@ export default (l) => {
 
     // 刷新列表
     refresh() {
-      app.emitter.emit(this.lid, { type: 'refresh' }, this)
+      app.emitter.emit(this.lid, { type: 'refresh' })
     },
 
     // 展开其他方法

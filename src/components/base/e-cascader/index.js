@@ -57,7 +57,7 @@ Component({
     radioChange(event) {
       let i = event.currentTarget.dataset.itemIndex
       let item = this.data.array[i]
-      if (item.children && this.props.model.last) {
+      if (item.children.length && this.props.model.last) {
         this.$spliceData({
           'array': [0, this.data.array.length, ...item.children],
           'breadcrumb': [this.data.breadcrumb.length, 0, item[this.props.model.bindkey]],

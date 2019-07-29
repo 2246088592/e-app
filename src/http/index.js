@@ -19,9 +19,7 @@ const http = {
         data: options.params !== undefined ? options.params : undefined,
         // 请求头
         headers: { 'Authorization': getApp().globalData.token || undefined },
-        success: (res) => {
-          resolve(res.data)
-        },
+        success: (res) => resolve(res.data),
         fail: (err) => {
           reject(err)
           // 错误处理
@@ -50,9 +48,7 @@ const http = {
           'Authorization': getApp().globalData.token || undefined,
           'Content-Type': 'application/json;charset=UTF-8'
         },
-        success: (res) => {
-          resolve(res.data)
-        },
+        success: (res) => resolve(res.data),
         fail: (err) => {
           reject(err)
           // 错误处理
@@ -62,7 +58,7 @@ const http = {
     })
   },
 
-  // 通用delete方法，小程序框架不知此delete方法
+  // 通用delete方法，小程序框架不支持delete方法
   delete: function(options, mock) {
     options.url += '/delete'
     return this.post(options, mock)

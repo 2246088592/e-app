@@ -1,5 +1,5 @@
 @import "/src/assets/style/index.acss";
-/* page样式 */
+/* page样式，！！！请勿更改 */
 
 page {
   position: absolute;

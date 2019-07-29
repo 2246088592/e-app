@@ -1,9 +1,8 @@
 import formPage from '/src/render/formPage'
-import http from '/src/http/index.js'
 
 formPage({
   // 提交地址
-  url: '',
+  url: '/business/warehouse',
 
   // 权限标记，对应按钮的position
   // btnPos: 2,
@@ -21,15 +20,23 @@ formPage({
   bizObj: [
     {
       label: '仓库编号',
-      key: 'wh_number',
+      key: 'wh_code',
       component: 'e-input',
-      necessary: true
+      necessary: true,
+      maxlength: 20
     },
     {
       label: '仓库名称',
       key: 'wh_name',
       component: 'e-input',
-      necessary: true
+      necessary: true,
+      maxlength: 20
+    },
+    {
+      label: '备注',
+      key: 'remark',
+      component: 'e-text-area',
+      maxlength: 200
     }
   ]
 })
