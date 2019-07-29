@@ -33,21 +33,15 @@ Component({
     }
   },
 
-  // 加载
   didMount() {
-    // 初始化列表权限
     this.initBtns()
-    // 首次加载数据
     this.loadMore()
-    // 设置page的下拉事件
     this.initPullRefresh()
-    // 初始化事件监听器
     this.initEventListener()
   },
 
-  // 更新
   didUpdate(prevProps, prevData) {
-    // 多选状态更新已选项目
+    // 多选状态切换时更新已选项目
     if (this.data.checkboxVisible) {
       this.getCheckedItems()
     }
@@ -156,7 +150,7 @@ Component({
       })
     },
 
-    // 全选/全不选切换
+    // 全选、全不选切换
     toggleSelectAll() {
       if (this.data.checkedArray.length === this.data.array.length) {
         this.handleSelectAll(false)
@@ -222,9 +216,11 @@ Component({
 
     // 加载方法
     loadMore() {
+      // 防止数据频繁请求
       if (!this.data.more || this.data.loading) {
         return
       }
+      // 设置请求状态
       this.setData({
         loading: true
       })
@@ -253,6 +249,8 @@ Component({
             more: res.data.items.length === params.limit,
             page: this.data.page + 1
           })
+        } else {
+          util.ddToast({ type: 'fail', text: res.message || '请求列表数据失败' })
         }
         this.finishLoading()
       }).catch(err => {
@@ -261,7 +259,7 @@ Component({
       this.handleFilterInvisible()
     },
 
-    // 加载结束的处理
+    // 请求完成处理
     finishLoading() {
       this.setData({
         loading: false

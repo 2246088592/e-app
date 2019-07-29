@@ -22,7 +22,6 @@ const http = {
         success: (res) => resolve(res.data),
         fail: (err) => {
           reject(err)
-          // 错误处理
           handleError(err)
         }
       })
@@ -51,7 +50,6 @@ const http = {
         success: (res) => resolve(res.data),
         fail: (err) => {
           reject(err)
-          // 错误处理
           handleError(err)
         }
       })

@@ -8,7 +8,7 @@ Component({
   props: {
     model: {},
     // 默认校验函数
-    onValidate: (value) => { return true }
+    onValidate: () => true
   },
 
   methods: {

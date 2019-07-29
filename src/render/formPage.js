@@ -6,7 +6,7 @@ let app = getApp()
 // 克隆业务对象方法
 function cbo(obj) {
   let str = JSON.stringify(obj, (k, v) => {
-    // 由于传递参数时不支持函数，将校验函数改成布尔类型，通过onRules传递
+    // 由于传递参数时不支持函数，将校验函数改成布尔类型（用于标记是否存在自定义校验函数）
     if (k === 'validate' && typeof v === 'function') { return true }
     return v
   })
@@ -81,26 +81,19 @@ function initRules(f, fid) {
   return rules
 }
 
-// 导出formPage渲染函数
 export default (f) => {
   return Page({
-    // data对象
     data: {
-      // 提交地址
+      // 提交地址，表单保存
       url: f.url !== undefined ? f.url : '',
-      // 权限标记，对应按钮position，默认2
-      btnPos: f.btnPos !== undefined ? f.btnPos : 2,
+      // 权限标记，对应按钮position
+      btnPos: f.btnPos !== undefined ? f.btnPos : '',
       // 表单背景，默认透明
       background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)'
     },
 
     // 加载
     async onLoad(query) {
-      // 判断是否存在业务对象
-      if (!f.bizObj) {
-        console.error('表单渲染函数需要配置业务对象')
-        return
-      }
       // 定义表单id
       this.fid = `F${this.$viewId}`
       // 获取对应列表的相关信息，包含列表id，数据和索引
@@ -141,7 +134,7 @@ export default (f) => {
       }
     },
 
-    // 校验方法
+    // 校验方法，返回一个数组，包含所有自定义校验函数
     onRules() {
       return initRules(f, this.fid)
     },
@@ -156,13 +149,17 @@ export default (f) => {
 
     // 提交方法
     async saveForm() {
+      // 自动校验
       if (!this.handleValidate()) {
         return
       }
+      // 格式化提交对象
       let data = this.formatForm()
+      // 提交前钩子函数
       if (f.beforeSubmit) {
         await f.beforeSubmit.apply(this, [data])
       }
+      // 配置提交参数
       let options = {
         url: this.data.url,
         params: [this.list.data ? Object.assign(this.list.data, data) : data]
@@ -170,6 +167,7 @@ export default (f) => {
       http.post(options).then(res => {
         if (res.status === 0) {
           util.ddToast({ type: 'success', text: '保存成功' })
+          // 刷新列表、返回
           app.emitter.emit(this.list.lid, { type: 'refresh' })
           dd.navigateBack({ delta: 1 })
         } else {
@@ -180,6 +178,7 @@ export default (f) => {
 
     // 校验提交数据
     handleValidate() {
+      // 用于记录toast文本
       let key = ''
       for (let i = 0; i < this.data.bizObj.length; i++) {
         let c = this.data.bizObj[i]
@@ -207,6 +206,7 @@ export default (f) => {
 
     // 整理出可提交的数据
     formatForm() {
+      // 整理子表组件函数
       let formatKV = function(arr) {
         let o = {}
         for (let i = 0; i < arr.length; i++) {

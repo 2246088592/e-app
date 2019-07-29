@@ -18,9 +18,8 @@ function login() {
       // 发送请求
       http.get(options).then(res => {
         if (res.status === 0) {
-          // 储存用户信息
+          // 储存用户信息、tolen
           getApp().globalData.userInfo = res.data
-          // 储存token
           getApp().globalData.token = res.data.token
           // 发送问候语
           welcome(res.data.dd_user_info.Name)
@@ -48,7 +47,7 @@ function refreshToken() {
   if (getApp().refresher) {
     clearInterval(getApp().refresher)
   }
-  // 定义刷新器，一个定时函数
+  // 定义刷新器
   getApp().refresher = setInterval(() => {
     http.post({ url: REFRESH_URL }).then(res => {
       if (res.status === 0) {

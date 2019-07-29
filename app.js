@@ -5,7 +5,7 @@ App({
   // 实例化eventemitter
   emitter: new EventEmitter(),
 
-  // 全局变量
+  // 全局变量，获取方法getApp().globalData
   globalData: {
     // 域名，用于发送请求
     host: 'http://121.199.31.107:8081',

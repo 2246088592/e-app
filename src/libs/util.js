@@ -2,7 +2,7 @@
 const util = {
   // 合并url和query参数
   formatUrl(url, params) {
-    if (JSON.stringify(params) === '{}') {
+    if (!params) {
       return url
     }
     let _url = url + '?'
@@ -58,7 +58,7 @@ const util = {
     })
   },
 
-  // 深拷贝
+  // 深拷贝，不会拷贝函数
   cloneDeep(obj) {
     if (typeof obj !== 'object') {
       return obj

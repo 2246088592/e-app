@@ -8,7 +8,7 @@ Component({
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value) => { return true }
+    onValidate: () => true
   },
 
   methods: {
@@ -18,9 +18,7 @@ Component({
         return
       }
       let value = `${this.path}.value`
-      this.$page.setData({
-        [value]: ''
-      })
+      this.$page.setData({ [value]: '' })
     },
 
     // 定位方法

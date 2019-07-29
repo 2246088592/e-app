@@ -19,7 +19,7 @@ Component({
   props: {
     model: {},
     // 默认校验方法
-    onValidate: (value) => { return true }
+    onValidate: () => true
   },
 
   // 挂载

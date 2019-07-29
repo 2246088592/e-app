@@ -9,7 +9,7 @@ Component({
 
   props: {
     model: {},
-    onValidate: (value) => { return true }
+    onValidate: () => true
   },
 
   // 挂载

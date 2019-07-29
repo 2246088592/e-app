@@ -6,7 +6,7 @@ Component({
 
   props: {
     model: {},
-    onValidate: (value) => { return true }
+    onValidate: () => true
   },
 
   methods: {

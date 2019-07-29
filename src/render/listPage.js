@@ -2,7 +2,6 @@ import util from '/src/libs/util.js'
 
 let app = getApp()
 
-// 导出listPage渲染函数
 export default (l) => {
   return Page({
     data: {
@@ -16,17 +15,11 @@ export default (l) => {
       searchBar: l.searchBar !== undefined ? Object.assign({ bindkey: '', placeholder: '搜索' }, l.searchBar) : { bindkey: '', placeholder: '搜索' },
       // 请求参数
       params: l.params || {},
-      // 过滤对象
+      // 过滤对象数组，用于生成过滤框内的组件，类似formPage的bizObj
       filter: l.filter || []
     },
 
-    // onload
     async onLoad(query) {
-      // 判断是否存在业务对象
-      if (!l.bizObj) {
-        console.error('列表渲染函数需要配置业务对象')
-        return
-      }
       // 定义列表id
       this.lid = `L${this.$viewId}`
       // 获取对应表单搜索组件

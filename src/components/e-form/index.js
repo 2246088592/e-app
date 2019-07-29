@@ -5,15 +5,14 @@ Component({
     btnPos: '',
     background: '',
     bizObj: [],
-    hiddenBtn: [],
-    onRules: () => {
-      return []
-    }
+    onRules: () => []
   },
+
   didMount() {
     this.initBtns()
     this.initRules()
   },
+
   methods: {
     // 表单底部按钮事件
     handleBtn(event) {
