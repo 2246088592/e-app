@@ -1913,6 +1913,61 @@ export default {
           goods_unit: '箱',
           class_name: '导尿管',
           pprice: 3
+        },
+        {
+          id: 2,
+          goods_class_id: 2,
+          goods_code: 'GOOG0002',
+          goods_name: '测试耗材2',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-002',
+          goods_unit: '箱',
+          class_name: '针筒',
+          pprice: 2
+        },
+        {
+          id: 2,
+          goods_class_id: 2,
+          goods_code: 'GOOG0002',
+          goods_name: '测试耗材2',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-002',
+          goods_unit: '箱',
+          class_name: '针筒',
+          pprice: 2
+        },
+        {
+          id: 2,
+          goods_class_id: 2,
+          goods_code: 'GOOG0002',
+          goods_name: '测试耗材2',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-002',
+          goods_unit: '箱',
+          class_name: '针筒',
+          pprice: 2
+        },
+        {
+          id: 2,
+          goods_class_id: 2,
+          goods_code: 'GOOG0002',
+          goods_name: '测试耗材2',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-002',
+          goods_unit: '箱',
+          class_name: '针筒',
+          pprice: 2
+        },
+        {
+          id: 2,
+          goods_class_id: 2,
+          goods_code: 'GOOG0002',
+          goods_name: '测试耗材2',
+          goods_type: '日常用品',
+          goods_spec: 'SCP-002',
+          goods_unit: '箱',
+          class_name: '针筒',
+          pprice: 2
         }
         ]
       },

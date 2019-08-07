@@ -5,10 +5,10 @@ import util from '/src/libs/util.js'
 const MENU_TREE_URL = '/system/v1/role-action/users/menus'
 
 // 获取菜单树
-function getMenuTree() {
+function getMenuTree(mock) {
   return new Promise((resolve, reject) => {
     // 发送请求
-    http.get({ url: MENU_TREE_URL }).then(res => {
+    http.get({ url: MENU_TREE_URL },mock).then(res => {
       if (res.status === 0) {
         resolve(res.data)
       } else {

@@ -42,6 +42,10 @@ Component({
         placeholder: model.necessary ? '必填' : '',
         default: model.default ? model.default : false
       }
+      // 处理默认值
+      if (model.value) {
+        model.value = util.formatDate(model.format || 'yyyy-MM-dd', new Date(model.value))
+      }
       // 补全属性
       this.$page.setData({
         [this.path]: Object.assign(datePicker, model, this.initValidate(model))

@@ -9,22 +9,20 @@ listPage({
     edit: 12
   },
 
-  // // 表单背景
-  // background: '',
-
   // 搜索框
   searchBar: {
-    bindkey: 'name',
-    placeholder: '搜索供应商名称'
+    bindkey: 'cons_name',
+    placeholder: '搜索耗材名称'
   },
 
   // 业务对象
   bizObj: {
     // 请求地址
-    url: '/business/supplier',
+    url: '/business/consumables',
     // 模板名称
-    template: 'ven',
+    template: 'goods',
     // 新增，查看，编辑时跳转路由
-    form: '/pages/hy/base/ven/form/index'
+    form: '/pages/hy/base/cons/form/index',
+    mock: 'goods'
   }
 })

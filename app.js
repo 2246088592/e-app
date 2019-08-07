@@ -18,6 +18,6 @@ App({
   // 小程序初始化
   onLaunch(options) {
     // 登录
-    login()
+    login({mock: 'login'})
   }
 })

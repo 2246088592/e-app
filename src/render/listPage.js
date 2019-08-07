@@ -6,7 +6,7 @@ export default (l) => {
   return Page({
     data: {
       // 权限标记，对应按钮position
-      btnPos: l.btnPos !== undefined ? l.btnPos : { normal: '', edit: '' },
+      btnPos: l.btnPos !== undefined ? l.btnPos : { normal: 1, edit: 12 },
       // 业务对象
       bizObj: l.bizObj,
       // 背景

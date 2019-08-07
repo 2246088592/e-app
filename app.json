@@ -6,20 +6,20 @@
 
 		"pages/process/index",
 
-		"pages/hy/base/goods/form/index",
-		"pages/hy/base/goods/list/index",
+		"pages/hy/base/cons/form/index",
+		"pages/hy/base/cons/list/index",
 
 		"pages/hy/base/wh/form/index",
 		"pages/hy/base/wh/list/index",
 
-		"pages/hy/base/ven/form/index",
-		"pages/hy/base/ven/list/index",
+		"pages/hy/base/supplier/form/index",
+		"pages/hy/base/supplier/list/index",
 
 		"pages/hy/base/class/form/index",
 		"pages/hy/base/class/list/index",
 
-		"pages/hy/p/request/form/index",
-		"pages/hy/p/request/list/index",
+		"pages/hy/request/form/index",
+		"pages/hy/request/list/index",
 
 		"pages/hy/p/stock-out/form/index",
 		"pages/hy/p/stock-out/list/index",

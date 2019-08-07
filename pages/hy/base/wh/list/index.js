@@ -9,9 +9,6 @@ listPage({
     edit: 12
   },
 
-  // // 表单背景
-  // background: '',
-
   // 搜索框
   searchBar: {
     bindkey: 'wh_name',

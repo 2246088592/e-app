@@ -60,7 +60,7 @@ Component({
       if (model.default && !model.value && getApp().globalData.userInfo) {
         let userInfo = getApp().globalData.userInfo
         value.push({
-          userId: userInfo.dd_user_info.Id,
+          userId: userInfo.dd_user_info.Userid,
           name: userInfo.dd_user_info.Name,
           avatar: userInfo.dd_user_info.Avatar
         })

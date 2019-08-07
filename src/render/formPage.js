@@ -17,7 +17,7 @@ function cbo(obj) {
 function initBizObj(bizObj, fid) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let newc = { ...c, ci: ci, fid: fid }
+      let newc = { ...cbo(c), ci: ci, fid: fid }
       newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
       if (c.children && c.children.length) {
         newc.children = c.children.map((sf, sfi) => {
@@ -36,10 +36,11 @@ function initBizObj(bizObj, fid) {
 function initFormData(bizObj, fid, data) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let newc = { ...c, ci: ci, fid: fid }
+      let newc = { ...cbo(c), ci: ci, fid: fid }
+      c.subform.push({ key: 'id' })
       newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
       newc.children = []
-      if (data[newc.key]) {
+      if (data[newc.key] && data[newc.key].length) {
         for (let sfi = 0; sfi < data[newc.key].length; sfi++) {
           let sf = data[newc.key][sfi]
           newc.children.push(c.subform.map((sc, sci) => {
@@ -87,9 +88,11 @@ export default (f) => {
       // 提交地址，表单保存
       url: f.url !== undefined ? f.url : '',
       // 权限标记，对应按钮position
-      btnPos: f.btnPos !== undefined ? f.btnPos : '',
+      btnPos: f.btnPos !== undefined ? f.btnPos : 3,
       // 表单背景，默认透明
-      background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)'
+      background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)',
+      // 表单提交格式，是否带有明细表，默认无
+      detail: f.detail !== undefined ? f.detail : false
     },
 
     // 加载
@@ -159,10 +162,12 @@ export default (f) => {
       if (f.beforeSubmit) {
         await f.beforeSubmit.apply(this, [data])
       }
+      // 提交对象
+      let params = this.list.data ? Object.assign(this.list.data, data) : data
       // 配置提交参数
       let options = {
         url: this.data.url,
-        params: [this.list.data ? Object.assign(this.list.data, data) : data]
+        params: this.data.detail ? params : [params]
       }
       http.post(options).then(res => {
         if (res.status === 0) {

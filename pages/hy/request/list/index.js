@@ -10,26 +10,11 @@ listPage({
     edit: 12
   },
 
-  // // 表单背景
-  // background: '',
-
-  // // 导航栏配置，title默认为菜单名称
-  // navigationBar: {
-  //   title: '',
-  //   backgroundColor: ''
-  // },
-
   // 搜索框
   searchBar: {
     bindkey: 'doc_number',
     placeholder: '搜索单据编号'
   },
-
-  // // 请求参数
-  // params: {},
-
-  // // 过滤条件
-  // filter: [],
 
   // 业务对象
   bizObj: {
@@ -38,14 +23,25 @@ listPage({
     // 模板名称
     template: 'request',
     // 新增，查看，编辑时跳转路由
-    form: '/pages/hy/p/request/form/index'
+    form: '/pages/hy/request/form/index'
   },
 
   methods: {
+    // 新增跳转
+    handleAdd1() {
+      if (!this.data.bizObj.form) {
+        return
+      }
+      let list = { lid: this.lid }
+      dd.navigateTo({
+        url: `${this.data.bizObj.form}?list=${JSON.stringify(list)}`
+      })
+    },
+
     // 将请购单转为领用单
     handleConvert(btn, checked) {
       if (!checked.length) {
-        util.ddToast({ type: 'fail', text:  '请先选择需要转领用的请购单' })
+        util.ddToast({ type: 'fail', text: '请先选择需要转领用的请购单' })
         return
       }
       dd.confirm({
@@ -71,7 +67,7 @@ listPage({
     // 使用请购单生成采购单
     handlePurchase(btn, checked) {
       if (!checked.length) {
-        util.ddToast({ type: 'fail', text:'请先选择需要生成采购单的请购单' })
+        util.ddToast({ type: 'fail', text: '请先选择需要生成采购单的请购单' })
         return
       }
       dd.confirm({

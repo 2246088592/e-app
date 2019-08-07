@@ -9,14 +9,14 @@ const REFRESH_URL = '/uaa/auth/refresh'
 const REFRESH_INTERVAL = 900000
 
 // 登录方法
-function login() {
+function login(mock) {
   // 获取免登授权码
   dd.getAuthCode({
     success: (res) => {
       // 配置请求头
       let options = { url: LOGIN_URL, params: { code: res.authCode } }
       // 发送请求
-      http.get(options).then(res => {
+      http.get(options,mock).then(res => {
         if (res.status === 0) {
           // 储存用户信息、tolen
           getApp().globalData.userInfo = res.data

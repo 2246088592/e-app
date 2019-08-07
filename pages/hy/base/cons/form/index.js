@@ -7,9 +7,6 @@ formPage({
   // 提交地址
   url: '/business/consumables',
 
-  // 权限标记，对应按钮的position
-  btnPos: 2,
-
   // // 表单背景
   // background: '',
 

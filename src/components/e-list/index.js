@@ -65,6 +65,7 @@ Component({
       this.setData({
         searchVisible: false
       })
+      this.reset('')
     },
 
     // 打开过滤部件
