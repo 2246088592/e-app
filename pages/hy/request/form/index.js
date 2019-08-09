@@ -10,7 +10,7 @@ formPage({
   detail: true,
 
   // 权限按钮位置
-  btnPos: 2,
+  btnPos: 20,
 
   // 业务对象
   bizObj: [
@@ -40,7 +40,7 @@ formPage({
       label: '申请部门',
       key: 'apply_dept',
       component: 'e-dept-chooser',
-      // necessary: true,
+      necessary: true,
       max: 1
     },
     {
@@ -62,29 +62,11 @@ formPage({
       subform: [
         {
           label: '耗材名称',
-          key: 'cons_name',
+          key: 'cons_id',
           component: 'e-search',
           bindlist: '/pages/hy/base/cons/list/index',
           bindkey: 'cons_name',
           necessary: true
-        },
-        {
-          label: '耗材编号',
-          key: 'cons_code',
-          component: 'e-input',
-          disabled: true
-        },
-        {
-          label: '规格',
-          key: 'cons_standard',
-          component: 'e-input',
-          disabled: true
-        },
-        {
-          label: '单位',
-          key: 'cons_unit',
-          component: 'e-input',
-          disabled: true
         },
         {
           label: '申请数量',
@@ -101,16 +83,19 @@ formPage({
   beforeOnLoad(query) {
     return new Promise((resolve, reject) => {
       if (this.list && this.list.data) {
+        // 转为对象
+        this.list.data.apply_person = [JSON.parse(this.list.data.apply_person)]
+        this.list.data.apply_dept = [JSON.parse(this.list.data.apply_dept)]
         // 获取耗材明细
         http.get({ url: '/business/por-detail' }).then(res => {
           if (res.status === 0) {
             this.list.data.children = res.data.map(item => {
-              item.cons_name = { cons_name: item.cons_name }
+              item.cons_id = { cons_name: item.cons_name, id: item.cons_id }
               return item
             })
             resolve()
           } else {
-            util.ddToast({ type: 'success', text: '提交成功' })
+            util.ddToast({ type: 'success', text: res.message || '表单明细请求失败' })
             resolve()
           }
         }).catch(err => {
@@ -122,38 +107,22 @@ formPage({
     })
   },
 
-  // 表单变化监听
-  formChange(event) {
-    if (event.key === 'cons_name') {
-      let cons_code = `bizObj[${event.ci}].children[${event.sfi}][1].value`
-      let cons_standard = `bizObj[${event.ci}].children[${event.sfi}][2].value`
-      let cons_unit = `bizObj[${event.ci}].children[${event.sfi}][3].value`
-      this.setData({
-        [cons_code]: event.value.cons_code || '',
-        [cons_standard]: event.value.cons_standard || '',
-        [cons_unit]: event.value.cons_unit || ''
-      })
-    }
-  },
-
   // 保存前处理
   beforeSubmit(data) {
     data.children = data.children.map(item => {
-      item.cons_name = item.cons_name.cons_name
+      item.cons_id = item.cons_id.id
       return item
     })
+    data.apply_person = JSON.stringify(data.apply_person[0])
+    data.apply_dept = JSON.stringify(data.apply_dept[0])
     return Promise.resolve()
   },
 
   methods: {
     // 提交
     handleSubmit() {
+      console.log(this.data.bizObj)
       this.saveForm()
-    },
-
-    // 查看审批流
-    handleProcess() {
-      console.log(getApp())
     }
   }
 })

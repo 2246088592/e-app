@@ -7,15 +7,6 @@ formPage({
   // 提交地址
   url: '/business/consumables',
 
-  // // 表单背景
-  // background: '',
-
-  // // 导航栏配置，title默认为菜单名称
-  // navigationBar: {
-  //   title: '',
-  //   backgroundColor: ''
-  // },
-
   // 业务对象
   bizObj: [
     {

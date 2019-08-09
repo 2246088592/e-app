@@ -5,10 +5,10 @@ import util from '/src/libs/util.js'
 const PERMISSIONS_URL = '/system/v1/role-action/users/actions/groups'
 
 // 获取权限
-function getPermissions(mock) {
+function getPermissions() {
   return new Promise((resolve, reject) => {
     // 发送请求
-    http.get({ url: PERMISSIONS_URL },mock).then(res => {
+    http.get({ url: PERMISSIONS_URL }).then(res => {
       if (res.status === 0) {
         resolve(res.data)
       } else {

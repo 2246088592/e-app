@@ -9,14 +9,14 @@ const REFRESH_URL = '/uaa/auth/refresh'
 const REFRESH_INTERVAL = 900000
 
 // 登录方法
-function login(mock) {
+function login() {
   // 获取免登授权码
   dd.getAuthCode({
     success: (res) => {
       // 配置请求头
       let options = { url: LOGIN_URL, params: { code: res.authCode } }
       // 发送请求
-      http.get(options,mock).then(res => {
+      http.get(options).then(res => {
         if (res.status === 0) {
           // 储存用户信息、tolen
           getApp().globalData.userInfo = res.data
@@ -64,10 +64,10 @@ function refreshToken() {
 function welcome(name) {
   let welcome = ''
   let time = new Date().getHours()
-  if (time <= 11) welcome = '早上好'
+  if (time <= 11) welcome = '上午好'
   else if (time > 11 && time <= 13) welcome = '中午好'
-  else if (time > 13 && time <= 18) welcome = '下午好'
-  else if (time > 18) welcome = '晚上好'
+  else if (time > 13 && time <= 17) welcome = '下午好'
+  else if (time > 17) welcome = '晚上好'
   util.ddToast({ type: 'success', text: `亲爱的${name}，${welcome}`, interval: 1000 })
 }
 

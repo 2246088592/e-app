@@ -6,20 +6,7 @@ Page({
     // 禁止显示的菜单，此处考量是基于移动端和pc的不同，例如系统管理菜单，必须和菜单的menu_name一致
     disabled: ['组织结构', '菜单管理', '角色管理', '权限分配', '用户管理'],
     // 静态菜单，所有用户都可见
-    staticMenuGroup: [
-      {
-        title: '测试',
-        children: [
-          {
-            icon_cls: 'flask',
-            menu_name: '耗材资料',
-            mobile_url: '/pages/hy/base/cons/list/index;/pages/hy/base/cons/form/index',
-            xtype: 'warning',
-            id: 'goods'
-          }
-        ]
-      }
-    ]
+    staticMenuGroup: []
   },
 
   // 初始化

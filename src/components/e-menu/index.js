@@ -27,7 +27,7 @@ Component({
   methods: {
     // 初始化菜单
     initMenu() {
-      getMenuTree({mock: 'menuTree'}).then(data => {
+      getMenuTree().then(data => {
         let menuGroup = []
         if (this.props.staticMenuGroup.length) {
           menuGroup = util.cloneDeep(this.props.staticMenuGroup)

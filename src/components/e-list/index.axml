@@ -48,20 +48,6 @@
   <view a:if="{{!loading && array.length === 0}}" style="top: 104rpx;" class="absolute pin-x pin-b flex items-center justify-center">
     <image class="w-24" mode="widthFix" src="/src/assets/icon/list/null.png"/>
   </view>
-  <!-- 右下角按钮组 -->
-  <view class="fixed flex flex-col w-12 transition-300" style="right: 32rpx; bottom: 32rpx; transform: {{!checkboxVisible ? 'translate3d(0, 0, 0)' : 'translate3d(128rpx, 0, 0)'}};">
-    <button a:if="{{btn.position === btnPos.normal}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="shadow-md color-white border-none circle w-12 h-12 mt-2 text-lg flex items-center justify-center {{'bg-color-primary'}}">
-      <text a:if="{{btn.icon_cls}}" class="fa {{'fa-' + btn.icon_cls}}" />
-      <text a:else>{{btn.action_name}}</text>
-    </button>
-  </view>
-  <!-- 右下角按钮组，多选状态 -->
-  <view class="fixed flex flex-col w-12 transition-300" style="right: 32rpx; bottom: 32rpx; transform: {{checkboxVisible ? 'translate3d(0, 0, 0)' : 'translate3d(128rpx, 0, 0)'}};">
-    <button a:if="{{btn.position === btnPos.edit}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="shadow-md color-white border-none circle w-12 h-12 mt-2 text-lg flex items-center justify-center {{'bg-color-primary'}}">
-      <text a:if="{{btn.icon_cls}}" class="fa {{'fa-' + btn.icon_cls}}" />
-      <text a:else>{{btn.action_name}}</text>
-    </button>
-  </view>
   <!-- 过滤部件 -->
   <view class="fixed z-1 pin transition-300 {{filterVisible ? 'bg-color-sub-title pointer-events-auto' : 'pointer-events-none'}}" catchTap="handleFilterInvisible">
     <view class="pin-x flex flex-col pin-t h-4-5 absolute transition-300 bg-color-white {{filterVisible ? 'shadow-md' : ''}}" style="transform: {{filterVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, -100%, 0)'}};" catchTap="void">
@@ -74,4 +60,18 @@
       </view>
     </view>
   </view>
+</view>
+<!-- 右下角按钮组 -->
+<view class="fixed flex flex-col w-12 transition-300" style="right: 32rpx; bottom: 32rpx; transform: {{!checkboxVisible ? 'translate3d(0, 0, 0)' : 'translate3d(128rpx, 0, 0)'}};">
+  <button a:if="{{btn.position === btnPos.normal}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="shadow-md color-white border-none circle w-12 h-12 mt-2 text-lg flex items-center justify-center {{'bg-color-primary'}}">
+    <text a:if="{{btn.icon_cls}}" class="fa {{'fa-' + btn.icon_cls}}" />
+    <text a:else>{{btn.action_name}}</text>
+  </button>
+</view>
+<!-- 右下角按钮组，多选状态 -->
+<view class="fixed flex flex-col w-12 transition-300" style="right: 32rpx; bottom: 32rpx; transform: {{checkboxVisible ? 'translate3d(0, 0, 0)' : 'translate3d(128rpx, 0, 0)'}};">
+  <button a:if="{{btn.position === btnPos.edit}}" a:for="{{btns}}" a:for-item="btn" data-btn="{{btn}}" onTap="handleBtn" class="shadow-md color-white border-none circle w-12 h-12 mt-2 text-lg flex items-center justify-center {{'bg-color-primary'}}">
+    <text a:if="{{btn.icon_cls}}" class="fa {{'fa-' + btn.icon_cls}}" />
+    <text a:else>{{btn.action_name}}</text>
+  </button>
 </view>

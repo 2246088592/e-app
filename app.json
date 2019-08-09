@@ -15,8 +15,8 @@
 		"pages/hy/base/supplier/form/index",
 		"pages/hy/base/supplier/list/index",
 
+		"pages/hy/base/class/tree/index",
 		"pages/hy/base/class/form/index",
-		"pages/hy/base/class/list/index",
 
 		"pages/hy/request/form/index",
 		"pages/hy/request/list/index",

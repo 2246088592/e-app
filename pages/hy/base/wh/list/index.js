@@ -1,14 +1,6 @@
 import listPage from '/src/render/listPage'
 
 listPage({
-  // 权限标记，对应按钮的position
-  btnPos: {
-    // 普通模式
-    normal: 1,
-    // 多选模式
-    edit: 12
-  },
-
   // 搜索框
   searchBar: {
     bindkey: 'wh_name',

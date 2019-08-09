@@ -1,20 +1,5 @@
-<!-- 耗材分类 -->
-<template name="class">
-  <view class="flex items-center justify-between my-1">
-    <text class="flex-1 color-bg-title text-lg">{{item_name}}</text>
-    <text class="color-label text-xs">{{create_on.split('T')[0]}}</text>
-  </view>
-  <view>
-    <text class="color-label">上级分类：</text>
-    <text class="color-bg-title">{{pid || '无'}}</text>
-  </view>
-  <text>
-    <text class="color-label">备注：</text>
-    <text class="color-bg-title">{{remark || '无'}}</text>
-  </text>
-</template>
 <!-- 耗材 -->
-<template name="goods">
+<template name="cons">
   <view >
     <view class="color-big-title text-xl my-1">{{cons_name}}</view>
     <view>
@@ -39,6 +24,21 @@
     </view>
   </view>
 </template>
+<!-- 耗材分类 -->
+<template name="class">
+  <view class="flex items-center justify-between my-1">
+    <text class="flex-1 color-bg-title text-lg">{{item_name}}</text>
+    <text class="color-label text-xs">{{create_on.split('T')[0]}}</text>
+  </view>
+  <view>
+    <text class="color-label">上级分类：</text>
+    <text class="color-bg-title">{{pid || '无'}}</text>
+  </view>
+  <text>
+    <text class="color-label">备注：</text>
+    <text class="color-bg-title">{{remark || '无'}}</text>
+  </text>
+</template>
 <!-- 仓库 -->
 <template name="wh">
   <view >
@@ -50,7 +50,7 @@
   </view>
 </template>
 <!-- 供应商 -->
-<template name="ven">
+<template name="supplier">
   <view >
     <view class="color-big-title text-xl my-1">{{name}}</view>
     <view>

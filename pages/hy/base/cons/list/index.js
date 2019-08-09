@@ -1,14 +1,6 @@
 import listPage from '/src/render/listPage'
 
 listPage({
-  // 权限标记，对应按钮的position
-  btnPos: {
-    // 普通模式
-    normal: 1,
-    // 多选模式
-    edit: 12
-  },
-
   // 搜索框
   searchBar: {
     bindkey: 'cons_name',
@@ -20,9 +12,8 @@ listPage({
     // 请求地址
     url: '/business/consumables',
     // 模板名称
-    template: 'goods',
+    template: 'cons',
     // 新增，查看，编辑时跳转路由
-    form: '/pages/hy/base/cons/form/index',
-    mock: 'goods'
+    form: '/pages/hy/base/cons/form/index'
   }
 })

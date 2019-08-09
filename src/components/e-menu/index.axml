@@ -12,7 +12,7 @@
         <block a:for="{{item.children}}" a:for-item="menu">
           <view style="width: {{100/column}}%; padding-top: {{100/column}}%;" class="relative">
             <view class="pin absolute flex flex-col items-center justify-center">
-              <button onTap="handleTap" class="flex items-center border-none justify-center radius-2 h-12 w-12 text-2xl {{'bg-color-' + menu.xtype}}" data-menu="{{menu}}">
+              <button onTap="handleTap" class="flex items-center border-none justify-center radius-4 h-12 w-12 text-2xl {{'bg-color-' + menu.xtype}}" data-menu="{{menu}}">
                 <text class="color-white fa {{'fa-' + menu.icon_cls}}" />
               </button>
               <text class="absolute w-full text-center pin-b text-xs color-title">{{menu.menu_name}}</text>

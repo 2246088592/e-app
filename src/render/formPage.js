@@ -88,7 +88,7 @@ export default (f) => {
       // 提交地址，表单保存
       url: f.url !== undefined ? f.url : '',
       // 权限标记，对应按钮position
-      btnPos: f.btnPos !== undefined ? f.btnPos : 3,
+      btnPos: f.btnPos !== undefined ? f.btnPos : 30,
       // 表单背景，默认透明
       background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)',
       // 表单提交格式，是否带有明细表，默认无
@@ -120,7 +120,7 @@ export default (f) => {
       })
       // 设置导航栏
       if (!f.navigationBar || !f.navigationBar.title) {
-        f.navigationBar = Object.assign({}, f.navigationBar, { title: this.menu.menu_name })
+        f.navigationBar = Object.assign({ ...f.navigationBar }, { title: this.menu.menu_name })
       }
       util.setNavigationBar(f.navigationBar)
     },

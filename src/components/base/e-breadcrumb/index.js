@@ -5,6 +5,7 @@ Component({
     values: [],
     scrollLeft: 9999
   },
+
   methods: {
     handleItemTap(event) {
       let index = event.target.dataset.index

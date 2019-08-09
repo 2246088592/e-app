@@ -6,7 +6,7 @@ export default (l) => {
   return Page({
     data: {
       // 权限标记，对应按钮position
-      btnPos: l.btnPos !== undefined ? l.btnPos : { normal: 1, edit: 12 },
+      btnPos: l.btnPos !== undefined ? l.btnPos : { normal: 10, edit: 11 },
       // 业务对象
       bizObj: l.bizObj,
       // 背景
@@ -30,7 +30,7 @@ export default (l) => {
       this.menu = await util.getMenu(this.route)
       // 设置导航栏
       if (!l.navigationBar || !l.navigationBar.title) {
-        l.navigationBar = Object.assign({}, l.navigationBar, { title: this.menu.menu_name })
+        l.navigationBar = Object.assign({ ...l.navigationBar }, { title: this.menu.menu_name })
       }
       util.setNavigationBar(l.navigationBar)
     },
