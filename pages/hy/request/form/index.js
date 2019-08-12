@@ -83,9 +83,6 @@ formPage({
   beforeOnLoad(query) {
     return new Promise((resolve, reject) => {
       if (this.list && this.list.data) {
-        // 转为对象
-        this.list.data.apply_person = [JSON.parse(this.list.data.apply_person)]
-        this.list.data.apply_dept = [JSON.parse(this.list.data.apply_dept)]
         // 获取耗材明细
         http.get({ url: '/business/por-detail' }).then(res => {
           if (res.status === 0) {

@@ -74,8 +74,12 @@
 <!-- 请购单 -->
 <template name="request">
   <view class="flex items-center">
-    <view class="text-xs color-label flex flex-col items-center mr-2">
-      <text class="mt-2">{{apply_user_name}}</text>
+    <view class="flex flex-col items-center mr-2">
+      <view class="circle overflow-hidden shadow-md">
+        <image a:if="{{apply_person[0].avatar}}" class="block" style="height: 80rpx; width: 80rpx;" mode="aspectFill" src="{{apply_person[0].avatar}}"/>
+        <view a:else class="bg-color-primary color-white text-2xl flex items-center justify-center" style="height: 80rpx; width: 80rpx;">{{apply_person[0].name[0]}}</view>
+      </view>
+      <text class="mt-2 color-title text-xs">{{apply_person[0].name}}</text>
     </view>
     <view class="flex flex-col">
       <view>
@@ -84,15 +88,15 @@
       </view>
       <view>
         <text class="color-label">申请日期：</text>
-        <text class="color-bg-title">{{doc_date}}</text>
+        <text class="color-bg-title">{{apply_date}}</text>
       </view>
       <view>
         <text class="color-label">申请部门：</text>
-        <text class="color-bg-title">{{apply_org_name}}</text>
+        <text class="color-bg-title">{{apply_dept[0].name}}</text>
       </view>
       <view>
         <text class="color-label">单据状态：</text>
-        <text class="color-bg-title">{{doc_state}}</text>
+        <text class="color-bg-title">{{doc_status}}</text>
       </view>
       <view>
         <text class="color-label">备注：</text>

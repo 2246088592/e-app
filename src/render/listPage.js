@@ -35,6 +35,13 @@ export default (l) => {
       util.setNavigationBar(l.navigationBar)
     },
 
+    // 列表加载后触发
+    async afterLoad() {
+      if (l.afterLoad) {
+        await l.afterLoad.apply(this, arguments)
+      }
+    },
+
     // 刷新列表
     refresh() {
       app.emitter.emit(this.lid, { type: 'refresh' })

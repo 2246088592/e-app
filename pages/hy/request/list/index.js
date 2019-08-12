@@ -19,6 +19,17 @@ listPage({
     form: '/pages/hy/request/form/index'
   },
 
+
+  // 列表加载完成触发，每次加载都触发一次，参数为返回数据
+  afterLoad(data) {
+    data.items.map(item => {
+      item.apply_person = [JSON.parse(item.apply_person)]
+      item.apply_dept = [JSON.parse(item.apply_dept)]
+      return item
+    })
+    return Promise.resolve()
+  },
+
   methods: {
     // 新增跳转
     handleOpenAdd() {

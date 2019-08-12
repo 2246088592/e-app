@@ -65,7 +65,7 @@ Component({
       this.setData({
         searchVisible: false
       })
-      this.reset('')
+      this.handleInput({ detail: { value: '' } })
     },
 
     // 打开过滤部件
@@ -243,6 +243,7 @@ Component({
       }
       http.get(options, this.props.bizObj).then(res => {
         if (res.status === 0) {
+          this.$page.afterLoad(res.data)
           this.$spliceData({
             array: [this.data.array.length, 0, ...res.data.items]
           })
