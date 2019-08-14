@@ -17,6 +17,8 @@ Page({
     btnPos: 10,
     // 原始树结构
     tree: [],
+    // 根节点
+    root: {},
     // 当前可选节点
     array: [],
     // 面包屑
@@ -68,8 +70,9 @@ Page({
   loadMore() {
     http.get({ url: this.data.url }).then(res => {
       if (res.status === 0) {
-        this.initTree(res.data)
+        this.initTree(res.data[0].children)
         dd.stopPullDownRefresh()
+        this.setData({ root: res.data[0] })
       } else {
         util.ddToast({ type: 'fail', text: res.message || '获取耗材分类失败' })
       }
@@ -246,6 +249,8 @@ Page({
     let list = { lid: this.pid }
     if (this.data.current) {
       list.data = { pid: this.data.current.id, pname: this.data.current.item_name }
+    } else {
+      list.data = { pid: this.data.root.id }
     }
     dd.navigateTo({
       url: `${this.data.form}?list=${JSON.stringify(list)}`
