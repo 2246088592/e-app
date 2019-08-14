@@ -5,12 +5,12 @@ import { on_amount } from '/src/assets/js/RegExp.js'
 
 formPage({
   // 提交地址
-  url: '/business/consumables',
+  url: '/business/inventory',
 
   // 业务对象
   bizObj: [
     {
-      label: '所属分类',
+      label: '耗材分类',
       key: 'item_class_id',
       component: 'e-cascader',
       necessary: true,
@@ -30,13 +30,13 @@ formPage({
       maxlength: 50
     },
     {
-      label: '规格型号',
+      label: '规格',
       key: 'cons_standard',
       component: 'e-input',
       maxlength: 50
     },
     {
-      label: '计量单位',
+      label: '单位',
       key: 'cons_unit',
       component: 'e-input',
       maxlength: 50

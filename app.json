@@ -4,8 +4,6 @@
 
 		"pages/home/index",
 
-		"pages/process/index",
-
 		"pages/hy/base/cons/form/index",
 		"pages/hy/base/cons/list/index",
 
@@ -18,19 +16,16 @@
 		"pages/hy/base/class/tree/index",
 		"pages/hy/base/class/form/index",
 
+    "pages/hy/base/inventory/list/index",
+		"pages/hy/base/inventory/form/index",
+
 		"pages/hy/request/form/index",
 		"pages/hy/request/list/index",
 
-		"pages/hy/p/stock-out/form/index",
-		"pages/hy/p/stock-out/list/index",
+		"pages/hy/po/form/index",
+		"pages/hy/po/list/index",
 
-		"pages/hy/o/purchase/form/index",
-		"pages/hy/o/purchase/list/index",
-
-		"pages/hy/o/stock-in/form/index",
-		"pages/hy/o/stock-in/list/index",
-
-		"pages/hy/stock/list/index"
+		"pages/process/index"
 	],
 	"window": {
 		"defaultTitle": "耗材管理系统",

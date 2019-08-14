@@ -6,7 +6,7 @@ listPage({
   // 搜索框
   searchBar: {
     bindkey: 'doc_number',
-    placeholder: '搜索单据编号'
+    placeholder: '搜索请购单号'
   },
 
   // 业务对象
@@ -43,28 +43,58 @@ listPage({
     },
 
     // 将请购单转为领用单
-    handleConvert(btn, checked) {
+    handleReceive(btn, checked) {
       if (!checked.length) {
         util.ddToast({ type: 'fail', text: '请先选择需要通知领用的请购单' })
         return
       }
       dd.confirm({
         title: '温馨提示',
-        content: `确认对已勾选的${checked.length}张请购单通知领用吗?`,
+        content: `确认通知已勾选的${checked.length}张请购单领用吗?`,
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         success: (res) => {
           if (res.confirm) {
             let options = {
-              url: '',
-              params: checked
+              url: '/business/stockout-wv',
+              params: { ids: checked }
             }
-            http.delete(options).then(res => {
+            http.post(options).then(res => {
               if (res.status === 0) {
                 util.ddToast({ type: 'success', text: '通知领用成功' })
                 this.refresh()
               } else {
                 util.ddToast({ type: 'fail', text: res.message || '通知领用失败' })
+              }
+            })
+          }
+        }
+      })
+    },
+
+    // 将请购单转为采购单
+    handlePo(btn, checked) {
+      if (!checked.length) {
+        util.ddToast({ type: 'fail', text: '请先选择需要采购的请购单' })
+        return
+      }
+      dd.confirm({
+        title: '温馨提示',
+        content: `确认将已勾选的${checked.length}张请购单转采购吗?`,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        success: (res) => {
+          if (res.confirm) {
+            let options = {
+              url: '/business/build-po',
+              params: { ids: checked }
+            }
+            http.post(options).then(res => {
+              if (res.status === 0) {
+                util.ddToast({ type: 'success', text: '转采购成功' })
+                this.refresh()
+              } else {
+                util.ddToast({ type: 'fail', text: res.message || '转采购失败' })
               }
             })
           }

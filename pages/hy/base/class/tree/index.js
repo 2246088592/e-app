@@ -81,8 +81,8 @@ Page({
     this.setData({
       'current': '',
       'currentIndex': '',
-      'breadcrumb': ['耗材大类'],
-      'childrenIndexArr': ['耗材大类']
+      'breadcrumb': ['大类'],
+      'childrenIndexArr': ['大类']
     })
   },
 

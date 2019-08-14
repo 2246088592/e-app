@@ -3,15 +3,15 @@
   <view >
     <view class="color-big-title text-xl my-1">{{cons_name}}</view>
     <view>
-      <text class="color-label">耗材编码：</text>
+      <text class="color-label">耗材编号：</text>
       <text class="color-bg-title">{{cons_code}}</text>
     </view>
     <view>
-      <text class="color-label">耗材分类：</text>
+      <text class="color-label">所属分类：</text>
       <text class="color-bg-title">{{item_name}}</text>
     </view>
     <view>
-      <text class="color-label">耗材规格：</text>
+      <text class="color-label">规格型号：</text>
       <text class="color-bg-title">{{cons_standard}}</text>
     </view>
     <view>
@@ -44,7 +44,7 @@
   <view >
     <view class="color-big-title text-xl my-1">{{wh_name}}</view>
     <view>
-      <text class="color-label">仓库编码：</text>
+      <text class="color-label">仓库编号：</text>
       <text class="color-bg-title">{{wh_code}}</text>
     </view>
   </view>
@@ -54,7 +54,7 @@
   <view >
     <view class="color-big-title text-xl my-1">{{name}}</view>
     <view>
-      <text class="color-label">供应商编码：</text>
+      <text class="color-label">供应商编号：</text>
       <text class="color-bg-title">{{code}}</text>
     </view>
     <view>
@@ -83,25 +83,50 @@
     </view>
     <view class="flex flex-col">
       <view>
-        <text class="color-label">单据编号：</text>
+        <text class="color-label">请购单号：</text>
         <text class="color-bg-title">{{doc_number}}</text>
       </view>
       <view>
-        <text class="color-label">申请日期：</text>
+        <text class="color-label">请购日期：</text>
         <text class="color-bg-title">{{apply_date}}</text>
       </view>
       <view>
-        <text class="color-label">申请部门：</text>
+        <text class="color-label">请购部门：</text>
         <text class="color-bg-title">{{apply_dept[0].name}}</text>
       </view>
       <view>
-        <text class="color-label">单据状态：</text>
-        <text class="color-bg-title">{{doc_status}}</text>
+        <text class="color-label">状态：</text>
+        <text class="color-bg-title">{{doc_status_text}}</text>
       </view>
       <view>
         <text class="color-label">备注：</text>
         <text class="color-bg-title">{{remark}}</text>
       </view>
+    </view>
+  </view>
+</template>
+<!-- 采购单 -->
+<template name="po">
+  <view >
+    <view>
+      <text class="color-label">订单编号：</text>
+      <text class="color-bg-title">{{doc_number}}</text>
+    </view>
+    <view>
+      <text class="color-label">订单日期：</text>
+      <text class="color-bg-title">{{doc_date}}</text>
+    </view>
+    <view>
+      <text class="color-label">供应商：</text>
+      <text class="color-bg-title">{{supplier_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">状态：</text>
+      <text class="color-bg-title">{{doc_status}}</text>
+    </view>
+    <view>
+      <text class="color-label">备注：</text>
+      <text class="color-bg-title">{{remark}}</text>
     </view>
   </view>
 </template>
