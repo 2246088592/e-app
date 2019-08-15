@@ -47,6 +47,11 @@ export default (l) => {
       app.emitter.emit(this.lid, { type: 'refresh' })
     },
 
+    // 退出多选模式
+    checkboxInvisible() {
+      app.emitter.emit(this.lid, { type: 'checkboxInvisible' })
+    },
+
     // 展开其他方法
     ...l.methods
   })

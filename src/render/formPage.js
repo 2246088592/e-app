@@ -181,6 +181,42 @@ export default (f) => {
       })
     },
 
+    // post方法
+    async handlePost(config) {
+      // 自动校验
+      if (!config.autoCheck ? false : !this.handleValidate()) {
+        return
+      }
+      // 格式化提交对象
+      let data = this.formatForm()
+      // 提交前钩子函数
+      if (f.beforeSubmit) {
+        await f.beforeSubmit.apply(this, [data])
+      }
+      // 提交对象
+      let params = this.list.data ? Object.assign(this.list.data, data) : data
+      // 配置提交参数
+      let options = {
+        url: config.url ? config.url : this.data.url,
+        params: this.data.detail ? params : [params]
+      }
+      http.post(options).then(res => {
+        if (res.status === 0) {
+          util.ddToast({ type: 'success', text: config.successText ? config.successText : '保存成功' })
+          // 刷新列表
+          if (config.refresh !== undefined ? config.refresh : true) {
+            app.emitter.emit(this.list.lid, { type: 'refresh' })
+          }
+          // 返回
+          if (config.return !== undefined ? config.return : true) {
+            dd.navigateBack({ delta: 1 })
+          }
+        } else {
+          util.ddToast({ type: 'fail', text: res.message || config.failText ? config.failText : '保存失败' })
+        }
+      })
+    },
+
     // 校验提交数据
     handleValidate() {
       // 用于记录toast文本

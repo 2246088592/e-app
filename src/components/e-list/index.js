@@ -341,6 +341,9 @@ Component({
         case 'refresh':
           this.reset('')
           break
+        case 'checkboxInvisible':
+          this.handleCheckboxInvisible()
+          break
         default:
           break
       }

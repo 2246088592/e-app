@@ -57,12 +57,13 @@ listPage({
           if (res.confirm) {
             let options = {
               url: '/business/stockout-wv',
-              params: { ids: checked }
+              params: checked
             }
             http.post(options).then(res => {
               if (res.status === 0) {
                 util.ddToast({ type: 'success', text: '通知领用成功' })
                 this.refresh()
+                this.checkboxInvisible()
               } else {
                 util.ddToast({ type: 'fail', text: res.message || '通知领用失败' })
               }
@@ -87,12 +88,13 @@ listPage({
           if (res.confirm) {
             let options = {
               url: '/business/build-po',
-              params: { ids: checked }
+              params: checked
             }
             http.post(options).then(res => {
               if (res.status === 0) {
                 util.ddToast({ type: 'success', text: '转采购成功' })
                 this.refresh()
+                this.checkboxInvisible()
               } else {
                 util.ddToast({ type: 'fail', text: res.message || '转采购失败' })
               }

@@ -143,14 +143,10 @@ Page({
   radioChange(event) {
     let i = event.currentTarget.dataset.i
     let item = this.data.array[i]
-    if (item.children.length) {
-      return
-    } else {
-      this.setData({
-        'current': item,
-        'currentIndex': i
-      })
-    }
+    this.setData({
+      'current': item,
+      'currentIndex': i
+    })
   },
 
   // 清空当前所选

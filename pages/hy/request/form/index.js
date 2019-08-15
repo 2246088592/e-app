@@ -87,12 +87,17 @@ formPage({
         http.get({ url: '/business/por-detail', params: { params: JSON.stringify({ pid: this.list.data.id }) } }).then(res => {
           if (res.status === 0) {
             this.list.data.children = res.data.map(item => {
-              item.cons_id = util.cloneDeep(item)
+              item.cons_id = {
+                id: item.cons_id,
+                cons_name: item.cons_name,
+                cons_standard: item.cons_standard,
+                cons_unit: item.cons_unit
+              }
               return item
             })
             resolve()
           } else {
-            util.ddToast({ type: 'success', text: res.message || '表单明细请求失败' })
+            util.ddToast({ type: 'success', text: res.message || '耗材明细请求失败' })
             resolve()
           }
         }).catch(err => {
@@ -107,13 +112,11 @@ formPage({
   // 保存前处理
   beforeSubmit(data) {
     data.children = data.children.map(item => {
-      return {
-        cons_id: item.cons_id.id,
-        cons_name: item.cons_id.cons_name,
-        cons_standard: item.cons_id.cons_standard,
-        cons_unit: item.cons_id.cons_unit,
-        apply_qty: item.apply_qty
-      }
+      item.cons_name = item.cons_id.cons_name
+      item.cons_standard = item.cons_id.cons_standard
+      item.cons_unit = item.cons_id.cons_unit
+      item.cons_id = item.cons_id.id
+      return item
     })
     data.apply_person = JSON.stringify(data.apply_person[0])
     data.apply_dept = JSON.stringify(data.apply_dept[0])
@@ -123,7 +126,11 @@ formPage({
   methods: {
     // 提交
     handleSubmit() {
-      this.saveForm()
+      this.handlePost({
+        url: '/business/por/commit',
+        successText: '提交成功',
+        failText: '提交失败'
+      })
     }
   }
 })

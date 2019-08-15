@@ -46,7 +46,7 @@ listPage({
           if (res.confirm) {
             let options = {
               url: '/business/build-po',
-              params: { ids: checked }
+              params: checked
             }
             http.post(options).then(res => {
               if (res.status === 0) {

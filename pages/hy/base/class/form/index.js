@@ -43,7 +43,7 @@ formPage({
     http.get({ url: '/business/item-class' }).then(res => {
       if (res.status === 0) {
         this.setData({
-          'bizObj[0].tree': res.data
+          'bizObj[0].tree': res.data[0].children
         })
       } else {
         util.ddToast({ type: 'fail', text: res.message || '获取上级分类失败' })
