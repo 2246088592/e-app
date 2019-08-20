@@ -43,21 +43,21 @@ listPage({
     },
 
     // 将请购单转为领用单
-    handleReceive(btn, checked) {
-      if (!checked.length) {
+    handleReceive(btn, checkedArray) {
+      if (!checkedArray.length) {
         util.ddToast({ type: 'fail', text: '请先选择需要通知领用的请购单' })
         return
       }
       dd.confirm({
         title: '温馨提示',
-        content: `确认通知已勾选的${checked.length}张请购单领用吗?`,
+        content: `确认通知已勾选的${checkedArray.length}张请购单领用吗?`,
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         success: (res) => {
           if (res.confirm) {
             let options = {
               url: '/business/stockout-wv',
-              params: checked
+              params: checkedArray
             }
             http.post(options).then(res => {
               if (res.status === 0) {
@@ -74,22 +74,25 @@ listPage({
     },
 
     // 将请购单转为采购单
-    handlePo(btn, checked) {
-      if (!checked.length) {
+    handlePo(btn, checkedArray) {
+      if (!checkedArray.length) {
         util.ddToast({ type: 'fail', text: '请先选择需要采购的请购单' })
         return
       }
       dd.confirm({
         title: '温馨提示',
-        content: `确认将已勾选的${checked.length}张请购单转采购吗?`,
+        content: `确认将已勾选的${checkedArray.length}张请购单转采购吗?`,
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         success: (res) => {
           if (res.confirm) {
-            let options = {
-              url: '/business/build-po',
-              params: checked
+            let array = []
+            for (let i = 0; i < checkedArray.length; i++) {
+              if (checkedArray[i].doc_status === 'agree') {
+                array.push(checkedArray[i].id)
+              }
             }
+            let options = { url: '/business/build-po', params: array }
             http.post(options).then(res => {
               if (res.status === 0) {
                 util.ddToast({ type: 'success', text: '转采购成功' })
@@ -97,6 +100,40 @@ listPage({
                 this.checkboxInvisible()
               } else {
                 util.ddToast({ type: 'fail', text: res.message || '转采购失败' })
+              }
+            })
+          }
+        }
+      })
+    },
+
+    // 删除
+    handleListDelete(btn, checkedArray) {
+      if (!checkedArray.length) {
+        util.ddToast({ type: 'fail', text: '请先选择需要删除的项' })
+        return
+      }
+      dd.confirm({
+        title: '温馨提示',
+        content: `确认删除已勾选的${checkedArray.length}项吗?`,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        success: (res) => {
+          if (res.confirm) {
+            let array = []
+            for (let i = 0; i < checkedArray.length; i++) {
+              if (checkedArray[i].doc_status === 'draft') {
+                array.push(checkedArray[i].id)
+              }
+            }
+            let options = { url: '/business/por', params: array }
+            http.delete(options).then(res => {
+              if (res.status === 0) {
+                util.ddToast({ type: 'success', text: `成功删除${array.length}项` })
+                this.refresh()
+                this.checkboxInvisible()
+              } else {
+                util.ddToast({ type: 'fail', text: res.message || '删除失败' })
               }
             })
           }

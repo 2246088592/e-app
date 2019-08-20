@@ -2,6 +2,7 @@
 node_modules
 /dist
 .tea
+.svn
 
 # Log files
 npm-debug.log*

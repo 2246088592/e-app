@@ -274,7 +274,7 @@ Component({
       let arr = []
       this.data.array.forEach((item) => {
         if (item.checked) {
-          arr.push(item.id)
+          arr.push(item)
         }
       })
       this.$spliceData({
@@ -375,7 +375,7 @@ Component({
           if (res.confirm) {
             let options = {
               url: this.props.bizObj.url,
-              params: this.data.checkedArray
+              params: this.data.checkedArray.map(item => item.id)
             }
             http.delete(options).then(res => {
               if (res.status === 0) {
