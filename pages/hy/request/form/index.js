@@ -79,10 +79,14 @@ formPage({
     }
   ],
 
-  // 初始化前
+  // 钩子函数-初始化前
   beforeOnLoad(query) {
     return new Promise((resolve, reject) => {
       if (this.list && this.list.data) {
+        // 当前状态不可编辑
+        if (this.list.data.id && this.list.data.doc_status !== 'draft') {
+          this.setData({ disabled: true })
+        }
         // 获取耗材明细
         http.get({ url: '/business/por-detail', params: { params: JSON.stringify({ pid: this.list.data.id }) } }).then(res => {
           if (res.status === 0) {
@@ -100,12 +104,8 @@ formPage({
             util.ddToast({ type: 'success', text: res.message || '耗材明细请求失败' })
             resolve()
           }
-        }).catch(err => {
-          resolve()
-        })
-      } else {
-        resolve()
-      }
+        }).catch(err => { resolve() })
+      } else { resolve() }
     })
   },
 
@@ -128,6 +128,7 @@ formPage({
     handleSubmit() {
       this.handlePost({
         url: '/business/por/commit',
+        autoCheck: true,
         successText: '提交成功',
         failText: '提交失败'
       })

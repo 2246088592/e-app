@@ -4,57 +4,59 @@ import http from '/src/http/index.js'
 let app = getApp()
 
 // 克隆业务对象方法
-function cbo(obj) {
+function cbo(obj, disabled) {
   let str = JSON.stringify(obj, (k, v) => {
     // 由于传递参数时不支持函数，将校验函数改成布尔类型（用于标记是否存在自定义校验函数）
     if (k === 'validate' && typeof v === 'function') { return true }
     return v
   })
-  return JSON.parse(str)
+  let c = JSON.parse(str)
+  if (disabled) { c['disabled'] = true }
+  return c
 }
 
 // 初始化业务对象方法
-function initBizObj(bizObj, fid) {
+function initBizObj(bizObj, fid, disabled) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let newc = { ...cbo(c), ci: ci, fid: fid }
-      newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
+      let newc = { ...cbo(c, disabled), ci: ci, fid: fid }
+      newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, fid: fid, sci: sci } })
       if (c.children && c.children.length) {
         newc.children = c.children.map((sf, sfi) => {
-          return sf.map((sc, sci) => { return { ...cbo(sc), ci: ci, sfi: sfi, sci: sci, fid: fid } })
+          return sf.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, sfi: sfi, sci: sci, fid: fid } })
         })
       } else {
-        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci } })]
+        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, fid: fid, sfi: 0, sci: sci } })]
       }
       return newc
     }
-    return { ...cbo(c), ci: ci, fid: fid }
+    return { ...cbo(c, disabled), ci: ci, fid: fid }
   })
 }
 
 // 初始化业务对象并给表单赋值数据
-function initFormData(bizObj, fid, data) {
+function initFormData(bizObj, fid, data, disabled) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
-      let newc = { ...cbo(c), ci: ci, fid: fid }
+      let newc = { ...cbo(c, disabled), ci: ci, fid: fid }
       c.subform.push({ key: 'id' })
-      newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sci: sci } })
+      newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, fid: fid, sci: sci } })
       newc.children = []
       if (data[newc.key] && data[newc.key].length) {
         for (let sfi = 0; sfi < data[newc.key].length; sfi++) {
           let sf = data[newc.key][sfi]
           newc.children.push(c.subform.map((sc, sci) => {
-            let _sc = { ...cbo(sc), ci: ci, fid: fid, sfi: sfi, sci: sci }
+            let _sc = { ...cbo(sc, disabled), ci: ci, fid: fid, sfi: sfi, sci: sci }
             if (sf[_sc.key]) { _sc.value = sf[_sc.key] }
             return _sc
           }))
         }
       } else {
-        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc), ci: ci, fid: fid, sfi: 0, sci: sci } })]
+        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, fid: fid, sfi: 0, sci: sci } })]
       }
       return newc
     }
-    let _c = { ...cbo(c), ci: ci, fid: fid }
+    let _c = { ...cbo(c, disabled), ci: ci, fid: fid }
     if (data[_c.key]) { _c.value = data[_c.key] }
     return _c
   })
@@ -92,7 +94,9 @@ export default (f) => {
       // 表单背景，默认透明
       background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)',
       // 表单提交格式，是否带有明细表，默认无
-      detail: f.detail !== undefined ? f.detail : false
+      detail: f.detail !== undefined ? f.detail : false,
+      // 表单组件是否禁用
+      disabled: f.disabled !== undefined ? f.disabled : false
     },
 
     // 加载
@@ -111,7 +115,7 @@ export default (f) => {
       }
       // 设置业务对象
       this.setData({
-        bizObj: this.list.data ? initFormData(f.bizObj, this.fid, this.list.data) : initBizObj(f.bizObj, this.fid)
+        bizObj: this.list.data ? initFormData(f.bizObj, this.fid, this.list.data, this.data.disabled) : initBizObj(f.bizObj, this.fid, this.data.disabled)
       }, () => {
         // 初始化后函数
         if (f.afterOnLoad) {

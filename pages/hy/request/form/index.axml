@@ -1,1 +1,1 @@
-<e-form btnPos="{{btnPos}}" background="{{background}}" bizObj="{{bizObj}}" onRules="onRules"></e-form>
+<e-form bizObj="{{bizObj}}" btnPos="{{btnPos}}" disabled="{{disabled}}" onRules="onRules" background="{{background}}"></e-form>

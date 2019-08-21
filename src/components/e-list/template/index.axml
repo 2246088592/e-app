@@ -124,10 +124,6 @@
       <text class="color-label">状态：</text>
       <text class="color-bg-title">{{doc_status_text}}</text>
     </view>
-    <view>
-      <text class="color-label">备注：</text>
-      <text class="color-bg-title">{{remark}}</text>
-    </view>
   </view>
 </template>
 <!-- 领用单 -->

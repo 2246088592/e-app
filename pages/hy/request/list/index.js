@@ -95,7 +95,7 @@ listPage({
             let options = { url: '/business/build-po', params: array }
             http.post(options).then(res => {
               if (res.status === 0) {
-                util.ddToast({ type: 'success', text: '转采购成功' })
+                util.ddToast({ type: 'success', text: `${array.length}张请购单转采购成功` })
                 this.refresh()
                 this.checkboxInvisible()
               } else {
@@ -129,7 +129,7 @@ listPage({
             let options = { url: '/business/por', params: array }
             http.delete(options).then(res => {
               if (res.status === 0) {
-                util.ddToast({ type: 'success', text: `成功删除${array.length}项` })
+                util.ddToast({ type: 'success', text: `${array.length}张请购单删除成功` })
                 this.refresh()
                 this.checkboxInvisible()
               } else {

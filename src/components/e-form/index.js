@@ -2,10 +2,11 @@ import util from '/src/libs/util.js'
 
 Component({
   props: {
-    btnPos: '',
-    background: '',
     bizObj: [],
-    onRules: () => []
+    btnPos: '',
+    disabled: false,
+    onRules: () => [],
+    background: ''
   },
 
   didMount() {
