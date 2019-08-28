@@ -19,7 +19,6 @@ listPage({
     form: '/pages/hy/request/form/index'
   },
 
-
   // 列表加载完成触发，每次加载都触发一次，参数为返回数据
   afterLoad(data) {
     data.items.map(item => {
@@ -76,12 +75,12 @@ listPage({
     // 将请购单转为采购单
     handlePo(btn, checkedArray) {
       if (!checkedArray.length) {
-        util.ddToast({ type: 'fail', text: '请先选择需要采购的请购单' })
+        util.ddToast({ type: 'fail', text: '请先选择需要转采购的请购单' })
         return
       }
       dd.confirm({
         title: '温馨提示',
-        content: `确认将已勾选的${checkedArray.length}张请购单转采购吗?`,
+        content: `确认将已勾选的${checkedArray.length}张请购单转为采购单吗?`,
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         success: (res) => {
@@ -95,11 +94,11 @@ listPage({
             let options = { url: '/business/build-po', params: array }
             http.post(options).then(res => {
               if (res.status === 0) {
-                util.ddToast({ type: 'success', text: `${array.length}张请购单转采购成功` })
+                util.ddToast({ type: 'success', text: `${array.length}张请购单转采购单成功` })
                 this.refresh()
                 this.checkboxInvisible()
               } else {
-                util.ddToast({ type: 'fail', text: res.message || '转采购失败' })
+                util.ddToast({ type: 'fail', text: res.message || '转采购单失败' })
               }
             })
           }
@@ -110,7 +109,7 @@ listPage({
     // 删除
     handleListDelete(btn, checkedArray) {
       if (!checkedArray.length) {
-        util.ddToast({ type: 'fail', text: '请先选择需要删除的项' })
+        util.ddToast({ type: 'fail', text: '请先选择需要删除的请购单' })
         return
       }
       dd.confirm({

@@ -1,1 +1,7 @@
 <e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}" background="{{background}}" searchBar="{{searchBar}}"></e-list>
+<e-dialog id="stockInForm">
+  <view style="background-color: rgba(25, 31, 37, .05);" class="pt-3">
+    <e-picker model="{{stockInForm[0]}}"/>
+    <e-date-picker model="{{stockInForm[1]}}"/>
+  </view>
+</e-dialog>

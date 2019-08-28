@@ -157,6 +157,18 @@ const util = {
         resolve(false)
       })
     })
+  },
+
+  // 根据id获取组件实例
+  getComponentById(componentId) {
+    if (!componentId) {
+      return false
+    }
+    let currentPage = getCurrentPages().slice(-1)[0]
+    let instances = function(id) {
+      return this.$getComponentBy((instance) => { return instance.props.id === id }, { returnOnFirstMatch: true })
+    }.apply(currentPage, [componentId])
+    return instances.length ? instances[0] : false
   }
 }
 

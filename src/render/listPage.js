@@ -16,7 +16,9 @@ export default (l) => {
       // 请求参数
       params: l.params || {},
       // 过滤对象数组，用于生成过滤框内的组件，类似formPage的bizObj
-      filter: l.filter || []
+      filter: l.filter || [],
+      // 其他自定义数据
+      ...l.data
     },
 
     async onLoad(query) {
@@ -39,6 +41,14 @@ export default (l) => {
     async afterLoad() {
       if (l.afterLoad) {
         await l.afterLoad.apply(this, arguments)
+      }
+    },
+
+    // 加载完成
+    onReady() {
+      // 执行业务onReady
+      if (l.onReady) {
+        l.onReady.apply(this, arguments)
       }
     },
 

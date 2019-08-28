@@ -69,6 +69,18 @@ formPage({
           necessary: true
         },
         {
+          label: '规格型号',
+          key: 'cons_standard',
+          component: 'e-input',
+          disabled: true
+        },
+        {
+          label: '单位',
+          key: 'cons_unit',
+          component: 'e-input',
+          disabled: true
+        },
+        {
           label: '请购数量',
           key: 'apply_qty',
           component: 'e-input',
@@ -78,6 +90,18 @@ formPage({
       ]
     }
   ],
+
+  // 表单change
+  formChange(event) {
+    if (event.key === 'cons_id') {
+      let cons_standard = `bizObj[${event.ci}].children[${event.sfi}][1].value`
+      let cons_unit = `bizObj[${event.ci}].children[${event.sfi}][2].value`
+      this.setData({
+        [cons_standard]: event.value.cons_standard || '',
+        [cons_unit]: event.value.cons_unit || ''
+      })
+    }
+  },
 
   // 钩子函数-初始化前
   beforeOnLoad(query) {
@@ -91,12 +115,7 @@ formPage({
         http.get({ url: '/business/por-detail', params: { params: JSON.stringify({ pid: this.list.data.id }) } }).then(res => {
           if (res.status === 0) {
             this.list.data.children = res.data.map(item => {
-              item.cons_id = {
-                id: item.cons_id,
-                cons_name: item.cons_name,
-                cons_standard: item.cons_standard,
-                cons_unit: item.cons_unit
-              }
+              item.cons_id = { id: item.cons_id, cons_name: item.cons_name }
               return item
             })
             resolve()
@@ -111,12 +130,9 @@ formPage({
 
   // 保存前处理
   beforeSubmit(data) {
-    data.children = data.children.map(item => {
+    data.children.map(item => {
       item.cons_name = item.cons_id.cons_name
-      item.cons_standard = item.cons_id.cons_standard
-      item.cons_unit = item.cons_id.cons_unit
       item.cons_id = item.cons_id.id
-      return item
     })
     data.apply_person = JSON.stringify(data.apply_person[0])
     data.apply_dept = JSON.stringify(data.apply_dept[0])
