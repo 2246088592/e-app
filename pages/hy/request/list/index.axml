@@ -1,1 +1,6 @@
 <e-list bizObj="{{bizObj}}" btnPos="{{btnPos}}" background="{{background}}" searchBar="{{searchBar}}"></e-list>
+<e-dialog id="receiveForm">
+  <view style="background-color: rgba(25, 31, 37, .05);" class="pt-3">
+    <e-picker model="{{receiveForm[0]}}"/>
+  </view>
+</e-dialog>

@@ -5,7 +5,6 @@ import util from '/src/libs/util.js'
 listPage({
   // 自定义数据
   data: {
-    dialogStockInVisible: false,
     stockInForm: [
       {
         path: 'stockInForm[0]',
@@ -49,18 +48,22 @@ listPage({
         util.ddToast({ type: 'fail', text: '请先选择需要入库的采购单' })
         return
       }
+      let array = []
+      for (let i = 0; i < checkedArray.length; i++) {
+        if (checkedArray[i].doc_status === 'agree') {
+          array.push(checkedArray[i].id)
+        }
+      }
+      if (!array.length) {
+        util.ddToast({ type: 'fail', text: '没有满足入库条件的采购单' })
+        return
+      }
       let dialogStockIn = util.getComponentById('stockInForm')
       dialogStockIn.confirm({
         title: '入库确认',
         success: () => {
           if (!util.baseValidate(this.data.stockInForm)) {
             return false
-          }
-          let array = []
-          for (let i = 0; i < checkedArray.length; i++) {
-            if (checkedArray[i].doc_status === 'agree') {
-              array.push(checkedArray[i].id)
-            }
           }
           let options = {
             url: `/business/stockin-wv?warehouseId=${this.data.stockInForm[0].value.id}`,

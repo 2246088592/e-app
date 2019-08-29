@@ -1,6 +1,6 @@
 <view class="fixed pin flex items-center justify-center transition-300 {{visible ? 'bg-color-sub-title pointer-events-auto' : 'pointer-events-none'}}">
   <view class="flex flex-col radius-2 overflow-hidden transition-300 shadow-md {{className}}" style="background: {{background}}; width: {{width}}; height: {{height}}; transform: {{visible ? 'translate3d(0, 0, 0)' : 'translate3d(113%, 0, 0)'}};">
-    <text a:if="{{title}}" class="relative border-bottom px-2 py-3 color-primary">{{title}}</text>
+    <text a:if="{{title}}" class="relative border-bottom px-2 text-base color-primary" style="height: 90rpx; line-height: 90rpx;">{{title}}</text>
     <scroll-view class="flex flex-1 flex-col" scroll-y="{{true}}">
       <slot></slot>
     </scroll-view>

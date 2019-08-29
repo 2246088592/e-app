@@ -3,6 +3,18 @@ import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 
 listPage({
+  // 自定义数据
+  data: {
+    receiveForm: [
+      {
+        path: 'receiveForm[0]',
+        label: '仓库',
+        bindkey: 'wh_name',
+        necessary: true
+      }
+    ]
+  },
+
   // 搜索框
   searchBar: {
     bindkey: 'doc_number',
@@ -19,6 +31,11 @@ listPage({
     form: '/pages/hy/request/form/index'
   },
 
+  // 加载完成
+  onReady() {
+    this.getWhs()
+  },
+
   // 列表加载完成触发，每次加载都触发一次，参数为返回数据
   afterLoad(data) {
     data.items.map(item => {
@@ -30,6 +47,21 @@ listPage({
   },
 
   methods: {
+    // 获取仓库数据
+    getWhs() {
+      let options = {
+        url: '/business/warehouse',
+        params: { pageable: true, page: 1, limit: 10000, idField: 'id', sort: 'desc', orderBy: 'create_on' }
+      }
+      http.get(options).then(res => {
+        if (res.status === 0) {
+          this.setData({ 'receiveForm[0].array': res.data.items })
+        } else {
+          util.ddToast({ type: 'fail', text: res.message || '获取仓库列表失败' })
+        }
+      })
+    },
+
     // 新增跳转
     handleOpenAdd() {
       if (!this.data.bizObj.form) {
@@ -44,30 +76,39 @@ listPage({
     // 将请购单转为领用单
     handleReceive(btn, checkedArray) {
       if (!checkedArray.length) {
-        util.ddToast({ type: 'fail', text: '请先选择需要通知领用的请购单' })
+        util.ddToast({ type: 'fail', text: '请先选择需要转领用的请购单' })
         return
       }
-      dd.confirm({
-        title: '温馨提示',
-        content: `确认通知已勾选的${checkedArray.length}张请购单领用吗?`,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        success: (res) => {
-          if (res.confirm) {
-            let options = {
-              url: '/business/stockout-wv',
-              params: checkedArray
-            }
-            http.post(options).then(res => {
-              if (res.status === 0) {
-                util.ddToast({ type: 'success', text: '通知领用成功' })
-                this.refresh()
-                this.checkboxInvisible()
-              } else {
-                util.ddToast({ type: 'fail', text: res.message || '通知领用失败' })
-              }
-            })
+      let array = []
+      for (let i = 0; i < checkedArray.length; i++) {
+        if (checkedArray[i].doc_status === 'agree') {
+          array.push(checkedArray[i].id)
+        }
+      }
+      if (!array.length) {
+        util.ddToast({ type: 'fail', text: '没有满足领用条件的请购单' })
+        return
+      }
+      let dialogReceive = util.getComponentById('receiveForm')
+      dialogReceive.confirm({
+        title: '领用确认',
+        success: () => {
+          if (!util.baseValidate(this.data.receiveForm)) {
+            return false
           }
+          let options = {
+            url: `/business/stockout-wv?warehouseId=${this.data.receiveForm[0].value.id}`,
+            params: array
+          }
+          http.post(options).then(res => {
+            if (res.status === 0) {
+              util.ddToast({ type: 'success', text: `${array.length}张请购单转领用成功` })
+              this.refresh()
+              this.checkboxInvisible()
+            } else {
+              util.ddToast({ type: 'fail', text: res.message || '转领用失败' })
+            }
+          })
         }
       })
     },
