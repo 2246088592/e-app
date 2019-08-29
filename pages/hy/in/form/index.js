@@ -4,7 +4,7 @@ import util from '/src/libs/util.js'
 
 formPage({
   // 提交地址
-  url: '/business/po',
+  url: '/business/stockin',
 
   // 是否带有明细
   detail: true,
@@ -15,16 +15,17 @@ formPage({
   // 业务对象
   bizObj: [
     {
-      label: '订单编号',
+      label: '入库单号',
       key: 'doc_number',
       component: 'e-input',
       disabled: true,
       placeholder: '系统自动生成'
     },
     {
-      label: '订单日期',
-      key: 'doc_date',
+      label: '入库日期',
+      key: 'stockin_date',
       component: 'e-date-picker',
+      default: true,
       disabled: true,
       format: 'yyyy-MM-dd'
     },
@@ -36,11 +37,15 @@ formPage({
     },
     {
       label: '供应商',
-      key: 'supplier_id',
-      component: 'e-search',
-      bindlist: '/pages/hy/base/supplier/list/index',
-      bindkey: 'name',
-      necessary: true
+      key: 'supplier_name',
+      component: 'e-input',
+      disabled: true
+    },
+    {
+      label: '仓库',
+      key: 'warehouse_id',
+      component: 'e-input',
+      disabled: true
     },
     {
       label: '状态',
@@ -79,8 +84,8 @@ formPage({
           disabled: true
         },
         {
-          label: '订单数量',
-          key: 'order_qty',
+          label: '入库数量',
+          key: 'stockin_qty',
           component: 'e-input',
           number: true,
           necessary: true
@@ -89,7 +94,7 @@ formPage({
     }
   ],
 
-  // 初始化前
+  // 钩子函数-初始化前
   beforeOnLoad(query) {
     return new Promise((resolve, reject) => {
       if (this.list && this.list.data) {
@@ -98,34 +103,24 @@ formPage({
           this.setData({ disabled: true })
         }
         // 获取耗材明细
-        http.get({ url: '/business/po-detail', params: { params: JSON.stringify({ pid: this.list.data.id }) } }).then(res => {
+        http.get({ url: '/business/stockin-detail', params: { params: JSON.stringify({ pid: this.list.data.id }) } }).then(res => {
           if (res.status === 0) {
             this.list.data.children = res.data
             resolve()
           } else {
-            util.ddToast({ type: 'success', text: res.message || '表单明细请求失败' })
+            util.ddToast({ type: 'success', text: res.message || '耗材明细请求失败' })
             resolve()
           }
-        }).catch(err => {
-          resolve()
-        })
-      } else {
-        resolve()
-      }
+        }).catch(err => { resolve() })
+      } else { resolve() }
     })
-  },
-
-  // 保存前处理
-  beforeSubmit(data) {
-    data.supplier_id = data.supplier_id.id
-    return Promise.resolve()
   },
 
   methods: {
     // 审核
     handleCheck() {
       this.handlePost({
-        url: '/business/po/agree',
+        url: '/business/stockin/agree',
         autoCheck: true,
         successText: '审核成功',
         failText: '审核失败'

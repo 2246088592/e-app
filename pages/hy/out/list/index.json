@@ -1,0 +1,6 @@
+{
+  "pullRefresh": true,
+  "usingComponents":{
+    "e-list": "/src/components/e-list/index"
+  }
+}

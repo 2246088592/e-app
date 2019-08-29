@@ -53,6 +53,9 @@ listPage({
       dialogStockIn.confirm({
         title: '入库确认',
         success: () => {
+          if (!util.baseValidate(this.data.stockInForm)) {
+            return false
+          }
           let array = []
           for (let i = 0; i < checkedArray.length; i++) {
             if (checkedArray[i].doc_status === 'agree') {
@@ -95,7 +98,7 @@ listPage({
                 array.push(checkedArray[i].id)
               }
             }
-            let options = { url: '/business/po', params: array }
+            let options = { url: this.data.bizObj.url, params: array }
             http.delete(options).then(res => {
               if (res.status === 0) {
                 util.ddToast({ type: 'success', text: `${array.length}张采购单删除成功` })

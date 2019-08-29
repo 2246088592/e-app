@@ -25,6 +25,12 @@
 		"pages/hy/po/form/index",
 		"pages/hy/po/list/index",
 
+    "pages/hy/in/form/index",
+		"pages/hy/in/list/index",
+
+    "pages/hy/out/form/index",
+		"pages/hy/out/list/index",
+
 		"pages/process/index"
 	],
 	"window": {

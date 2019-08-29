@@ -125,7 +125,7 @@ listPage({
                 array.push(checkedArray[i].id)
               }
             }
-            let options = { url: '/business/por', params: array }
+            let options = { url: this.data.bizObj.url, params: array }
             http.delete(options).then(res => {
               if (res.status === 0) {
                 util.ddToast({ type: 'success', text: `${array.length}张请购单删除成功` })

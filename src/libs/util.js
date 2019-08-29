@@ -169,6 +169,33 @@ const util = {
       return this.$getComponentBy((instance) => { return instance.props.id === id }, { returnOnFirstMatch: true })
     }.apply(currentPage, [componentId])
     return instances.length ? instances[0] : false
+  },
+
+  // 通用基础组件校验
+  baseValidate(componentArr) {
+    let key = ''
+    for (let i = 0; i < componentArr.length; i++) {
+      let c = componentArr[i]
+      key = c.label
+      if (c.component === 'e-subform') {
+        for (let j = 0; j < c.children.length; j++) {
+          let sf = c.children[j]
+          for (let k = 0; k < sf.length; k++) {
+            if (sf[k].status === 'error') {
+              key += `-${j + 1}`
+              util.ddToast({ type: 'fail', text: `${sf[k].label}（${key}）${sf[k].notice}` })
+              return false
+            }
+          }
+        }
+      } else {
+        if (c.status === 'error') {
+          util.ddToast({ type: 'fail', text: key + c.notice })
+          return false
+        }
+      }
+    }
+    return true
   }
 }
 
