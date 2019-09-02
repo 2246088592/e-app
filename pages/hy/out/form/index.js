@@ -77,7 +77,7 @@ formPage({
           disabled: true
         },
         {
-          label: '单位',
+          label: '计量单位',
           key: 'cons_unit',
           component: 'e-input',
           disabled: true

@@ -45,8 +45,9 @@
     <e-loader type="13" size="16" className="p-2" loading="{{loading}}" noMore="{{!more && array.length !== 0}}"></e-loader>
   </scroll-view>
   <!-- 没有数据时的图片提示 -->
-  <view a:if="{{!loading && array.length === 0}}" style="top: 104rpx;" class="absolute pin-x pin-b flex items-center justify-center">
-    <image class="w-24" mode="widthFix" src="/src/assets/icon/list/null.png"/>
+  <view a:if="{{!loading && array.length === 0}}" style="top: 104rpx;" class="absolute pin-x pin-b flex flex-col items-center justify-center">
+    <image class="w-32" mode="widthFix" src="/src/assets/icon/list/null.svg"/>
+    <text class="text-xs mt-2 color-info">当前未请求到任何数据</text>
   </view>
   <!-- 过滤部件 -->
   <view class="fixed z-1 pin transition-300 {{filterVisible ? 'bg-color-sub-title pointer-events-auto' : 'pointer-events-none'}}" catchTap="handleFilterInvisible">
@@ -56,7 +57,9 @@
       </scroll-view>
       <view class="flex relative border-top">
         <button class="w-1-2 h-10 p-0 bg-opacity m-0 border-none flex items-center justify-center color-title" onTap="handleClearFilter">清空</button>
-        <button class="w-1-2 h-10 p-0 bg-opacity m-0 border-none flex items-center justify-center color-primary" onTap="handleSearchByFilter">搜索</button>
+        <button class="w-1-2 h-10 p-0 bg-opacity m-0 border-none flex items-center justify-center color-primary" onTap="handleSearchByFilter">
+          <view class="fa fa-search"/>&nbsp;搜索
+        </button>
       </view>
     </view>
   </view>

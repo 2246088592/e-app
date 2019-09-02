@@ -30,13 +30,13 @@ formPage({
       maxlength: 50
     },
     {
-      label: '规格',
+      label: '规格型号',
       key: 'cons_standard',
       component: 'e-input',
       maxlength: 50
     },
     {
-      label: '单位',
+      label: '计量单位',
       key: 'cons_unit',
       component: 'e-input',
       maxlength: 50

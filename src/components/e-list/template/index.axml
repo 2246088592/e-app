@@ -18,10 +18,6 @@
       <text class="color-label">计量单位：</text>
       <text class="color-bg-title">{{cons_unit}}</text>
     </view>
-    <view>
-      <text class="color-label">最新单价：</text>
-      <text class="color-bg-title">{{unit_price}}</text>
-    </view>
   </view>
 </template>
 <!-- 耗材分类 -->
