@@ -7,7 +7,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"dingui-mini": "^1.0.0",
-		"eventemitter3": "^3.1.0"
+		"dingui-mini": "^1.4.4",
+		"eventemitter3": "^3.1.2"
 	}
 }

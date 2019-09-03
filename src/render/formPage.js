@@ -3,7 +3,17 @@ import http from '/src/http/index.js'
 
 let app = getApp()
 
-// 克隆业务对象方法
+// 初始化业务对象方法
+function initBizObj(bizObj, fid, list, disabled) {
+  // 区分创建模式
+  if (list.data) {
+    return mode2(bizObj, fid, list.data, disabled)
+  } else {
+    return mode1(bizObj, fid, disabled)
+  }
+}
+
+// 克隆基础表单组件方法
 function cbo(obj, disabled) {
   let str = JSON.stringify(obj, (k, v) => {
     // 由于传递参数时不支持函数，将校验函数改成布尔类型（用于标记是否存在自定义校验函数）
@@ -15,8 +25,8 @@ function cbo(obj, disabled) {
   return c
 }
 
-// 初始化业务对象方法
-function initBizObj(bizObj, fid, disabled) {
+// 创建模式：新增
+function mode1(bizObj, fid, disabled) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
       let newc = { ...cbo(c, disabled), ci: ci, fid: fid }
@@ -34,25 +44,25 @@ function initBizObj(bizObj, fid, disabled) {
   })
 }
 
-// 初始化业务对象并给表单赋值数据
-function initFormData(bizObj, fid, data, disabled) {
+// 创建模式：编辑
+function mode2(bizObj, fid, data, disabled) {
   return bizObj.map((c, ci) => {
     if (c.component === 'e-subform' && c.subform && c.subform.length) {
       let newc = { ...cbo(c, disabled), ci: ci, fid: fid }
-      c.subform.push({ key: 'id' })
       newc.subform = c.subform.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, fid: fid, sci: sci } })
+      newc.subform.push({ key: 'id', ci: ci, fid: fid, sci: c.subform.length })
       newc.children = []
       if (data[newc.key] && data[newc.key].length) {
         for (let sfi = 0; sfi < data[newc.key].length; sfi++) {
           let sf = data[newc.key][sfi]
-          newc.children.push(c.subform.map((sc, sci) => {
-            let _sc = { ...cbo(sc, disabled), ci: ci, fid: fid, sfi: sfi, sci: sci }
+          newc.children.push(newc.subform.map((sc) => {
+            let _sc = { ...sc, sfi: sfi }
             if (sf[_sc.key]) { _sc.value = sf[_sc.key] }
             return _sc
           }))
         }
       } else {
-        newc.children = [c.subform.map((sc, sci) => { return { ...cbo(sc, disabled), ci: ci, fid: fid, sfi: 0, sci: sci } })]
+        newc.children = [newc.subform.map((sc) => { return { ...sc, sfi: 0 } })]
       }
       return newc
     }
@@ -84,19 +94,30 @@ function initRules(f, fid) {
   return rules
 }
 
+// 初始化data
+function initData(f) {
+  if (typeof f.data === 'function') {
+    return f.data()
+  } else {
+    return {}
+  }
+}
+
 export default (f) => {
   return Page({
     data: {
       // 提交地址，表单保存
-      url: f.url !== undefined ? f.url : '',
+      url: f.url || '',
       // 权限标记，对应按钮position
       btnPos: f.btnPos !== undefined ? f.btnPos : 30,
       // 表单背景，默认透明
-      background: f.background !== undefined ? f.background : 'rgba(0, 0, 0, 0)',
+      background: f.background || 'rgba(0, 0, 0, 0)',
       // 表单提交格式，是否带有明细表，默认无
-      detail: f.detail !== undefined ? f.detail : false,
+      detail: f.detail || false,
       // 表单组件是否禁用
-      disabled: f.disabled !== undefined ? f.disabled : false
+      disabled: f.disabled || false,
+      // 其他自定义数据
+      ...initData(f)
     },
 
     // 加载
@@ -115,7 +136,7 @@ export default (f) => {
       }
       // 设置业务对象
       this.setData({
-        bizObj: this.list.data ? initFormData(f.bizObj, this.fid, this.list.data, this.data.disabled) : initBizObj(f.bizObj, this.fid, this.data.disabled)
+        bizObj: initBizObj(f.bizObj, this.fid, this.list, this.data.disabled)
       }, () => {
         // 初始化后函数
         if (f.afterOnLoad) {

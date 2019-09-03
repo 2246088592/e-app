@@ -4,20 +4,22 @@ import util from '/src/libs/util.js'
 
 listPage({
   // 自定义数据
-  data: {
-    stockInForm: [
-      {
-        path: 'stockInForm[0]',
-        label: '仓库',
-        bindkey: 'wh_name',
-        necessary: true
-      },
-      {
-        path: 'stockInForm[1]',
-        label: '日期',
-        necessary: true
-      }
-    ]
+  data() {
+    return {
+      stockInForm: [
+        {
+          path: 'stockInForm[0]',
+          label: '仓库',
+          bindkey: 'wh_name',
+          necessary: true
+        },
+        {
+          path: 'stockInForm[1]',
+          label: '日期',
+          necessary: true
+        }
+      ]
+    }
   },
 
   // 搜索框

@@ -2,23 +2,32 @@ import util from '/src/libs/util.js'
 
 let app = getApp()
 
+// 初始化data
+function initData(l) {
+  if (typeof l.data === 'function') {
+    return l.data()
+  } else {
+    return {}
+  }
+}
+
 export default (l) => {
   return Page({
     data: {
       // 权限标记，对应按钮position
-      btnPos: l.btnPos !== undefined ? l.btnPos : { normal: 10, edit: 11 },
+      btnPos: l.btnPos !== undefined ? Object.assign({ normal: 10, edit: 11 }, l.btnPos) : { normal: 10, edit: 11 },
       // 业务对象
-      bizObj: l.bizObj,
+      bizObj: util.cloneDeep(l.bizObj),
       // 背景
-      background: l.background !== undefined ? l.background : '#FFF',
+      background: l.background || '#FFF',
       // 搜索框
       searchBar: l.searchBar !== undefined ? Object.assign({ bindkey: '', placeholder: '搜索' }, l.searchBar) : { bindkey: '', placeholder: '搜索' },
       // 请求参数
-      params: l.params || {},
+      params: l.params !== undefined ? util.cloneDeep(l.params) : {},
       // 过滤对象数组，用于生成过滤框内的组件，类似formPage的bizObj
-      filter: l.filter || [],
+      filter: l.filter !== undefined ? util.cloneDeep(l.filter) : {},
       // 其他自定义数据
-      ...l.data
+      ...initData(l)
     },
 
     async onLoad(query) {

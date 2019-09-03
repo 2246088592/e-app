@@ -21,14 +21,13 @@ Component({
     loading: false,
     // 搜索关键字
     keyword: '',
-    // 请求的页数
-    page: 1,
     // 请求参数（默认）
     params: {
-      pageable: true,
+      page: 1,
       limit: 30,
-      idField: 'id',
       sort: 'desc',
+      idField: 'id',
+      pageable: true,
       orderBy: 'create_on'
     }
   },
@@ -108,7 +107,7 @@ Component({
         array: [],
         keyword: value,
         more: true,
-        page: 1
+        'params.page': 1
       }, () => {
         this.loadMore()
       })
@@ -226,17 +225,17 @@ Component({
         loading: true
       })
       let filter = {}
+      if (this.props.searchBar.bindkey !== undefined) {
+        filter[this.props.searchBar.bindkey] = this.data.keyword
+      }
       for (let i = 0; i < this.$page.data.filter.length; i++) {
         let item = this.$page.data.filter[i]
         filter[item.key] = item.value
       }
-      if (this.props.searchBar.bindkey !== undefined) {
-        filter[this.props.searchBar.bindkey] = this.data.keyword
-      }
       if (this.$page.esearch && this.$page.esearch.filter) {
         Object.assign(filter, this.$page.esearch.filter)
       }
-      let params = Object.assign({ ...this.data.params }, this.$page.data.params, { page: this.data.page, params: JSON.stringify(filter) })
+      let params = Object.assign({ ...this.data.params }, this.$page.data.params, { params: JSON.stringify(filter) })
       let options = {
         url: this.props.bizObj.url,
         params: params
@@ -249,7 +248,7 @@ Component({
           })
           this.setData({
             more: res.data.items.length === params.limit,
-            page: this.data.page + 1
+            'params.page': this.data.params.page + 1
           })
         } else {
           util.ddToast({ type: 'fail', text: res.message || '请求列表数据失败' })

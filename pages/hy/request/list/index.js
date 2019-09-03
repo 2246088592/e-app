@@ -4,15 +4,17 @@ import util from '/src/libs/util.js'
 
 listPage({
   // 自定义数据
-  data: {
-    receiveForm: [
-      {
-        path: 'receiveForm[0]',
-        label: '仓库',
-        bindkey: 'wh_name',
-        necessary: true
-      }
-    ]
+  data() {
+    return {
+      receiveForm: [
+        {
+          path: 'receiveForm[0]',
+          label: '仓库',
+          bindkey: 'wh_name',
+          necessary: true
+        }
+      ]
+    }
   },
 
   // 搜索框

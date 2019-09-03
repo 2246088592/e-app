@@ -56,9 +56,11 @@
         <slot name="filter"></slot>
       </scroll-view>
       <view class="flex relative border-top">
-        <button class="w-1-2 h-10 p-0 bg-opacity m-0 border-none flex items-center justify-center color-title" onTap="handleClearFilter">清空</button>
+        <button class="w-1-2 h-10 p-0 bg-opacity m-0 border-none flex items-center justify-center color-title" onTap="handleClearFilter">
+          <view class="fa fa-eraser mr-1"/>清空
+        </button>
         <button class="w-1-2 h-10 p-0 bg-opacity m-0 border-none flex items-center justify-center color-primary" onTap="handleSearchByFilter">
-          <view class="fa fa-search"/>&nbsp;搜索
+          <view class="fa fa-search mr-1"/>搜索
         </button>
       </view>
     </view>
