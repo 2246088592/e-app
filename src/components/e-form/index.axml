@@ -7,6 +7,7 @@
       <e-address a:elif="{{c.component === 'e-address'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-address>
       <e-cascader a:elif="{{c.component === 'e-cascader'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-cascader>
       <e-date-picker a:elif="{{c.component === 'e-date-picker'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-date-picker>
+      <e-interval a:elif="{{c.component === 'e-interval'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-interval>
       <e-dept-chooser a:elif="{{c.component === 'e-dept-chooser'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-dept-chooser>
       <e-picker a:elif="{{c.component === 'e-picker'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-picker>
       <e-progress-bar a:elif="{{c.component === 'e-progress-bar'}}" model="{{c}}" onValidate="{{c.validate ? 'on_' + c.fid + '_' + c.key : undefined}}"></e-progress-bar>
@@ -32,6 +33,7 @@
             <e-address a:elif="{{sc.component === 'e-address'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-address>
             <e-cascader a:elif="{{sc.component === 'e-cascader'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-cascader>
             <e-date-picker a:elif="{{sc.component === 'e-date-picker'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-date-picker>
+            <e-interval a:elif="{{sc.component === 'e-interval'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-interval>
             <e-dept-chooser a:elif="{{sc.component === 'e-dept-chooser'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-dept-chooser>
             <e-picker a:elif="{{sc.component === 'e-picker'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-picker>
             <e-progress-bar a:elif="{{sc.component === 'e-progress-bar'}}" model="{{sc}}" onValidate="{{sc.validate ? 'on_' + sc.fid + '_' + sc.key : undefined}}"></e-progress-bar>

@@ -1,7 +1,6 @@
 import formPage from '/src/render/formPage'
 import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
-import { on_amount } from '/src/assets/js/RegExp.js'
 
 formPage({
   // 提交地址
@@ -46,9 +45,13 @@ formPage({
       key: 'unit_price',
       component: 'e-input',
       number: true,
-      notice: '格式不正确，请输入至多两位小数的正数',
+      notice: '格式不正确，请输入至多六位小数的正数',
       validate: (val) => {
-        return on_amount(val)
+        let reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,6})))$/
+        if (!reg.test(val) || val.toString().split('.')[0].length > 18 || !val) {
+          return false
+        }
+        return true
       }
     },
     {
