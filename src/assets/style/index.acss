@@ -2083,7 +2083,7 @@
 }
 
 .border-none {
-  border: none;
+  border: none!important;
 }
 
 /* 圆角 */

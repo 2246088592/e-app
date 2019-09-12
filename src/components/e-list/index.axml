@@ -16,7 +16,7 @@
     </block>
     <!-- 搜索框 -->
     <view a:else class="flex-1 flex items-center">
-      <dingui-search-bar className="flex-1" value="{{keyword}}" placeholder="{{searchBar.placeholder}}" onDmInput="handleInput" onDmClear="handleClear" />
+      <dingui-search-bar className="flex-1 border-none" value="{{keyword}}" placeholder="{{searchBar.placeholder}}" onDmInput="handleInput" onDmClear="handleClear" />
       <view class="ml-2 h-9 color-primary flex items-center" onTap="handleSearchInvisible">取消</view>
     </view>
   </view>

@@ -3,11 +3,17 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "app.js",
-	"scripts": {},
+	"scripts": {
+		"docs:dev": "vuepress dev docs",
+		"docs:build": "vuepress build docs"
+	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"dingui-mini": "^1.4.4",
 		"eventemitter3": "^3.1.2"
+	},
+	"devDependencies": {
+		"vuepress": "^1.0.4"
 	}
 }

@@ -19,7 +19,7 @@ Component({
 
   methods: {
     // 打开datepicker
-    handleTap1(event) {
+    handleTapStart(event) {
       if (this.props.model.disabled) {
         return
       }
@@ -33,7 +33,7 @@ Component({
     },
 
     // 打开datepicker
-    handleTap2(event) {
+    handleTapEnd(event) {
       if (this.props.model.disabled) {
         return
       }
@@ -47,7 +47,7 @@ Component({
     },
 
     // 清空开始时间
-    clear1() {
+    clearStart() {
       if (this.props.model.disabled) {
         return
       }
@@ -56,7 +56,7 @@ Component({
     },
 
     // 清空结束时间
-    clear2() {
+    clearEnd() {
       if (this.props.model.disabled) {
         return
       }

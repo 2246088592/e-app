@@ -288,15 +288,12 @@ Component({
 
     // 重置过滤条件
     handleClearFilter() {
-      let filter = {}
-      for (let i = 0; i < this.$page.data.filter.length; i++) {
-        let item = this.$page.data.filter[i]
-        let key = `filter[${i}].value`
-        filter[key] = item.component === 'e-dept-chooser' || item.component === 'e-user-chooser' ? [] : ''
-      }
-      this.$page.setData(filter, () => {
-        this.reset('')
-      })
+      // let filter = {}
+      // for (let i = 0; i < this.$page.data.filter.length; i++) {
+      //   let item = this.$page.data.filter[i]
+      //   let key = `filter[${i}].value`
+      //   filter[key] = item.component === 'e-dept-chooser' || item.component === 'e-user-chooser' ? [] : ''
+      // }
     },
 
     // 无效事件
