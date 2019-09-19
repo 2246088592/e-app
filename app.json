@@ -29,9 +29,7 @@
 		"pages/hy/in/list/index",
 
     "pages/hy/out/form/index",
-		"pages/hy/out/list/index",
-
-		"pages/process/index"
+		"pages/hy/out/list/index"
 	],
 	"window": {
 		"defaultTitle": "耗材管理系统",
@@ -45,15 +43,9 @@
 		"backgroundColor": "",
 		"items": [{
 				"pagePath": "pages/home/index",
-				"name": "首页",
-				"icon": "/src/assets/icon/tabBar/home.png",
-				"activeIcon": "/src/assets/icon/tabBar/home_active.png"
-			},
-			{
-				"pagePath": "pages/process/index",
-				"name": "设置",
-				"icon": "/src/assets/icon/tabBar/settings.png",
-				"activeIcon": "/src/assets/icon/tabBar/settings_active.png"
+				"name": "菜单",
+				"icon": "/src/assets/icon/tabBar/apps.png",
+				"activeIcon": "/src/assets/icon/tabBar/apps_active.png"
 			}
 		]
 	}
