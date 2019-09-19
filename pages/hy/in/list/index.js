@@ -3,6 +3,9 @@ import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 
 listPage({
+  // 禁止移动端的按钮
+  btnPos: { normal: -1, edit: -1 },
+
   // 搜索框
   searchBar: {
     bindkey: 'doc_number',

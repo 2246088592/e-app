@@ -9,8 +9,11 @@ formPage({
   // 是否带有明细
   detail: true,
 
-  // 权限按钮位置
-  btnPos: 20,
+  // 权限按钮位置，移动端禁用
+  btnPos: -1,
+
+  // 移动端表单禁用
+  disabled: true,
 
   // 业务对象
   bizObj: [

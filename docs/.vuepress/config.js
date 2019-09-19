@@ -18,7 +18,7 @@ module.exports = ctx => ({
     // 上一次更新时间前缀
     lastUpdated: '上次更新',
     // 源码仓库链接
-    repo: 'cjl255352/e-app/tree/dev',
+    repo: 'cjl255352/e-app',
     // 自定义仓库链接文字
     repoLabel: '查看源码',
     // 导航栏

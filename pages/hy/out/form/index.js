@@ -10,7 +10,7 @@ formPage({
   detail: true,
 
   // 权限按钮位置
-  btnPos: 20,
+  btnPos: 22,
 
   // 业务对象
   bizObj: [
@@ -26,7 +26,8 @@ formPage({
       key: 'stockout_date',
       component: 'e-date-picker',
       necessary: true,
-      format: 'yyyy-MM-dd'
+      format: 'yyyy-MM-dd',
+      disabled: true
     },
     {
       label: '领用人',
@@ -38,11 +39,11 @@ formPage({
       label: '领用部门',
       key: 'stockout_dept',
       component: 'e-dept-chooser',
-      disabled: true
+      necessary: true
     },
     {
       label: '仓库',
-      key: 'warehouse_id',
+      key: 'wh_name',
       component: 'e-input',
       disabled: true
     },
@@ -56,7 +57,8 @@ formPage({
       label: '备注',
       key: 'remark',
       component: 'e-text-area',
-      maxlength: 200
+      maxlength: 200,
+      disabled: true
     },
     {
       label: '耗材',
@@ -93,7 +95,8 @@ formPage({
           key: 'stockout_qty',
           component: 'e-input',
           number: true,
-          necessary: true
+          necessary: true,
+          disabled: true
         }
       ]
     }
@@ -102,9 +105,9 @@ formPage({
   // 钩子函数-初始化前
   beforeOnLoad(query) {
     return new Promise((resolve, reject) => {
-      if (this.list && this.list.data) {
+      if (this.list && this.list.data && this.list.data.id) {
         // 当前状态不可编辑
-        if (this.list.data.id && this.list.data.doc_status !== 'draft') {
+        if (this.list.data.doc_status === 'draft' || this.list.data.stockout_person.length) {
           this.setData({ disabled: true })
         }
         // 获取耗材明细
@@ -139,6 +142,43 @@ formPage({
         autoCheck: true,
         successText: '审核成功',
         failText: '审核失败'
+      })
+    },
+
+    // 领用
+    handleAccept() {
+      // 校验部门
+      if (!this.data.bizObj[3].value.length) {
+        util.ddToast({ type: 'fail', text: '领用部门不能为空' })
+        return
+      }
+      // 格式化提交对象
+      let userInfo = getApp().globalData.userInfo
+      let data = {
+        id: this.list.data.id,
+        version: this.list.data.version,
+        stockout_person: JSON.stringify({
+          userId: userInfo.dd_user_info.Userid,
+          name: userInfo.dd_user_info.Name,
+          avatar: userInfo.dd_user_info.Avatar
+        }),
+        stockout_dept: JSON.stringify(this.data.bizObj[3].value[0])
+      }
+      // 配置提交参数
+      let options = { url: '/business/stockout/accept', params: [data] }
+      http.post(options).then(res => {
+        if (res.resultData[0].result) {
+          util.ddToast({ type: 'success', text: '领用成功' })
+          this.setData({
+            'bizObj[2].value': [JSON.parse(data.stockout_person)],
+            'disabled': true
+          })
+          this.list.data.version += 1
+          // 刷新列表
+          getApp().emitter.emit(this.list.lid, { type: 'refresh' })
+        } else {
+          util.ddToast({ type: 'fail', text: res.resultData[0].message || '领用失败' })
+        }
       })
     }
   }

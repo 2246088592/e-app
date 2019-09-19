@@ -141,7 +141,7 @@
       </view>
       <view class="mt-1 text-sm">
         <text class="color-label">仓库：</text>
-        <text class="color-bg-title">{{warehouse_id}}</text>
+        <text class="color-bg-title">{{wh_name}}</text>
       </view>
       <view class="mt-1">
         <text class="font-bold color-{{doc_status == 'draft' ? 'info' : doc_status == 'processing' ? 'warning' : doc_status == 'agree' ? 'success' : 'danger'}}">{{doc_status_text}}</text>
@@ -166,7 +166,7 @@
     </view>
     <view class="mt-1 text-sm">
       <text class="color-label">仓库：</text>
-      <text class="color-bg-title">{{warehouse_id}}</text>
+      <text class="color-bg-title">{{wh_name}}</text>
     </view>
     <view class="mt-1 text-sm">
       <text class="color-label">类别：</text>

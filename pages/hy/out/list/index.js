@@ -3,6 +3,9 @@ import http from '/src/http/index.js'
 import util from '/src/libs/util.js'
 
 listPage({
+  // 禁止移动端的按钮
+  btnPos: { normal: -1, edit: -1 },
+
   // 搜索框
   searchBar: {
     bindkey: 'doc_number',
@@ -22,8 +25,8 @@ listPage({
   // 列表加载完成触发，每次加载都触发一次，参数为返回数据
   afterLoad(data) {
     data.items.map(item => {
-      item.stockout_person = [JSON.parse(item.stockout_person)]
-      item.stockout_dept = [JSON.parse(item.stockout_dept)]
+      item.stockout_person = item.stockout_person ? [JSON.parse(item.stockout_person)] : []
+      item.stockout_dept = item.stockout_dept ? [JSON.parse(item.stockout_dept)] : []
       return item
     })
     return Promise.resolve()
