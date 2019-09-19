@@ -178,11 +178,19 @@
   </view>
 </template>
 <!-- 库存 -->
-<template name="stock">
+<template name="inventory">
   <view >
+    <view>
+      <text class="color-label">耗材编号：</text>
+      <text class="color-bg-title">{{cons_code}}</text>
+    </view>
     <view>
       <text class="color-label">耗材名称：</text>
       <text class="color-bg-title">{{cons_name}}</text>
+    </view>
+    <view>
+      <text class="color-label">所属分类：</text>
+      <text class="color-bg-title">{{item_name}}</text>
     </view>
     <view>
       <text class="color-label">库存量：</text>
@@ -190,11 +198,7 @@
     </view>
     <view>
       <text class="color-label">仓库：</text>
-      <text class="color-bg-title">{{warehouse_name}}</text>
-    </view>
-    <view>
-      <text class="color-label">备注：</text>
-      <text class="color-bg-title">{{remark}}</text>
+      <text class="color-bg-title">{{wh_name}}</text>
     </view>
   </view>
 </template>
