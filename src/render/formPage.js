@@ -67,7 +67,9 @@ function mode2(bizObj, fid, data, disabled) {
       return newc
     }
     let _c = { ...cbo(c, disabled), ci: ci, fid: fid }
-    if (data[_c.key] !== undefined) { _c.value = data[_c.key] }
+    if (data[_c.key] !== undefined && data[_c.key] !== null) {
+      _c.value = data[_c.key]
+    }
     return _c
   })
 }
