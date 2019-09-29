@@ -12,6 +12,52 @@ listPage({
     placeholder: '搜索领用单号'
   },
 
+  // 过滤配置
+  filter() {
+    return [
+      {
+        path: 'filter[0]',
+        label: '单据状态',
+        key: 'doc_status',
+        bindkey: 'label',
+        array: [
+          { label: '草稿', value: 'draft' },
+          { label: '审核中', value: 'processing' },
+          { label: '同意', value: 'agree' },
+          { label: '拒绝', value: 'refuse' }
+        ]
+      },
+      {
+        path: 'filter[1]',
+        label: '领用部门',
+        key: 'stockout_dept',
+        component: 'e-dept-chooser',
+        max: 1
+      },
+      {
+        path: 'filter[2]',
+        label: '领用日期',
+        key: 'doc_date',
+        component: 'e-interval',
+      },
+      {
+        path: 'filter[3]',
+        label: '领用单号',
+        key: 'doc_number'
+      }
+    ]
+  },
+
+  // 过滤前的处理
+  beforeFilter(filter) {
+    if (filter.doc_status) {
+      filter.doc_status = filter.doc_status.value
+    }
+    if (filter.stockout_dept) {
+      filter.stockout_dept = filter.stockout_dept[0].name
+    }
+  },
+
   // 业务对象
   bizObj: {
     // 请求地址

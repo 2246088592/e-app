@@ -12,6 +12,60 @@ listPage({
     placeholder: '搜索入库单号'
   },
 
+  // 过滤配置
+  filter() {
+    return [
+      {
+        path: 'filter[0]',
+        label: '单据状态',
+        key: 'doc_status',
+        bindkey: 'label',
+        array: [
+          { label: '草稿', value: 'draft' },
+          { label: '审核中', value: 'processing' },
+          { label: '同意', value: 'agree' },
+          { label: '拒绝', value: 'refuse' }
+        ]
+      },
+      {
+        path: 'filter[1]',
+        label: '供应商',
+        key: 'supplier_name',
+        bindkey: 'name'
+      },
+      {
+        path: 'filter[2]',
+        label: '所属分类',
+        key: 'item_name',
+        bindkey: 'item_name'
+      },
+      {
+        path: 'filter[3]',
+        label: '订单编号',
+        key: 'doc_number'
+      }
+    ]
+  },
+
+  // 过滤前的处理
+  beforeFilter(filter) {
+    if (filter.doc_status) {
+      filter.doc_status = filter.doc_status.value
+    }
+    if (filter.supplier_name) {
+      filter.supplier_name = filter.supplier_name.name
+    }
+    if (filter.item_name) {
+      filter.item_name = filter.item_name.item_name
+    }
+  },
+
+  // 加载完成，请求仓库，请求过滤条件中的耗材分类树
+  onReady() {
+    this.getItemClass()
+    this.getSupplier()
+  },
+
   // 业务对象
   bizObj: {
     // 请求地址
@@ -23,6 +77,37 @@ listPage({
   },
 
   methods: {
+    // 获取供应商
+    getSupplier() {
+      let options = {
+        url: '/business/supplier',
+        params: { pageable: true, page: 1, limit: 10000, idField: 'id', sort: 'desc', orderBy: 'create_on' }
+      }
+      http.get(options).then(res => {
+        if (res.status === 0) {
+          this.setData({
+            'filter[1].array': res.data.items
+          })
+        } else {
+          util.ddToast({ type: 'fail', text: res.message || '获取供应商失败' })
+        }
+      })
+    },
+
+    // 获取分类树
+    getItemClass() {
+      let options = { url: '/business/item-class' }
+      http.get(options).then(res => {
+        if (res.status === 0) {
+          this.setData({
+            'filter[2].array': res.data[0].children
+          })
+        } else {
+          util.ddToast({ type: 'fail', text: res.message || '耗材分类请求失败' })
+        }
+      })
+    },
+
     // 删除
     handleListDelete(btn, checkedArray) {
       if (!checkedArray.length) {

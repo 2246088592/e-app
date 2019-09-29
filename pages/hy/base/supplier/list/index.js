@@ -7,6 +7,32 @@ listPage({
     placeholder: '搜索供应商名称'
   },
 
+  // 过滤配置
+  filter() {
+    return [
+      {
+        path: 'filter[0]',
+        label: '供应商名称',
+        key: 'name'
+      },
+      {
+        path: 'filter[1]',
+        label: '供应商编号',
+        key: 'code'
+      },
+      {
+        path: 'filter[2]',
+        label: '联系人',
+        key: 'contact'
+      },
+      {
+        path: 'filter[3]',
+        label: '电话',
+        key: 'tel'
+      }
+    ]
+  },
+
   // 业务对象
   bizObj: {
     // 请求地址

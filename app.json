@@ -29,7 +29,9 @@
 		"pages/hy/in/list/index",
 
     "pages/hy/out/form/index",
-		"pages/hy/out/list/index"
+		"pages/hy/out/list/index",
+
+    "pages/hy/readyOut/list/index"
 	],
 	"window": {
 		"defaultTitle": "耗材管理系统",
