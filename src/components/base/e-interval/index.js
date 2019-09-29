@@ -37,10 +37,18 @@ Component({
       if (this.props.model.disabled) {
         return
       }
+      if (!this.props.model.value[0]) {
+        this.handleTapStart()
+        return
+      }
       dd.datePicker({
         format: this.props.model.format,
         success: (res) => {
           let value = `${this.path}.value[1]`
+          if (new Date(res.date).getTime() < new Date(this.props.model.value[0]).getTime()) {
+            this.$page.setData({ [value]: this.props.model.value[0] })
+            return
+          }
           this.$page.setData({ [value]: res.date })
         }
       })
@@ -49,6 +57,10 @@ Component({
     // 清空开始时间
     clearStart() {
       if (this.props.model.disabled) {
+        return
+      }
+      if (this.props.model.value[1]) {
+        this.clearEnd()
         return
       }
       let value = `${this.path}.value[0]`
