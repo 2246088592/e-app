@@ -2,6 +2,15 @@ import util from '/src/libs/util.js'
 
 let app = getApp()
 
+// 初始化filter
+function initFilter(l) {
+  if (typeof l.filter === 'function') {
+    return l.filter()
+  } else {
+    return undefined
+  }
+}
+
 // 初始化data
 function initData(l) {
   if (typeof l.data === 'function') {
@@ -25,7 +34,7 @@ export default (l) => {
       // 请求参数
       params: l.params !== undefined ? util.cloneDeep(l.params) : {},
       // 过滤对象数组，用于生成过滤框内的组件，类似formPage的bizObj
-      filter: l.filter !== undefined ? util.cloneDeep(l.filter) : {},
+      filter: initFilter(l),
       // 其他自定义数据
       ...initData(l)
     },
@@ -69,6 +78,12 @@ export default (l) => {
     // 退出多选模式
     checkboxInvisible() {
       app.emitter.emit(this.lid, { type: 'checkboxInvisible' })
+    },
+
+    beforeFilter() {
+      if (l.beforeFilter) {
+        l.beforeFilter.apply(this, arguments)
+      }
     },
 
     // 展开其他方法

@@ -102,14 +102,14 @@ Component({
     }, 300),
 
     // 重置搜索框/刷新事件
-    reset(value) {
+    reset(value, filter) {
       this.setData({
         array: [],
         keyword: value,
         more: true,
         'params.page': 1
       }, () => {
-        this.loadMore()
+        this.loadMore(filter)
       })
     },
 
@@ -215,7 +215,7 @@ Component({
     },
 
     // 加载方法
-    loadMore() {
+    loadMore(filter) {
       // 防止数据频繁请求
       if (!this.data.more || this.data.loading) {
         return
@@ -224,16 +224,14 @@ Component({
       this.setData({
         loading: true
       })
-      let filter = {}
-      if (this.props.searchBar.bindkey !== undefined) {
-        filter[this.props.searchBar.bindkey] = this.data.keyword
-      }
-      for (let i = 0; i < this.$page.data.filter.length; i++) {
-        let item = this.$page.data.filter[i]
-        filter[item.key] = item.value
+      if (!filter) {
+        filter = {}
+        if (this.props.searchBar.bindkey !== undefined) {
+          filter[this.props.searchBar.bindkey] = this.data.keyword
+        }
       }
       if (this.$page.esearch && this.$page.esearch.filter) {
-        Object.assign(filter, this.$page.esearch.filter)
+        Object.assign(this.$page.esearch.filter, filter)
       }
       let params = Object.assign({ ...this.data.params }, this.$page.data.params, { params: JSON.stringify(filter) })
       let options = {
@@ -283,17 +281,48 @@ Component({
 
     // 根据过滤器中的内容进行搜索
     handleSearchByFilter() {
-      this.reset(this.data.keyword)
+      let filter = {}
+      // 整合过滤条件
+      if (this.$page.data.filter && this.$page.data.filter.length) {
+        for (let i = 0; i < this.$page.data.filter.length; i++) {
+          let item = this.$page.data.filter[i]
+          filter[item.key] = item.value
+        }
+      }
+      // 过滤前处理
+      this.$page.beforeFilter(filter)
+      this.reset(this.data.keyword, filter)
     },
 
     // 重置过滤条件
     handleClearFilter() {
-      // let filter = {}
-      // for (let i = 0; i < this.$page.data.filter.length; i++) {
-      //   let item = this.$page.data.filter[i]
-      //   let key = `filter[${i}].value`
-      //   filter[key] = item.component === 'e-dept-chooser' || item.component === 'e-user-chooser' ? [] : ''
-      // }
+      let filter = {}
+      if (this.$page.data.filter && this.$page.data.filter.length) {
+        for (let i = 0; i < this.$page.data.filter.length; i++) {
+          let item = this.$page.data.filter[i]
+          let key = `filter[${i}].value`
+          switch (item.component) {
+            case 'e-dept-chooser':
+              filter[key] = []
+              break
+            case 'e-interval':
+              filter[key] = ['', '']
+              break
+            case 'e-progress-bar':
+              filter[key] = 0
+              break
+            case 'e-user-chooser':
+              filter[key] = []
+              break
+            default:
+              filter[key] = ''
+              break
+          }
+        }
+        this.$page.setData({
+          ...filter
+        })
+      }
     },
 
     // 无效事件
