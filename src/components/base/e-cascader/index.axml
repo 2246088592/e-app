@@ -12,11 +12,13 @@
   <view class="flex flex-col w-4-5 h-3-5 radius-2 overflow-hidden bg-color-white transition-300 shadow-md" style="transform: {{cascaderVisible ? 'translate3d(0, 0, 0)' : 'translate3d(113%, 0, 0)'}};">
     <e-breadcrumb values="{{breadcrumb}}" className="relative border-bottom" onItemTap="handleBreadcrumbTap"/>
     <scroll-view class="flex flex-1 flex-col" scroll-y="{{true}}">
-      <view class="flex items-center mx-2 mb-2 {{index === 0 ? 'mt-2' : ''}}" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
-        <image class="w-5 h-5 mr-2" mode="scaleToFill" src="/src/assets/icon/list/{{currentIndex === index ? 'round_check_fill' : 'round'}}.png"/>
-        <text class="color-title flex-1 mr-2">{{model.bindkey ? item[model.bindkey] : item}}</text>
-        <view class="color-primary flex items-center" data-item-index="{{index}}" catchTap="handleNext" a:if="{{!model.last && item.children.length}}">
-          <text class="fa fa-level-down"/>下级
+      <view class="w-full">
+        <view class="flex items-center mx-2 mb-2 {{index === 0 ? 'mt-2' : ''}}" a:for="{{array}}" data-item-index="{{index}}" onTap="radioChange">
+          <image class="w-5 h-5 mr-2" mode="scaleToFill" src="/src/assets/icon/list/{{currentIndex === index ? 'round_check_fill' : 'round'}}.png"/>
+          <text class="color-title flex-1 mr-2">{{model.bindkey ? item[model.bindkey] : item}}</text>
+          <view class="color-primary flex items-center" data-item-index="{{index}}" catchTap="handleNext" a:if="{{!model.last && item.children.length}}">
+            <text class="fa fa-level-down"/>下级
+          </view>
         </view>
       </view>
     </scroll-view>
