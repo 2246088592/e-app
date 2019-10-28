@@ -31,7 +31,8 @@
     "pages/hy/out/form/index",
 		"pages/hy/out/list/index",
 
-    "pages/hy/readyOut/list/index"
+    "pages/hy/readyOut/list/index",
+    "pages/hy/readyOut/form/index"
 	],
 	"window": {
 		"defaultTitle": "耗材管理系统",
