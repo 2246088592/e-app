@@ -42,14 +42,12 @@ listPage({
         path: 'filter[1]',
         label: '申请部门',
         key: 'apply_dept',
-        component: 'e-dept-chooser',
         max: 1
       },
       {
         path: 'filter[2]',
         label: '请购日期',
-        key: 'doc_date',
-        component: 'e-interval',
+        key: 'doc_date'
       },
       {
         path: 'filter[3]',
@@ -64,7 +62,7 @@ listPage({
     if (filter.doc_status) {
       filter.doc_status = filter.doc_status.value
     }
-    if (filter.apply_dept) {
+    if (filter.apply_dept.length) {
       filter.apply_dept = filter.apply_dept[0].name
     }
   },

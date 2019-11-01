@@ -86,6 +86,12 @@ formPage({
           component: 'e-input',
           number: true,
           necessary: true
+        },
+        {
+          label: '备注',
+          key: 'remark',
+          component: 'e-input',
+          maxlength: 200
         }
       ]
     }
