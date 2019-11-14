@@ -1,16 +1,19 @@
 import util from '/src/libs/util.js'
 
 Component({
+  data: {
+    moreBtnVisible: false
+  },
+
   props: {
+    btns: [],
     bizObj: [],
-    btnPos: '',
     disabled: false,
     onRules: () => [],
     background: ''
   },
 
   didMount() {
-    this.initBtns()
     this.initRules()
   },
 
@@ -19,6 +22,7 @@ Component({
     handleBtn(event) {
       let btn = event.currentTarget.dataset.btn
       this.$page[btn.handler](btn)
+      this.handleMoreBtnInvisible()
     },
 
     // 初始化校验函数
@@ -60,14 +64,23 @@ Component({
       })
     },
 
-    // 初始化动态按钮
-    initBtns() {
-      util.db.get({ dbName: 'permission', user: true }).then(data => {
-        let id = this.$page.menu.id
-        this.setData({
-          btns: data[id]
-        })
+    // 展开更多按钮
+    handleMoreBtnVisible() {
+      this.setData({
+        moreBtnVisible: true
       })
-    }
+    },
+
+    // 关闭更多按钮
+    handleMoreBtnInvisible() {
+      if (this.data.moreBtnVisible) {
+        this.setData({
+          moreBtnVisible: false
+        })
+      }
+    },
+
+    // 无效事件
+    void() { }
   }
 })

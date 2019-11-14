@@ -112,6 +112,8 @@ export default (f) => {
       url: f.url || '',
       // 权限标记，对应按钮position
       btnPos: f.btnPos !== undefined ? f.btnPos : 30,
+      // 表单权限按钮
+      btns: [],
       // 表单背景，默认透明
       background: f.background || 'rgba(0, 0, 0, 0)',
       // 表单提交格式，是否带有明细表，默认无
@@ -132,6 +134,11 @@ export default (f) => {
       }
       // 获取页面菜单
       this.menu = await util.getMenu(this.route)
+      // 初始化页面权限按钮
+      let permission = await util.db.get({ dbName: 'permission', user: true })
+      this.setData({
+        btns: permission[this.menu.id].filter(btn => btn.position === this.data.btnPos)
+      })
       // 初始化前函数
       if (f.beforeOnLoad) {
         await f.beforeOnLoad.apply(this, arguments)
