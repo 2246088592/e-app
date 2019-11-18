@@ -2,7 +2,8 @@ import util from '/src/libs/util.js'
 
 Component({
   data: {
-    moreBtnVisible: false
+    // 是否显示更多按钮
+    moreBtnVisible: false,
   },
 
   props: {
@@ -10,7 +11,8 @@ Component({
     bizObj: [],
     disabled: false,
     onRules: () => [],
-    background: ''
+    background: '',
+    deleteSubform: []
   },
 
   didMount() {
@@ -55,13 +57,31 @@ Component({
         cancelButtonText: '取消',
         success: (res) => {
           if (res.confirm) {
-            let children = `bizObj[${c.ci}].children`
-            this.$page.$spliceData({
-              [children]: [sfi, 1]
-            })
+            if (this.props.deleteSubform.indexOf(sfi) < 0) {
+              this.$page.$spliceData({
+                deleteSubform: [this.props.deleteSubform.length, 0, sfi]
+              })
+            }
           }
         }
       })
+
+      // let c = event.currentTarget.dataset.c
+      // let sfi = event.currentTarget.dataset.sfi
+      // dd.confirm({
+      //   title: '温馨提示',
+      //   content: `确认删除 ${c.label}-${sfi + 1} 吗?`,
+      //   confirmButtonText: '确认',
+      //   cancelButtonText: '取消',
+      //   success: (res) => {
+      //     if (res.confirm) {
+      //       let children = `bizObj[${c.ci}].children`
+      //       this.$page.$spliceData({
+      //         [children]: [sfi, 1]
+      //       })
+      //     }
+      //   }
+      // })
     },
 
     // 展开更多按钮
