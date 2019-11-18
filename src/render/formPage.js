@@ -120,6 +120,8 @@ export default (f) => {
       detail: f.detail || false,
       // 表单组件是否禁用
       disabled: f.disabled || false,
+      // 子表中删除掉的明细索引
+      deleteSubform: [],
       // 其他自定义数据
       ...initData(f)
     },
@@ -186,12 +188,12 @@ export default (f) => {
 
     // 提交方法
     async saveForm() {
+      // 格式化提交对象
+      let data = this.formatForm()
       // 自动校验
       if (!this.handleValidate()) {
         return
       }
-      // 格式化提交对象
-      let data = this.formatForm()
       // 提交前钩子函数
       if (f.beforeSubmit) {
         await f.beforeSubmit.apply(this, [data])
@@ -217,12 +219,12 @@ export default (f) => {
 
     // post方法
     async handlePost(config) {
+      // 格式化提交对象
+      let data = this.formatForm()
       // 自动校验
       if (!config.autoCheck ? false : !this.handleValidate()) {
         return
       }
-      // 格式化提交对象
-      let data = this.formatForm()
       // 提交前钩子函数
       if (f.beforeSubmit) {
         await f.beforeSubmit.apply(this, [data])
@@ -293,7 +295,13 @@ export default (f) => {
       for (let k = 0; k < this.data.bizObj.length; k++) {
         let c = this.data.bizObj[k]
         if (c.component === 'e-subform') {
-          data[c.key] = c.children.map(sf => { return formatKV(sf) })
+          let list = []
+          for (let i = 0; i < c.children.length; i++) {
+            if (this.data.deleteSubform.indexOf(i) < 0) {
+              list.push(formatKV(c.children[i]))
+            }
+          }
+          data[c.key] = list
         } else {
           data[c.key] = util.cloneDeep(c.value)
         }
